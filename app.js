@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
  * 启用jwtAuth机制,自动屏蔽掉不带有token的请求,并且排除/user/register /user/login
  * 保留注册,登录请求
  */
-// app.use(jwtAuth);
+app.use(jwtAuth);
 /**
  * 解析所有请求体, 所有的访问的req对象添加一个body属性
  */
