@@ -18,6 +18,18 @@ const router = express.Router();
  */
 const Strategy = require('passport-http-bearer').Strategy;
 
+app.use("*", function (req, res, next){
+
+  res.header( 'Access-Control-Allow-Origin', '*')
+  res.header( 'Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With')
+  res.header( 'Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS')
+  if(req.method == "OPTIONS") {
+    res.send(200)
+  }else{
+    next()
+  }
+
+})
 /**
  * 初始化passport模块
  */
@@ -63,6 +75,3 @@ require('express-derouter').register({
 
 
 app.listen(5000, () => console.log('Server started on port 5000'));
-
-
-

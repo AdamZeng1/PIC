@@ -81,6 +81,7 @@ class UserController {
     @Post('/register')
     register(req, res) {
         // 如果用户输入的用户名密码邮箱有一个不存在
+
         if (!req.body.username || !req.body.password || !req.body.email) {
             res.json({success: false, message: '请输入您的账号密码.'});
         } else {
@@ -106,5 +107,3 @@ class UserController {
 }
 
 module.exports = UserController;
-
-
