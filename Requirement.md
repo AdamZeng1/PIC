@@ -5,12 +5,12 @@
 }
 ## Case#2 Register
 {
-  Mail Verification: Link|Code
+  Mail Verification: Link
 }
 ## Case#3 New Discussion
 ## Case#4 View Discussion
 {
   Sort by time or Popularity
-  Count Popularity: View|Like
+  Count Popularity: Comment
 }
-## Case#5 
+## Case#5
