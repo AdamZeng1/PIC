@@ -1,7 +1,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
-
+const config = require('../config/config');
+const sgMail = require('@sendgrid/mail');
+const fs = require('fs');
+const hdb = require('handlebars');
+const template = fs.readFileSync('views/email.handlebars', "utf-8");
+const compiledTemplate = hdb.compile(template);
+const jwt = require('jsonwebtoken');
 
 /**
  * Schema是一种以文件形式存储的数据库模型骨架，无法直接通往数据库端，
@@ -26,6 +32,10 @@ const UserSchema = new Schema({
     },
     token: {
         type: String
+    },
+    is_active: {
+        type: Boolean,
+        default: false
     }
 });
 
@@ -73,6 +83,38 @@ UserSchema.methods.comparePassword = function (password, callback) {
     })
 };
 
+/**
+ * 根据username与email生成该user注册时的json web token
+ *
+ * @return {*}
+ */
+UserSchema.methods.generateJwtToken = function () {
+    const jwtToken = jwt.sign({
+        username: this.name,
+        email: this.email
+    }, config.secret, {expiresIn: config.email_expireTime});
+    return jwtToken;
+};
+
+/**
+ * 根据jwt发送email
+ *
+ * @param jwtToken
+ */
+UserSchema.methods.sendVerificationEmail = function (jwtToken) {
+    sgMail.setApiKey(config.apiKey);
+    const msg = {
+        to: this.email,
+        from: config.email_from,
+        subject: config.email_subject,
+        html: compiledTemplate({
+            username: this.name,
+            token: jwtToken,
+            url: config.url
+        })
+    };
+    sgMail.send(msg);
+};
 
 module.exports = mongoose.model('User', UserSchema);
 

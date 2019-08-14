@@ -36,7 +36,7 @@ class UserController {
     @Post('/login')
     async login(req, res) {
         const password = req.body.password;
-        const email = req.body.email;
+        // const email = req.body.email;
         const username = req.body.username;
         /**
          * 根据用户名查找是否存在该用户
@@ -79,12 +79,19 @@ class UserController {
      * 注册账户
      */
     @Post('/register')
-    register(req, res) {
+    async register(req, res) {
         // 如果用户输入的用户名密码邮箱有一个不存在
-
         if (!req.body.username || !req.body.password || !req.body.email) {
             res.json({success: false, message: '请输入您的账号密码.'});
         } else {
+            /**
+             * 使用提交的email在MongoDB中寻找相应行
+             */
+            const result = await User.findOne({email: req.body.email}); //result will be the whole document that you find
+            if (!result) res.status(400).json({
+                success: false,
+                error: 'the email has already been used'
+            });
             /**
              * 在库中创建一个新用户
              */
@@ -100,9 +107,28 @@ class UserController {
                 if (err) {
                     return res.json({success: false, message: '注册失败!'});
                 }
-                res.json({success: true, message: '成功创建新用户!'});
             });
+            /**
+             * 将产生的jwt用于发送email
+             */
+            const jwtToken = newUser.generateJwtToken();
+            newUser.sendVerificationEmail(jwtToken);
+            res.json({success: true, message: '成功创建新用户!'});
         }
+    }
+
+    /**
+     * 注册过程中的邮箱验证服务
+     */
+    @Get('/verify_email/:username/:token')
+    async verifyUserValidByEmail(req, res) {
+        try {
+            const user = jwt.verify(req.params.token, config.secret);
+            await User.update({name: req.params.username}, {$set: {is_active: true}});
+        } catch (err) {
+            console.log(err);
+        }
+        return res.redirect(config.redirectUrl);
     }
 }
 
