@@ -9,7 +9,7 @@ function App() {
   return (
     <Layout>
       <Switch>
-        <Route path='/login' componnet={Login}/>
+        <Route path='/login' component={Login}/>
         <Route path='/' exact/>
       </Switch>
     </Layout>

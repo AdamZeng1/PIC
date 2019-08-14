@@ -1,13 +1,13 @@
 import React, {Component, Fragment} from 'react';
 import Toolbar from '../../Components/Toolbar/Toolbar';
-import NavigationItems from '../../Components/NavigationItems/NavigationItems';
+import classes from './Layout.module.css';
 
 class Layout extends Component{
   render() {
     return(
       <Fragment>
         <Toolbar />
-        <main>
+        <main className={classes.Content}>
           {this.props.children}
         </main>
       </Fragment>
