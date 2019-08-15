@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {Card} from 'antd';
+import {Card, Col} from 'antd';
+import classes from './PostCard.module.css';
 
 class PostCard extends Component {
   state ={
@@ -15,13 +16,15 @@ class PostCard extends Component {
     return(
       this.state.urls.map((url,i)=>{
         return(
-          <Card hoverable
-            style={{position: "relative", width:"200px", float:"left"}}
-            bodyStyle={{ height: "100px"}}
-            bordered={true}
-            cover={<img style={{height: "170px"}} alt="example" src={url} />}>
+          <Col className="gutter-row" span={6} key={i}>
+            <Card hoverable
+              style={{ width:"300px"}}
+              bordered={true}
+              cover={<img  style={{objectFit:"cover", height:"300px", }} alt="example" src={url} />}>
               <Card.Meta title="Username" descriptionm="dhfkjahlfk"/>
-          </Card>
+            </Card>
+          </Col>
+          
         )
       })
     )
