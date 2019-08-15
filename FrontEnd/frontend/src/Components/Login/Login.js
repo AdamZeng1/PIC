@@ -22,6 +22,7 @@ class NormalLoginForm extends Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
+      <div className="Form">
       <Form onSubmit={this.handleSubmit} className="login-form">
         <Form.Item>
           {getFieldDecorator('username', {
@@ -58,6 +59,8 @@ class NormalLoginForm extends Component {
           Or <a href="">register now!</a>
         </Form.Item>
       </Form>
+      </div>
+      
     );
   }
 }

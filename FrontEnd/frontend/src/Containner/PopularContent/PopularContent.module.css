@@ -1,5 +1,11 @@
 .PopularContent {
-  /* display: flex; */
-  background-color: beige;
-  
+  margin: 0 16px; 
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.Row {
+  display: flex;
+  justify-content: space-around;
 }

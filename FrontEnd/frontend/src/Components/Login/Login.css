@@ -8,3 +8,8 @@
 .login-form-button {
   width: 100%;
 }
+
+.Form {
+  display:flex;
+  justify-content:center;
+}
