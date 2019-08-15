@@ -16,9 +16,10 @@ class PostCard extends Component {
       this.state.urls.map((url,i)=>{
         return(
           <Card hoverable
-            bodyStyle={{ height: "200px"}}
+            style={{position: "relative", width:"200px", float:"left"}}
+            bodyStyle={{ height: "100px"}}
             bordered={true}
-            cover={<img alt="example" src={url} />}>
+            cover={<img style={{height: "170px"}} alt="example" src={url} />}>
               <Card.Meta title="Username" descriptionm="dhfkjahlfk"/>
           </Card>
         )
