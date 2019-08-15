@@ -18,18 +18,19 @@ const router = express.Router();
  */
 const Strategy = require('passport-http-bearer').Strategy;
 
+/**
+ * 在这里过滤OPTIONS的请求,并返回有效结果
+ */
 app.use("*", function (req, res, next){
-
-  res.header( 'Access-Control-Allow-Origin', '*')
-  res.header( 'Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With')
-  res.header( 'Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS')
+  res.header( 'Access-Control-Allow-Origin', '*');
+  res.header( 'Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With');
+  res.header( 'Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
   if(req.method == "OPTIONS") {
     res.send(200)
   }else{
     next()
   }
-
-})
+});
 /**
  * 初始化passport模块
  */
@@ -54,9 +55,6 @@ app.use(bodyParser.urlencoded({extended: false}));
  * 调用bodyParser模块以便程序正确解析body传入值
  */
 app.use(bodyParser.json());
-/**
- * 中间件,token校验所有API （除/users/register与/users/login之外）
- */
 
 
 /**
