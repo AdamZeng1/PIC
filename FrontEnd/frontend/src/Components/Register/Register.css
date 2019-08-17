@@ -1,0 +1,15 @@
+
+.register-form {
+  max-width: 300px;
+}
+.register-form-forgot {
+  float: right;
+}
+.register-form-button {
+  width: 100%;
+}
+
+.Form {
+  display:flex;
+  justify-content:center;
+}

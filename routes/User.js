@@ -47,7 +47,7 @@ class UserController {
             if (!user) return res.status(404).send({success: false, message: '认证失败,用户不存在!'});
 
             const isMatch = await bcrypt.compare(password, user.password);
-
+            
             if (!isMatch) return res.status(401).send({success: false, message: '认证失败,密码错误!'});
 
             const token = jwt.sign({name: user.name}, config.secret, {
