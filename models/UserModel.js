@@ -28,10 +28,8 @@ const UserSchema = new Schema({
     },
     email: {
         type: String,
-        require: true
-    },
-    token: {
-        type: String
+        require: true,
+        unique: true
     },
     is_active: {
         type: Boolean,
