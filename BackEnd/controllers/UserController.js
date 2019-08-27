@@ -48,18 +48,18 @@ class UserController {
 
     async update(req, res) {
         const user = await User.findByIdAndUpdate(req.params.id, req.body);
-        if (user) return res.status(200).json(user); // 返回更新前的user
+        if (user) return res.status(200).json(user); // return the old user
         return res.status(400).json({updated: false});
     }
 
     async register(req, res) {
         try {
-            // 如果用户输入的用户名密码邮箱有一个不存在
+            // If the username, password or email of the request is empty
             if (!req.body.username || !req.body.password || !req.body.email) {
                 return res.json({success: false, message: 'please input your basic information.'});
             }
             /**
-             * 使用提交的email在MongoDB中寻找相应行
+             * Find whether the email is repeated
              */
             const result = await User.findOne({email: req.body.email}); //result will be the whole document that you find
 
@@ -71,7 +71,7 @@ class UserController {
                 });
             }
             /**
-             * 在库中创建一个新用户
+             * Creat a new user account in Mongo DB
              */
             const newUser = new User({
                 name: req.body.username,
@@ -79,14 +79,14 @@ class UserController {
                 email: req.body.email
             });
             /**
-             * 保存用户账号
+             * Save the user account
              */
             const user = await newUser.save();
             if (user !== newUser) {
                 res.json({success: false, message: 'fail to create new user!'});
             } else {
                 /**
-                 * 将产生的jwt用于发送email
+                 * Append the generated jwtoken to send email
                  */
                 const jwtToken = newUser.generateJwtToken();
                 newUser.sendVerificationEmail(jwtToken);
@@ -101,19 +101,19 @@ class UserController {
         const password = req.body.password;
         const username = req.body.username;
         /**
-         * 根据用户名查找是否存在该用户
+         * Find a user By user name
          */
         try {
             const user = await User.findOne({name: username});
 
-            if (!user) return res.status(404).send({success: false, message: '认证失败,用户不存在!'});
+            if (!user) return res.status(404).send({success: false, message: 'Error, the user name is inexistent'});
 
             const isMatch = await bcrypt.compare(password, user.password);
 
-            if (!isMatch) return res.status(401).send({success: false, message: '认证失败,密码错误!'});
+            if (!isMatch) return res.status(401).send({success: false, message: 'Error, the password is incorrect!'});
 
             const token = jwt.sign({name: user.name}, config.secret, {
-                expiresIn: 10080 // token 过期销毁时间设置
+                expiresIn: 10080 // token expire date setting
             });
 
             user.token = token;
@@ -127,7 +127,7 @@ class UserController {
 
             return res.status(200).send({
                 success: true,
-                message: '验证成功!',
+                message: 'login successfully!',
                 token: 'Bearer ' + token,
                 name: user.name
             });
@@ -141,7 +141,7 @@ class UserController {
         try {
             const user = jwt.verify(req.params.token, config.secret);
             await User.update({name: req.params.username}, {$set: {is_active: true}});
-            return res.status(200).json({success: "verify email success!"});
+            return res.status(200).json({success: "verify email successfully!"});
         } catch (err) {
             console.log(err);
         }
@@ -149,5 +149,3 @@ class UserController {
 }
 
 module.exports = new UserController();
-
-

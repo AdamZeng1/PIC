@@ -52,7 +52,7 @@ class NormalRegisterForm extends Component {
             <Input
               prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
               type="email"
-              placeholder="email"
+              placeholder="Email"
             />,
           )}
         </Form.Item>
@@ -65,7 +65,7 @@ class NormalRegisterForm extends Component {
             Forgot password
           </a>
           <Button type="primary" htmlType="submit" className="register-form-button">
-            Log in
+            Register
           </Button>
           Or <a href="">register now!</a>
         </Form.Item>

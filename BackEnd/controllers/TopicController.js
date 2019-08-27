@@ -47,7 +47,7 @@ class TopicController {
 
     async update(req, res) {
         const user = await User.findByIdAndUpdate(req.params.id, req.body);
-        if (user) return res.status(200).json(user); // 返回更新前的user
+        if (user) return res.status(200).json(user); // return the old user
         return res.status(400).json({updated: false});
     }
 
@@ -58,4 +58,3 @@ class TopicController {
 }
 
 module.exports = new TopicController();
-
