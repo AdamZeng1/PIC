@@ -13,7 +13,6 @@ require('../passport/passport')(passport);
  */
 @Router("/users")
 class UserController {
-
     /**
      * 通过在@Get()中注册authenticate中间件来拦截请求,对于非user的模块,建议写在@Router中直接拦截
      * @param req
@@ -34,6 +33,7 @@ class UserController {
      * 关于json web token的原理请访问 https://juejin.im/post/5b06c6baf265da0db4791805
      */
     @Post('/login')
+    
     async login(req, res) {
         const password = req.body.password;
         // const email = req.body.email;
@@ -47,7 +47,7 @@ class UserController {
             if (!user) return res.status(404).send({success: false, message: '认证失败,用户不存在!'});
 
             const isMatch = await bcrypt.compare(password, user.password);
-            
+
             if (!isMatch) return res.status(401).send({success: false, message: '认证失败,密码错误!'});
 
             const token = jwt.sign({name: user.name}, config.secret, {
