@@ -3,17 +3,16 @@ require("babel-polyfill");
 // express-derouter必备
 require('babel-register');
 const express = require('express');
-// 启用文件路径path相关方法给予express-derouter使用
-const path = require('path');
 const app = express();
 const bodyParser = require('body-parser');
-const passport = require('passport');
 const config = require('./config/config');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const user = require('./routes/UserRoute');
 const topic = require('./routes/TopicRoute');
 const post = require('./routes/PostRoute');
+const redis = require("redis");
+
 /**
  * // token验证模块
  * @type {Strategy}
@@ -33,10 +32,6 @@ app.use("*", function (req, res, next) {
         next()
     }
 });
-/**
- * 初始化passport模块
- */
-app.use(passport.initialize());
 
 /**
  *  命令行中显示程序运行日志,便于bug调试
@@ -63,21 +58,23 @@ app.use(bodyParser.json());
  */
 app.use('/user', user);
 app.use('/topic', topic);
-app.use('/post',post);
+app.use('/post', post);
 /**
  * 连接MongoDB数据库
  */
 mongoose.Promise = global.Promise;
-mongoose.connect(config.database, {useNewUrlParser: true}); // 连接数据库
+mongoose.connect(`mongodb://${config.mongo_host}:${config.mongo_port}/${config.mongo_database}`, {useNewUrlParser: true}); // 连接数据库
 
 
-/**
- * 启用express-derouter,采用类似于SpringMVC的方式进行注解的路由写法
- */
-// require('express-derouter').register({
-//     app,
-//     routesDir: path.join(__dirname, 'routes') // 扫描jwt下的routes包中的所有路径
-// });
+const redisClient = redis.createClient({
+    host: config.redis_host,
+    port: config.redis_port,
+    password: config.redis_password
+});
 
 
-app.listen(4000, () => console.log('Server started on port 4000'));
+redisClient.set("string key", "string value", redis.print);
+
+
+
+app.listen(config.port, () => console.log('Server started on port 3000'));

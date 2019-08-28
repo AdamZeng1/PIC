@@ -13,7 +13,7 @@ class NormalLoginForm extends Component {
           console.log(res)
         })
         .catch(err => {
-          console.error(err); 
+          console.error(err);
         })
       }
     });
@@ -60,7 +60,7 @@ class NormalLoginForm extends Component {
         </Form.Item>
       </Form>
       </div>
-      
+
     );
   }
 }
