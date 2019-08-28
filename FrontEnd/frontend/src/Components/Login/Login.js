@@ -8,12 +8,12 @@ class NormalLoginForm extends Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        axios.post('http://localhost:5000/users/login',values)
+        axios.post('http://localhost:4000/user/login',values)
         .then(res => {
           console.log(res)
         })
         .catch(err => {
-          console.error(err); 
+          console.error(err);
         })
       }
     });
@@ -60,7 +60,7 @@ class NormalLoginForm extends Component {
         </Form.Item>
       </Form>
       </div>
-      
+
     );
   }
 }

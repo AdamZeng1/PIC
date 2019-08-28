@@ -4,11 +4,12 @@ import axios from 'axios';
 import './Register.css';
 
 class NormalRegisterForm extends Component {
+
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        axios.post('http://localhost:5000/users/register',values)
+        axios.post('http://localhost:4000/user/register',values)
         .then(res => {
           console.log(res)
         })
@@ -36,7 +37,7 @@ class NormalRegisterForm extends Component {
         </Form.Item>
         <Form.Item>
           {getFieldDecorator('password', {
-            rules: [{ required: true, message: 'Please input your Password!' }],
+            rules: [{ required: true, message: 'Please input your Password!' }]
           })(
             <Input
               prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -47,7 +48,8 @@ class NormalRegisterForm extends Component {
         </Form.Item>
         <Form.Item>
           {getFieldDecorator('email', {
-            rules: [{ required: true, message: 'Please input your email!' }],
+            rules: [{ required: true, message: 'Please input your email!' },
+          {pattern: /[0-9a-zA-Z.-]*@[0-9a-zA-Z.]*\.[a-z]+/, message: 'Please input correct Email address!'}],
           })(
             <Input
               prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
