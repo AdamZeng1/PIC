@@ -10,7 +10,7 @@ const {
 const {authUser} = require('../auth/authUser');
 
 router.get('/', find);
-router.post('/', authUser, create); // administrator has right to create user
+router.post('/', authUser, create);
 router.get('/:id', checkPostExist, findById);
 router.patch('/:id', authUser, checkPostExist, update); // normal user can update own information
 

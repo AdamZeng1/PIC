@@ -1,11 +1,10 @@
-const Topic = require('../models/TopicModel');
 const Post = require('../models/PostModel');
 
-class TopicController {
+class PostController {
     async checkPostExist(req, res, next) {
         const post = Post.find({_id: req.params.id});
         if (post) next();
-        else return res.states(404).json({post: "not found"});
+        else return res.status(404).json({post: "not found"});
     }
 
     async find(req, res, next) {
@@ -13,7 +12,7 @@ class TopicController {
             const {per_page = 10} = req.query;
             const page = Math.round(Math.max(req.query.page * 1, 1)) - 1;
             const perPage = Math.round(Math.max(req.query.per_page * 1, 1));
-            const posts = await Post.find({name: new RegExp(req.query.name)})
+            const posts = await Post.find({title: new RegExp(req.query.title)})
                 .limit(perPage)
                 .skip(page * perPage);
             return res.status(200).json({success: true, posts: posts});
@@ -37,7 +36,7 @@ class TopicController {
     async create(req, res) {
         const post = await new Post({
             title: req.body.title,
-            post_owner: req.body.post_owner,
+            post_owner: req.user.id,
             image_url: req.body.image_url,
             topic: req.body.topic
         }).save();
@@ -46,12 +45,19 @@ class TopicController {
     }
 
     async update(req, res) {
-        const post = await User.findByIdAndUpdate(req.params.id, req.body);
-        if (post) return res.status(200).json(post); // 返回更新前的user
+        const originPost = await Post.findOne({_id: req.params.id});
+        if (originPost.post_owner.toString() !== req.user.id) {
+            return res.status(403).json({error: "you have no right to update the post"});
+        }
+        const post = await Post.findByIdAndUpdate(req.params.id, {
+            title: req.body.title,
+            image_url: req.body.image_url,
+            topic: req.body.topic
+        });
+        if (post) return res.status(200).json(post); // 返回更新前的post
         return res.status(400).json({updated: false});
     }
-
 }
 
-module.exports = new TopicController();
+module.exports = new PostController();
 
