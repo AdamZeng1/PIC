@@ -8,7 +8,7 @@ class NormalRegisterForm extends Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        axios.post('http://localhost:5000/users/register',values)
+        axios.post('http://localhost:4000/user/register',values)
         .then(res => {
           console.log(res)
         })
