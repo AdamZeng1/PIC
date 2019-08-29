@@ -2,7 +2,7 @@ const Comment = require('../models/CommentModel');
 
 class CommentController {
     async checkCommentExist(req, res, next) {
-        const comment = Comment.find({_id: req.params.id});
+        const comment = await Comment.findOne({_id: req.params.id});
         if (comment) {
             req.comment = comment;
             next();

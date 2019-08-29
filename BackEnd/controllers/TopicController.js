@@ -1,6 +1,5 @@
 const Topic = require('../models/TopicModel');
 const Post = require('../models/PostModel');
-const config = require('../config/config');
 
 class TopicController {
     async checkTopicExist(req, res, next) {

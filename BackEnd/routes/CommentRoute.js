@@ -13,7 +13,7 @@ const {authUser} = require('../auth/authUser');
 
 router.get('/:postId/comments/', find);
 router.post('/:postId/comments/', authUser, create);
-router.get('/:postId/comments/:id', checkCommentExist, checkCommentator,findById);
+router.get('/:postId/comments/:id', checkCommentExist,findById);
 router.patch('/:postId/comments/:id', authUser, checkCommentExist, checkCommentator,update);
 router.delete('/:postId/comments/:id',authUser,checkCommentExist,checkCommentator,del);
 
