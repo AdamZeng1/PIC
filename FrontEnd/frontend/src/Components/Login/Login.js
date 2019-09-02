@@ -10,7 +10,10 @@ class NormalLoginForm extends Component {
       if (!err) {
         axios.post('/user/login',values)
         .then(res => {
-          console.log(res)
+          console.log(res);
+          const token = res.data.token;
+          localStorage.Token = token;
+          console.log(localStorage.Token);
         })
         .catch(err => {
           console.error(err);

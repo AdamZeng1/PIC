@@ -7,10 +7,7 @@ import UploadImg from '../Upload/Upload';
 const navigationItems = () => {
   return(
     <ul className={classes.NavigationItems}>
-      <UploadImg/>
-      <NavigationItem >
-        <NewPost />
-      </NavigationItem>
+      <li className={classes.Upload}><NewPost /></li>
       <NavigationItem link='/' >Home</NavigationItem>
       <NavigationItem link='/Login' >Login</NavigationItem>
       <NavigationItem link='/Register' >Register</NavigationItem>
