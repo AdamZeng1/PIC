@@ -12,7 +12,7 @@ class Auth {
             req.user = encoded;
             next();
         } catch (err) {
-            return res.status(401).send("Unauthenticated User")
+            return res.status(401).send(err)
         }
     }
 
@@ -25,7 +25,7 @@ class Auth {
             req.user = encoded;
             next();
         } catch (err) {
-            return res.status(401).send("Unauthenticated User")
+            return res.status(401).send(err)
         }
     }
 }
