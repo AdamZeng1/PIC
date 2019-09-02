@@ -18,7 +18,7 @@ class NormalLoginForm extends Component {
           localStorage.Token = token;
           console.log(localStorage.Token);
           document.cookie = "user="+res.data.name; // set a cookie
-          window.location.href = 'http://localhost:3000/'
+          window.location.href = 'http://localhost:3000/'//redirect to home page to refresh the Navigation
         })
         .catch(err => {
           console.error(err);
