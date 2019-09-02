@@ -2,11 +2,13 @@ import React from 'react';
 import NavigationItem from './NavigationItem/NavigationItem';
 import classes from './NavigationItems.module.css';
 import NewPost from '../NewPost/NewPost';
+import UploadImg from '../Upload/Upload';
 
 const navigationItems = () => {
   return(
     <ul className={classes.NavigationItems}>
-      <NavigationItem link='/newpost' >
+      <UploadImg/>
+      <NavigationItem >
         <NewPost />
       </NavigationItem>
       <NavigationItem link='/' >Home</NavigationItem>
