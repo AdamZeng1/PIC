@@ -13,6 +13,7 @@ const topic = require('./routes/TopicRoute');
 const post = require('./routes/PostRoute');
 const comment = require('./routes/CommentRoute');
 const secondComment = require('./routes/SecondCommentRoute');
+const qiniuToken = require('./routes/Qiniu');
 const redis = require("redis");
 /**
  * 在这里过滤OPTIONS的请求,并返回有效结果
@@ -51,6 +52,7 @@ app.use('/topic', topic);
 app.use('/post', post);
 app.use('/posts', comment);
 app.use('/posts', secondComment);
+app.use('/qiniu',qiniuToken);
 /**
  * connect to MongoDB
  */
