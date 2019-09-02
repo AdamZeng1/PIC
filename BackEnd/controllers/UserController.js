@@ -98,8 +98,8 @@ class UserController {
     }
 
     async login(req, res) {
-        const password = req.body.password;
-        const username = req.body.username;
+        const password = req.body.password.toString();
+        const username = req.body.username.toString();
         /**
          * Find a user By user name
          */
@@ -112,7 +112,7 @@ class UserController {
 
             if (!isMatch) return res.status(401).send({success: false, message: 'Error, the password is incorrect!'});
 
-            const token = jwt.sign({name: user.name}, config.secret, {
+            const token = jwt.sign({name: user.name,id:user._id}, config.secret, {
                 expiresIn: 10080 // token expire date setting
             });
 

@@ -11,14 +11,9 @@ const morgan = require('morgan');
 const user = require('./routes/UserRoute');
 const topic = require('./routes/TopicRoute');
 const post = require('./routes/PostRoute');
+const comment = require('./routes/CommentRoute');
+const secondComment = require('./routes/SecondCommentRoute');
 const redis = require("redis");
-
-/**
- * // token验证模块
- * @type {Strategy}
- */
-// const Strategy = require('passport-http-bearer').Strategy;
-
 /**
  * 在这里过滤OPTIONS的请求,并返回有效结果
  */
@@ -39,11 +34,6 @@ app.use("*", function (req, res, next) {
 app.use(morgan('dev'));
 
 /**
- * 启用jwtAuth机制,自动屏蔽掉不带有token的请求,并且排除/user/register /user/login
- * 保留注册,登录请求
- */
-// app.use(jwtAuth);
-/**
  * 解析所有请求体, 所有的访问的req对象添加一个body属性
  */
 app.use(bodyParser.urlencoded({extended: false}));
@@ -59,11 +49,13 @@ app.use(bodyParser.json());
 app.use('/user', user);
 app.use('/topic', topic);
 app.use('/post', post);
+app.use('/posts', comment);
+app.use('/posts', secondComment);
 /**
- * 连接MongoDB数据库
+ * connect to MongoDB
  */
 mongoose.Promise = global.Promise;
-mongoose.connect(`mongodb://${config.mongo_host}:${config.mongo_port}/${config.mongo_database}`, {useNewUrlParser: true}); // 连接数据库
+mongoose.connect(`mongodb://${config.mongo_host}:${config.mongo_port}/${config.mongo_database}`, {useNewUrlParser: true});
 
 
 const redisClient = redis.createClient({
@@ -76,5 +68,4 @@ const redisClient = redis.createClient({
 redisClient.set("string key", "string value", redis.print);
 
 
-
-app.listen(config.port, () => console.log('Server started on port 3000'));
+app.listen(config.port, () => console.log(`Server started on port ${config.port}`));

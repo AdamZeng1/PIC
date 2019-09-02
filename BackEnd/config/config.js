@@ -18,12 +18,12 @@ module.exports = {
     'mongo_database': process.env.MONGO_DB || 'test',
 
     // Redis address
-    'redis_host': process.env.REDIS_HOST||'localhost',
-    'redis_port': process.env.REDIS_PORT||'6379',
-    'redis_password': process.env.REDIS_PASSWORD||'foobared',
+    'redis_host': process.env.REDIS_HOST || 'localhost',
+    'redis_port': process.env.REDIS_PORT || 6379,
+    'redis_password': process.env.REDIS_PASSWORD || 'foobared',
 
     // port
-    'port': process.env.PORT,
+    'port': process.env.PORT || 3000,
 
     // 邮箱验证成功之后的重定向地址
     'redirectUrl': 'http://localhost:3000/login',
