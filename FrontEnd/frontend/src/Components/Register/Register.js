@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Register.css';
 
@@ -7,9 +8,10 @@ class NormalRegisterForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        axios.post('http://localhost:4000/user/register',values)
+        axios.post('http://localhost:9000/user/register',values)
         .then(res => {
           console.log(res)
         })
@@ -69,7 +71,7 @@ class NormalRegisterForm extends Component {
           <Button type="primary" htmlType="submit" className="register-form-button">
             Register
           </Button>
-          Or <a href="">register now!</a>
+          Have an account already? <Link to="/login">try to login!</Link>
         </Form.Item>
       </Form>
       </div>

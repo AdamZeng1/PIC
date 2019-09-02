@@ -1,14 +1,19 @@
 import React, {Component} from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Link } from 'react-router-dom';
+import { createBrowserHistory} from 'history';
 import axios from 'axios';
 import './Login.css';
+const history = createBrowserHistory();
 
 class NormalLoginForm extends Component {
   handleSubmit = e => {
+    history.push('/')
     e.preventDefault();
+    const self = this;
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        axios.post('http://localhost:4000/user/login',values)
+        axios.post('http://localhost:9000/user/login',values)
         .then(res => {
           console.log(res)
         })
@@ -56,7 +61,7 @@ class NormalLoginForm extends Component {
           <Button type="primary" htmlType="submit" className="login-form-button">
             Log in
           </Button>
-          Or <a href="">register now!</a>
+          Or <Link to="/register">register now!</Link>
         </Form.Item>
       </Form>
       </div>
@@ -66,5 +71,6 @@ class NormalLoginForm extends Component {
 }
 
 const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(NormalLoginForm);
+
 
 export default WrappedNormalLoginForm;
