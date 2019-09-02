@@ -1,21 +1,24 @@
 import React, {Component} from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import { Link } from 'react-router-dom';
-import { createBrowserHistory} from 'history';
-import axios from 'axios';
+import axios from '../../axios-pic';
+
 import './Login.css';
-const history = createBrowserHistory();
 
 class NormalLoginForm extends Component {
   handleSubmit = e => {
-    history.push('/')
     e.preventDefault();
     const self = this;
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        axios.post('http://localhost:9000/user/login',values)
+        axios.post('/user/login',values)
         .then(res => {
-          console.log(res)
+          console.log(res);
+          const token = res.data.token;
+          localStorage.Token = token;
+          console.log(localStorage.Token);
+          document.cookie = "user="+res.data.name; // set a cookie
+          window.location.href = 'http://localhost:3000/'
         })
         .catch(err => {
           console.error(err);
