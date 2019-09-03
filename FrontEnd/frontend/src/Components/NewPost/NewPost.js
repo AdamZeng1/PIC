@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Icon, Modal } from 'antd';
+import { Icon, Modal, Tooltip} from 'antd';
 import UploadImg from '../Upload/Upload';
 import axios from 'axios';
 
@@ -69,7 +69,9 @@ class NewPost extends Component {
   render(){
     return(
       <div>
-        <Icon type="upload" onClick={this.showModal}/>
+        <Tooltip placement="bottom" title="Create Post">
+          <Icon type="edit" onClick={this.showModal}/>
+        </Tooltip>
         <Modal
           title="Basic Modal"
           visible={this.state.visible}
@@ -79,7 +81,7 @@ class NewPost extends Component {
          {/* <UploadImg /> */}
          <form onSubmit={this.submit}>
           <input type="file" name='file'/>
-          <input type="submit" value="上传"/>
+          <input type="submit" value="Upload"/>
         </form>
         </Modal>
       </div>

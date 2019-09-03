@@ -8,16 +8,14 @@
   height: 100%;
 }
 
-.Upload{
-  margin: 10px;
-  display: block;
-  box-sizing: border-box;
-  width: 100%;
-  align-items: center;
-}
-
 @media (min-width: 500px) {
   .NavigationItems{
     flex-flow: row;
+  }
+  .Wrapper{
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
   }
 }
