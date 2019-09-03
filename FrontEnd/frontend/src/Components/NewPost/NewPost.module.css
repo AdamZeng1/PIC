@@ -1,0 +1,18 @@
+.FormElement div {
+  display: inline-block;
+  margin: 15px 0;
+  width: 100%;
+}
+
+.FormElement div label {
+  margin: 0 15px;
+  font-weight: bold;
+}
+
+.FormElement div input {
+  outline: none;
+  border: 1px solid #ccc;
+  background-color: white;
+  font: inherit;
+  padding: 6px 10px;
+}
