@@ -17,7 +17,7 @@ const observer = {
   error(err){
     // ...
     console.log(err);
-  }, 
+  },
   complete(res){
     console.log("upload succeeded");
     console.log('result', res);

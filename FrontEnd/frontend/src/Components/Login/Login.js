@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import { Form, Icon, Input, Button, Checkbox, Modal } from 'antd';
 import axios from '../../axios-pic';
+
 import './Login.css';
 
 class NormalLoginForm extends Component {
@@ -19,6 +20,7 @@ class NormalLoginForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    const self = this;
     this.props.form.validateFields((err, values) => {
       if (!err) {
         axios.post('/user/login',values)
@@ -97,5 +99,6 @@ class NormalLoginForm extends Component {
 }
 
 const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(NormalLoginForm);
+
 
 export default WrappedNormalLoginForm;
