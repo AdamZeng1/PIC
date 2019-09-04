@@ -19,13 +19,14 @@ class Auth {
     async authUser(req, res, next) {
         let token = req.header('Authorization');
         if (!token) res.status(401).send("Unauthenticated User");
-        token = token.substring(7, token.length); // get the token string
+        token = token.substring(14, token.length); // get the token string
+        console.log(token);
         try {
             const encoded = await jwt.verify(token, config.secret);
             req.user = encoded;
             next();
         } catch (err) {
-            return res.status(401).send(err)
+            return res.status(401).send(err);
         }
     }
 }
