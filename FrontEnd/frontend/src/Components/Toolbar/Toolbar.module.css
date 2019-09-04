@@ -6,7 +6,6 @@
   left: 0;
   background-color: seagreen;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 0 20px;
   box-sizing: border-box;
@@ -17,9 +16,30 @@
 
 .Toolbar nav {
   height: 100%;
-  
+  width: 100%;
 }
 
 .Logo{
   height: 80%;
+}
+
+.LoggedIn{
+  margin: 10px;
+  width: 100%;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.NavigationItems{
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.Wrapper{
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
 }

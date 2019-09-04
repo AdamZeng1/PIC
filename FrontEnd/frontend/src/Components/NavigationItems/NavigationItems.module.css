@@ -6,10 +6,17 @@
   flex-flow: column;
   align-items: center;
   height: 100%;
+   white-space:nowrap;
 }
 
 @media (min-width: 500px) {
   .NavigationItems{
     flex-flow: row;
+  }
+  .Wrapper{
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
   }
 }
