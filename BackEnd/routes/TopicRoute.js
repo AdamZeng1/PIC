@@ -8,7 +8,7 @@ const {
     update,
     listPosts
 } = require('../controllers/TopicController');
-const {authUser} = require('../auth/authUser');
+const {authUser} = require('../middleware/authUser');
 
 router.get('/', find);
 router.post('/', authUser, create); // administrator has right to create user

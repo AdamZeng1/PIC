@@ -2,6 +2,7 @@ const User = require('../models/UserModel');
 const bcrypt = require('bcrypt');
 const config = require('../config/config');
 const jwt = require('jsonwebtoken');
+const {findStrangeUser}=require('../middleware/sockPuppets');
 
 class UserController {
     async checkUserExist(req, res, next) {
@@ -118,12 +119,8 @@ class UserController {
 
             user.token = token;
 
-            // const result = await User.update({name: username}, {
-            //         $set: {
-            //             token: token
-            //         }
-            //     }
-            // );
+            // add redis function detect sock puppets
+            findStrangeUser(user.name,req.ip);
 
             return res.status(200).send({
                 success: true,

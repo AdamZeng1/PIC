@@ -7,7 +7,7 @@ const {
     create,
     update,
 } = require('../controllers/PostController');
-const {authUser} = require('../auth/authUser');
+const {authUser} = require('../middleware/authUser');
 
 router.get('/', find);
 router.post('/', authUser, create);

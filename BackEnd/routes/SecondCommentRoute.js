@@ -9,7 +9,7 @@ const {
     del,
     checkCommentator,
 } = require('../controllers/SecondCommentController');
-const {authUser} = require('../auth/authUser');
+const {authUser} = require('../middleware/authUser');
 
 router.get('/:postId/comments/:commentId/comments', find);
 router.post('/:postId/comments/:commentId/comments', authUser, create);
