@@ -5,7 +5,7 @@ const qiniu = require("qiniu");
 const accessKey = "T5tjcA9Ndp74hAzEEuXT4SeLhttKfKVgwgosoJXi";
 const secretKey = "2xYkIijm6-0sJ2GuB9dnsVeKAUF3rrjefYB2B6KH";
 const mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
-const bucket = "image_test";
+const bucket = "image-test3";
 const options = {
     scope: bucket,
     // callbackUrl: "http://localhost:3000",
