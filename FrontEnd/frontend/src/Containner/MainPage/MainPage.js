@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import PopularContent from '../PopularContent/PopularContent';
-import PostList from '../../Components/Post/PostList';
+import PostList from '../PostList/PostList';
 
 const mainPage = () => {
   return(
