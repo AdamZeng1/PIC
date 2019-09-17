@@ -1,67 +1,113 @@
-import { Upload, Icon, message } from 'antd';
-import React from 'react';
+import React, {Component} from 'react';
+import { Upload, Button, Icon, message } from 'antd';
+import axios from '../../axios-pic';
 
-function getBase64(img, callback) {
-  const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result));
-  reader.readAsDataURL(img);
-}
+var qiniu = require('qiniu-js');
 
-function beforeUpload(file) {
-  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-  if (!isJpgOrPng) {
-    message.error('You can only upload JPG/PNG file!');
-  }
-  const isLt2M = file.size / 1024 / 1024 < 2;
-  if (!isLt2M) {
-    message.error('Image must smaller than 2MB!');
-  }
-  return isJpgOrPng && isLt2M;
-}
+var config = {
+  useCdnDomain: true,
+  region: qiniu.region.as0 // service area
+};
 
-class UploadImg extends React.Component {
+class UploadImage extends React.Component {
   state = {
-    loading: false,
+    filename: "",
+    file: null,
+    uploading: false,
   };
 
-  handleChange = info => {
-    if (info.file.status === 'uploading') {
-      this.setState({ loading: true });
-      return;
-    }
-    if (info.file.status === 'done') {
-      // Get this url from response in real world.
-      getBase64(info.file.originFileObj, imageUrl =>
-        this.setState({
-          imageUrl,
-          loading: false,
-        }),
-      );
-    }
-  };
+  inputChangeHandler = (e) => {
+    this.setState({filename: e.target.value})
+  }
 
+  handleUpload = async() => {
+    const { file, filename } = this.state;
+    
+    this.setState({
+      uploading: true,
+    });
+
+    const self = this;
+
+    const observer = {
+      next(res){
+        // ...
+      },
+      error(err){
+        // ...
+        console.log(err);
+      },
+      complete(res){
+        console.log("upload succeeded");
+        console.log('result', res);
+        //替换程父组件传进来的方法
+        axios(
+          { 
+            method:"post",
+            url:self.props.api,
+            data:{
+              "title": filename,
+              "image_url": "http://pxp3tborn.sabkt.gdipper.com/" + res.key,
+              "topic": "test default"
+            },
+            headers: {"Authorization": "Bearer " + localStorage.Token},
+          }
+        )
+          .then( res => {
+            self.setState({
+              filename: "",
+              file: null,
+              uploading: false,
+            })
+            message.success('upload successfully.');
+          })
+          .catch( err => {
+            console.log(err)
+          })
+      }
+    }
+    const putExtra = {name:"Extra"};
+    const result = await axios.get("http://localhost:9000/qiniu/token");
+    const qiniuToken = result.data['qiniu-token'];
+    const observable = qiniu.upload(file, filename, qiniuToken, putExtra, config)
+    var subscription = observable.subscribe(observer)
+  }
+  
   render() {
-    const uploadButton = (
+    const { file, uploading } = this.state;
+    const props = {
+      beforeUpload: image => {
+        this.setState(state => ({
+          file: image,
+        }));
+        return false;
+      }
+    };
+
+    return (
       <div>
-        <Icon type={this.state.loading ? 'loading' : 'plus'} />
-        <div className="ant-upload-text">Upload</div>
+        <div >
+          <label>Tittle: </label>
+          <input type="text" name='tittle' value={this.state.filename}
+            onChange={(e)=>this.inputChangeHandler(e)}/>
+        </div>
+        <Upload {...props}>
+          <Button>
+            <Icon type="upload" /> Select File
+          </Button>
+        </Upload>
+        <Button
+          type="primary"
+          onClick={this.handleUpload}
+          disabled={file === null}
+          loading={uploading}
+          style={{ marginTop: 16 }}
+        >
+          {uploading ? 'Uploading' : 'Start Upload'}
+        </Button>
       </div>
     );
-    const { imageUrl } = this.state;
-    return (
-      <Upload
-        name="avatar"
-        listType="picture-card"
-        className="avatar-uploader"
-        showUploadList={false}
-        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-        beforeUpload={beforeUpload}
-        onChange={this.handleChange}
-      >
-        {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-      </Upload>
-    );
   }
 }
 
-export default UploadImg;
+export default UploadImage;

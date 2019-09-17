@@ -26,7 +26,7 @@ class NormalLoginForm extends Component {
         axios.post('/user/login',values)
         .then(res => {
           console.log(res);
-          const token = res.data.token;
+          const token = res.data.token.substr(7);
           localStorage.Token = token;
           if(res.data.success){
             this.setModal2Visible(false);
