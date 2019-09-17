@@ -2,7 +2,7 @@ const User = require('../models/UserModel');
 const bcrypt = require('bcrypt');
 const config = require('../config/config');
 const jwt = require('jsonwebtoken');
-const {findStrangeUser}=require('../middleware/sockPuppets');
+const {findStrangeUser} = require('../middleware/sockPuppets');
 
 class UserController {
     async checkUserExist(req, res, next) {
@@ -113,14 +113,15 @@ class UserController {
 
             if (!isMatch) return res.status(401).send({success: false, message: 'Error, the password is incorrect!'});
 
-            const token = jwt.sign({name: user.name,id:user._id}, config.secret, {
+            const token = jwt.sign({name: user.name, id: user._id}, config.secret, {
                 expiresIn: 10080 // token expire date setting
             });
 
             user.token = token;
 
+            const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
             // add redis function detect sock puppets
-            findStrangeUser(user.name,req.ip);
+            findStrangeUser(user.name, ip);
 
             return res.status(200).send({
                 success: true,
