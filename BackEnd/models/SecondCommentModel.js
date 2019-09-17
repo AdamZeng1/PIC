@@ -8,7 +8,7 @@ const CommentSchema = new Schema(
         image_url: [{type: String, required: true}],
         postId: {type: Schema.Types.ObjectId, ref: "Post", required: true},
         commentId: {type: Schema.Types.ObjectId, ref: "Comment", required: true},
-        type: {type: String},
+        type: {type: String,required:true},
         emoji: [{type: Object}]
     }, {timestamps: {createdAt: "created_at"}});
 
