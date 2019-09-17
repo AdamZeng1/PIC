@@ -12,7 +12,11 @@ class PostController {
             const {per_page = 10} = req.query;
             const page = Math.round(Math.max(req.query.page * 1, 1)) - 1;
             const perPage = Math.round(Math.max(req.query.per_page * 1, 1));
+            /** 1. post needs to be sorted by datetime
+             *  2. join user table and post table using post_owner populate() */
             const posts = await Post.find({title: new RegExp(req.query.title)})
+                .sort({createdAt: 'desc'})// sort created date descending
+                .populate('post_owner') // fetch owner's information from user's table
                 .limit(perPage)
                 .skip(page * perPage);
             return res.status(200).json({success: true, posts: posts});
@@ -34,11 +38,14 @@ class PostController {
     }
 
     async create(req, res) {
+        /** adding emoji and type field */
         const post = await new Post({
             title: req.body.title,
             post_owner: req.user.id,
             image_url: req.body.image_url,
-            topic: req.body.topic
+            topic: req.body.topic,
+            emoji: req.body.emoji,
+            type: req.body.type
         }).save();
         if (post) return res.status(200).json(post);
         return res.status(400).json({created: "fail to create new post"});
@@ -52,7 +59,9 @@ class PostController {
         const post = await Post.findByIdAndUpdate(req.params.id, {
             title: req.body.title,
             image_url: req.body.image_url,
-            topic: req.body.topic
+            topic: req.body.topic,
+            emoji: req.body.emoji,
+            type: req.body.type
         });
         if (post) return res.status(200).json(post); // 返回更新前的post
         return res.status(400).json({updated: false});

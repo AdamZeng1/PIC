@@ -54,7 +54,9 @@ class SecondCommentController {
             commentator: req.user.id,
             image_url: req.body.image_url,
             postId: req.params.postId,
-            commentId: req.params.commentId
+            commentId: req.params.commentId,
+            type: req.body.type,
+            emoji: req.body.emoji
         }).save();
         if (secondComment) return res.status(200).json(secondComment);
         return res.status(400).json({created: "fail to create new comment"});
@@ -65,7 +67,9 @@ class SecondCommentController {
             commentator: req.user.id,
             image_url: req.body.image_url,
             postId: req.params.postId,
-            commentId: req.params.commentId
+            commentId: req.params.commentId,
+            type: req.body.type,
+            emoji: req.body.emoji
         });
         if (secondComment) return res.status(200).json(secondComment); // 返回更新前的post
         return res.status(400).json({updated: false});
