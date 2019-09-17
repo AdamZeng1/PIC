@@ -56,8 +56,10 @@ app.use('/qiniu',qiniuToken);
 /**
  * connect to MongoDB
  */
+
 mongoose.Promise = global.Promise;
 mongoose.connect(`mongodb://${config.mongo_host}:${config.mongo_port}/${config.mongo_database}`, {useNewUrlParser: true});
+
 
 
 const redisClient = redis.createClient({

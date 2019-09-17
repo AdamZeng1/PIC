@@ -30,6 +30,7 @@ class NormalLoginForm extends Component {
           localStorage.Token = token;
           if(res.data.success){
             this.setModal2Visible(false);
+            document.cookie = 'username='+res.data.name;
             this.props.login();
           }
         })
@@ -48,7 +49,7 @@ class NormalLoginForm extends Component {
         onClick={() => this.setModal2Visible(true)}>
           LOG IN
       </Button>
-      <Modal 
+      <Modal
         centered
         visible={this.state.modal2Visible}
         onOk={() => this.setModal2Visible(false)}

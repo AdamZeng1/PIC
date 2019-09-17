@@ -31,5 +31,3 @@ module.exports = {
     // 网站路径
     'url': 'http://localhost:3000'
 };
-
-

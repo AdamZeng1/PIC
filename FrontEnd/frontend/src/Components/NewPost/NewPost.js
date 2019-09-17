@@ -13,7 +13,7 @@ var config = {
 
 class NewPost extends Component {
 
-  state = { 
+  state = {
     visible: false,
     postTittle: null,
     putExtra : {
@@ -122,7 +122,7 @@ class NewPost extends Component {
             </div>
             <div>
               <Button type='primary' htmlType='submit'>Submit</Button>
-            </div>   
+            </div>
           </form>
         </Modal>
       </div>

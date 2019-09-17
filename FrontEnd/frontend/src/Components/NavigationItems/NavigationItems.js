@@ -11,7 +11,7 @@ const navigationItems = () => {
         <NavigationItem link='/popular' >Popular</NavigationItem>
         <NavigationItem link='/newest' >Newest</NavigationItem>
       </ul>
-    </div> 
+    </div>
   )
 }
 
