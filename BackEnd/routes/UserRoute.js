@@ -8,7 +8,7 @@ const {
     update,
     register,
     login,
-    verifyEmail,
+    verifyEmail
 } = require('../controllers/UserController');
 const {authUser, authAdmin} = require('../middleware/authUser');
 

@@ -57,6 +57,7 @@ app.use('/health-check', (req, res) => res.send("Healthy"))
 /**
  * connect to MongoDB
  */
+
 mongoose.Promise = global.Promise;
 mongoose.connect(`mongodb://${config.mongo_host}:${config.mongo_port}/${config.mongo_database}`, {useNewUrlParser: true});
 

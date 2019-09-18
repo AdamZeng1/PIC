@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import classes from './Toolbar.module.css';
 import NavigationItems from '../NavigationItems/NavigationItems';
 import Logo from '../Logo/Logo';
@@ -8,7 +9,7 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 
 const toolbar = (props) => {
- 
+
     const guestUI = (
       <div className={classes.NavigationItems}>
         <Login login={props.login}/>
@@ -19,10 +20,11 @@ const toolbar = (props) => {
     const userUI = (
       <div className={classes.NavigationItems}>
         <div className={classes.LoggedIn}><NewPost /></div>
+        <div className={classes.LoggedIn}><Link to={props.loginState}>{props.loginState}</Link></div>
         <div className={classes.LoggedIn}><Logout click={props.logout}/></div>
       </div>
     )
-    
+
     return(
       <header className={classes.Toolbar}>
         <div className={classes.Logo}>
@@ -32,7 +34,7 @@ const toolbar = (props) => {
           <nav>
             <NavigationItems />
           </nav>
-          {props.loginState ? userUI : guestUI}
+          {props.loginState != false ? userUI : guestUI}
         </div>
       </header>
     )
