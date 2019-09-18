@@ -9,13 +9,6 @@ const template = fs.readFileSync('views/email.handlebars', "utf-8");
 const compiledTemplate = hdb.compile(template);
 const jwt = require('jsonwebtoken');
 
-/**
- * Schema是一种以文件形式存储的数据库模型骨架，无法直接通往数据库端，
- * 也就是说它不具备对数据库的操作能力，仅仅只是定义数据库模型在程序片段中的一种表现，
- * 可以说是数据属性模型(传统意义的表结构)，又或着是“集合”的模型骨架。
- *
- * Schema是对User文档(表)结构的定义
- */
 const UserSchema = new Schema({
     name: {
         type: String,
@@ -42,9 +35,7 @@ const UserSchema = new Schema({
 });
 
 /**
- * 添加用户保存时中间件对password进行bcrypt加密,这样保证用户密码只有用户本人知道
- * 这个pre相当于save一个用户之前所做的前置处理,传入的回调就是处理过程,且带有next参数
- * 此为中间件
+ * bcrypt the password of user
  */
 UserSchema.pre('save', function (next) {
     var user = this;
@@ -99,7 +90,7 @@ UserSchema.methods.generateJwtToken = function () {
 };
 
 /**
- * 根据jwt发送email
+ * using jwt sending email
  *
  * @param jwtToken
  */

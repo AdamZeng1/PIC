@@ -1,4 +1,5 @@
 const Post = require('../models/PostModel');
+const Comment = require('../models/CommentModel');
 
 class PostController {
     async checkPostExist(req, res, next) {
@@ -15,10 +16,11 @@ class PostController {
             /** 1. post needs to be sorted by datetime
              *  2. join user table and post table using post_owner populate() */
             const posts = await Post.find({title: new RegExp(req.query.title)})
-                .sort({createdAt: 'desc'})// sort created date descending
+                .sort({created_at: -1})// sort created date descending
                 .populate('post_owner') // fetch owner's information from user's table
                 .limit(perPage)
                 .skip(page * perPage);
+            console.log(posts);
             return res.status(200).json({success: true, posts: posts});
         } catch (e) {
             next(e);
@@ -65,6 +67,19 @@ class PostController {
         });
         if (post) return res.status(200).json(post); // 返回更新前的post
         return res.status(400).json({updated: false});
+    }
+
+    async findThreadPostByCommentsNumber(req, res) {
+        const result = Comment.aggregate([
+            {$group: {_id: '$postId', numberOfComments: {$sum: 1}}},
+            {$sort: {numberOfComments: -1}},
+            {$limit: 10}
+        ]);
+        if (result) {
+            return res.status(200).json(result);
+        } else {
+            return res.status(400).json({status: "get thread data fail"});
+        }
     }
 }
 
