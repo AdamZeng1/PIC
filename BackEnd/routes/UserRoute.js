@@ -10,11 +10,11 @@ const {
     login,
     verifyEmail
 } = require('../controllers/UserController');
-const {authUser, authAdmin} = require('../auth/authUser');
+const {authUser, authAdmin} = require('../middleware/authUser');
 
 router.post('/register/', register);
-router.post('/login/', login); // same as register, no need for any auth process
-router.get('/verify_email/:username/:token',verifyEmail);
+router.post('/login/', login); // same as register, no need for any middleware process
+router.get('/verify_email/:username/:token', verifyEmail);
 router.get('/', find);
 router.post('/', authAdmin, create); // administrator has right to create user
 router.get('/:id', checkUserExist, findById);

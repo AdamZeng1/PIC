@@ -58,16 +58,16 @@ class NewPost extends Component {
       complete(res){
         console.log("upload succeeded");
         console.log('result', res);
-        axios.post("http://localhost:9000/post/",
-          {
-            headers: {
-            'Authorization': localStorage.Token,
-            },
-            params: {
+        axios(
+          { 
+            method:"post",
+            url:"http://localhost:9000/post/",
+            data:{
               "title": postTittle,
-              "image_url": "pw4a0goy8.sabkt.gdipper.com/" + res.name,
+              "image_url": "http://pxp3tborn.sabkt.gdipper.com/" + res.key,
               "topic": "test default"
-            }
+            },
+            headers: {"Authorization": "Bearer " + localStorage.Token},
           }).then((response) => {
             console.log(response);
           }).catch(error => {
@@ -97,6 +97,7 @@ class NewPost extends Component {
   }
 
   render(){
+    const postAPI = "/post/";
     return(
       <div>
         <Tooltip placement="bottom" title="Create Post">
@@ -110,8 +111,8 @@ class NewPost extends Component {
           onCancel={this.handleCancel}
           footer={null}
         >
-         {/* <UploadImg /> */}
-         <form onSubmit={this.submit} className={classes.FormElement}>
+         <UploadImg api={postAPI}/>
+         {/* <form onSubmit={this.submit} className={classes.FormElement}>
             <div >
               <label>Tittle: </label>
               <input type="text" name='tittle' onChange={(e)=>this.inputChangeHandler(e)}/>
@@ -122,8 +123,13 @@ class NewPost extends Component {
             </div>
             <div>
               <Button type='primary' htmlType='submit'>Submit</Button>
+<<<<<<< HEAD
             </div>
           </form>
+=======
+            </div>   
+          </form> */}
+>>>>>>> cead91f53a3a17b2530d0d591d009717961e9a3e
         </Modal>
       </div>
     )

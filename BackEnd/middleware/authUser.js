@@ -25,7 +25,7 @@ class Auth {
             req.user = encoded;
             next();
         } catch (err) {
-            return res.status(401).send(err)
+            return res.status(401).send(err);
         }
     }
 }

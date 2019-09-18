@@ -14,7 +14,7 @@ const post = require('./routes/PostRoute');
 const comment = require('./routes/CommentRoute');
 const secondComment = require('./routes/SecondCommentRoute');
 const qiniuToken = require('./routes/Qiniu');
-const redis = require("redis");
+
 /**
  * 在这里过滤OPTIONS的请求,并返回有效结果
  */
@@ -53,6 +53,7 @@ app.use('/post', post);
 app.use('/posts', comment);
 app.use('/posts', secondComment);
 app.use('/qiniu',qiniuToken);
+app.use('/health-check', (req, res) => res.send("Healthy"))
 /**
  * connect to MongoDB
  */
@@ -60,16 +61,6 @@ app.use('/qiniu',qiniuToken);
 mongoose.Promise = global.Promise;
 mongoose.connect(`mongodb://${config.mongo_host}:${config.mongo_port}/${config.mongo_database}`, {useNewUrlParser: true});
 
-
-
-const redisClient = redis.createClient({
-    host: config.redis_host,
-    port: config.redis_port,
-    password: config.redis_password
-});
-
-
-redisClient.set("string key", "string value", redis.print);
 
 
 app.listen(config.port, () => console.log(`Server started on port ${config.port}`));

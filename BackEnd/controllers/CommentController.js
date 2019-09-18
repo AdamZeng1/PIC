@@ -15,8 +15,10 @@ class CommentController {
             const {per_page = 10} = req.query;
             const page = Math.round(Math.max(req.query.page * 1, 1)) - 1;
             const perPage = Math.round(Math.max(per_page * 1, 1));
+            /** comment_owner populate */
             const comments = await Comment.find({postId: req.params.postId})
                 .limit(perPage)
+                .populate("commentator")
                 .skip(page * perPage);
             return res.status(200).json({success: true, comments: comments});
         } catch (e) {
@@ -47,7 +49,9 @@ class CommentController {
         const comment = await new Comment({
             commentator: req.user.id,
             image_url: req.body.image_url,
-            postId: req.params.postId
+            postId: req.params.postId,
+            type: req.body.type,
+            emoji: req.body.emoji
         }).save();
         if (comment) return res.status(200).json(comment);
         return res.status(400).json({created: "fail to create new comment"});
@@ -57,9 +61,11 @@ class CommentController {
         const comment = await Comment.findByIdAndUpdate(req.params.id, {
             commentator: req.user.id,
             image_url: req.body.image_url,
-            postId: req.params.postId
+            postId: req.params.postId,
+            type: req.body.type,
+            emoji: req.body.emoji
         });
-        if (comment) return res.status(200).json(comment); // 返回更新前的post
+        if (comment) return res.status(200).json(comment); // return old post which is updated
         return res.status(400).json({updated: false});
     }
 

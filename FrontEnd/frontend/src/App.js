@@ -2,10 +2,10 @@ import React from 'react';
 import Login from './Components/Login/Login';
 import Register from './Components/Register/Register';
 import mainPage from './Containner/MainPage/MainPage';
-import NumberGuessing from './Containner/NumberGuessing/NumberGuessing'
 import './App.css';
 import {Route, Switch} from 'react-router-dom';
 import Layout from './Containner/Layout/Layout';
+import PostPage from './Containner/PostPage/PostPage';
 
 function App() {
   return (
@@ -13,8 +13,8 @@ function App() {
       <Switch>
         <Route path='/popular' />
         <Route path='/newest' />
-        <Route path='/numberguessing' component={NumberGuessing} exact/>
         <Route path='/' component={mainPage} exact/>
+        <Route path='/post/:postid' component={PostPage}/>
       </Switch>
     </Layout>
   );
