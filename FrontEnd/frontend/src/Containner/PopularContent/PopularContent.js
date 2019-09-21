@@ -6,7 +6,7 @@ class PopularContent extends Component {
   render() {
     return(
       <div className={classes.PopularContent}>
-        <h2> Trending </h2>
+        <h2> Trending Top 10 </h2>
         <div className={classes.Row}>
           <PostCard />
         </div>

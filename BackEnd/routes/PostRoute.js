@@ -12,8 +12,8 @@ const {authUser} = require('../middleware/authUser');
 
 router.get('/', find);
 router.post('/', authUser, create);
+router.get('/threads/posts',findThreadPostByCommentsNumber);
 router.get('/:id', checkPostExist, findById);
 router.patch('/:id', authUser, checkPostExist, update); // normal user can update own information
-router.get('/thread',findThreadPostByCommentsNumber);
 
 module.exports = router;

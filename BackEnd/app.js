@@ -15,9 +15,7 @@ const comment = require('./routes/CommentRoute');
 const secondComment = require('./routes/SecondCommentRoute');
 const qiniuToken = require('./routes/Qiniu');
 
-/**
- * 在这里过滤OPTIONS的请求,并返回有效结果
- */
+
 app.use("*", function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With');
@@ -29,19 +27,13 @@ app.use("*", function (req, res, next) {
     }
 });
 
-/**
- *  命令行中显示程序运行日志,便于bug调试
- */
+
 app.use(morgan('dev'));
 
-/**
- * 解析所有请求体, 所有的访问的req对象添加一个body属性
- */
+
 app.use(bodyParser.urlencoded({extended: false}));
 
-/**
- * 调用bodyParser模块以便程序正确解析body传入值
- */
+
 app.use(bodyParser.json());
 
 /**
