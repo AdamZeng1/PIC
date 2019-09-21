@@ -57,7 +57,7 @@ class UserController {
         try {
             // If the username, password or email of the request is empty
             if (!req.body.username || !req.body.password || !req.body.email) {
-                return res.json({success: false, message: 'please input your basic information.'});
+                return res.status(401).json({success: false, message: 'please input your basic information.'});
             }
             /**
              * Find whether the email is repeated

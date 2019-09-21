@@ -5,8 +5,6 @@ require('babel-register');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const config = require('./config/config');
-const mongoose = require('mongoose');
 const morgan = require('morgan');
 const user = require('./routes/UserRoute');
 const topic = require('./routes/TopicRoute');
@@ -45,14 +43,9 @@ app.use('/post', post);
 app.use('/posts', comment);
 app.use('/posts', secondComment);
 app.use('/qiniu',qiniuToken);
-app.use('/health-check', (req, res) => res.send("Healthy"))
-/**
- * connect to MongoDB
- */
-
-mongoose.Promise = global.Promise;
-mongoose.connect(`mongodb://${config.mongo_host}:${config.mongo_port}/${config.mongo_database}`, {useNewUrlParser: true});
+app.use('/health-check', (req, res) => res.send("Healthy"));
 
 
+module.exports = app;
 
-app.listen(config.port, () => console.log(`Server started on port ${config.port}`));
+

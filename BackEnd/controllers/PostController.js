@@ -70,7 +70,6 @@ class PostController {
     }
 
     async findThreadPostByCommentsNumber(req, res) {
-        console.log("hello world");
         const result = await Comment.aggregate([
             {$group: {_id: '$postId', numberOfComments: {$sum: 1}}},
             {

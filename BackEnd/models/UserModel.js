@@ -5,7 +5,8 @@ const config = require('../config/config');
 const sgMail = require('@sendgrid/mail');
 const fs = require('fs');
 const hdb = require('handlebars');
-const template = fs.readFileSync('views/email.handlebars', "utf-8");
+// const template = fs.readFileSync('views/email.handlebars', "utf-8");
+const template = fs.readFileSync(__dirname+'/../views/email.handlebars', "utf-8");
 const compiledTemplate = hdb.compile(template);
 const jwt = require('jsonwebtoken');
 
