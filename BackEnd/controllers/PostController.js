@@ -88,7 +88,7 @@ class PostController {
         if (result) {
             return res.status(200).json(result);
         } else {
-            return res.status(400).json({status: "get thread posts fail"});
+            return res.status(400).json({status: "get thread users fail"});
         }
     }
 }
