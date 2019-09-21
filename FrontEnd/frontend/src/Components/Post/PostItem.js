@@ -10,22 +10,22 @@ const postItem = (props) => {
     </div>)
   return(
     <Col span={12} offset={6}>
-      <Card 
+      <Card
       title={header}
       loading={props.loading}
       hoverable={true}
       onClick={() => props.clicked(props.post)}
-      cover={<img 
-        src={props.post.image_url[0]}  
+      cover={<img
+        src={props.post.image_url[0]}
         alt={props.post.image_url[0]}
         style={{objectFit:"cover", height:"400px", }}/>}
       >
       <h3>{props.post.title}</h3>
-      
+
       <p>{props.post.created_at}</p>
       </Card>
     </Col>
-    
+
   )
 }
 
