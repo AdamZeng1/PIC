@@ -22,35 +22,47 @@ describe("test post module", () => {
 
     /** create a new post test after login */
     it('create a new post', (done) => {
-        request(app).post('/user/login')
+        const number = Math.ceil(Math.random() * 100000000);
+        request(app).post('/user/register')
             .type('form')
-            .send('username=startTest1&password=1234567')
+            .send("username=startTest" + number + "&password=1234567&email=13023130" + number + "@student.uts.edu.au")
             .then((res) => {
                 const body = res.body;
-                const token = res.body.token;
                 return new Promise((resolve, reject) => {
-                    resolve(token);
-
+                    resolve(body);
                 })
-            })
-            .then((token) => {
-                // console.log(token);
-                request(app)
-                    .post('/post')
-                    .send({
-                        title: "Python",
-                        image_url: ["www.asdsadsdas.com", "sadsdasnas.com"],
-                        topic: ["5d650becc71fee182087c737", "5d650becc71fee182087c738"],
-                        type: "image"
+            }).then((body) => {
+            request(app).post('/user/login')
+                .type('form')
+                .send('username=startTest' + number + '&password=1234567')
+                .then((res) => {
+                    const body = res.body;
+                    const token = res.body.token;
+                    return new Promise((resolve, reject) => {
+                        resolve(token);
+
                     })
-                    .set("Authorization", token)
-                    .set('Accept', 'application/json')
-                    .then((res) => {
-                        const body = res.body;
-                        expect(body).to.contain.property('image_url');
-                        done();
-                    })
-            }).catch((err) => done(err));
+                })
+                .then((token) => {
+                    // console.log(token);
+                    request(app)
+                        .post('/post')
+                        .send({
+                            title: "Python",
+                            image_url: ["www.asdsadsdas.com", "sadsdasnas.com"],
+                            topic: ["5d650becc71fee182087c737", "5d650becc71fee182087c738"],
+                            type: "image"
+                        })
+                        .set("Authorization", token)
+                        .set('Accept', 'application/json')
+                        .then((res) => {
+                            const body = res.body;
+                            expect(body).to.contain.property('image_url');
+                            done();
+                        })
+                }).catch((err) => done(err));
+        })
+
     });
 
     /** get all posts */

@@ -13,12 +13,12 @@ module.exports = {
     'apiKey': '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',
 
     // MongoDB的地址
-    'mongo_host': process.env.MONGO_HOST || 'localhost',
+    'mongo_host': process.env.MONGO_HOST || process.env.DB1_PORT_27017_TCP_ADDR || 'localhost',
     'mongo_port': process.env.MONGO_PORT || 27017,
     'mongo_database': process.env.MONGO_DB || 'test',
 
     // Redis address
-    'redis_host': process.env.REDIS_HOST || 'localhost',
+    'redis_host': process.env.REDIS_HOST || process.env.DB2_PORT_6379_TCP_ADDR || 'localhost',
     'redis_port': process.env.REDIS_PORT || 6379,
     'redis_password': process.env.REDIS_PASSWORD || 'foobared',
 

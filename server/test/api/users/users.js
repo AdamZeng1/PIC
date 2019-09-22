@@ -25,10 +25,9 @@ describe("test user module", () => {
         const number = Math.ceil(Math.random() * 100000000);
         request(app).post('/user/register')
             .type('form')
-            .send("username=startTest"+number+"&password=1234567&email=13023130"+number+"@student.uts.edu.au")
+            .send("username=startTest" + number + "&password=1234567&email=13023130" + number + "@student.uts.edu.au")
             .then((res) => {
                 const body = res.body;
-                console.log(body);
                 expect(body).to.contain.property('success');
                 expect(body).to.contain.property('message');
                 done();
@@ -37,14 +36,26 @@ describe("test user module", () => {
 
     /** login test */
     it('login', (done) => {
-        request(app).post('/user/login')
+        const number = Math.ceil(Math.random() * 100000000);
+        request(app).post('/user/register')
             .type('form')
-            .send('username=startTest1&password=1234567')
+            .send("username=startTest" + number + "&password=1234567&email=13023130" + number + "@student.uts.edu.au")
             .then((res) => {
                 const body = res.body;
-                expect(body).to.contain.property('token');
-                done();
-            }).catch((err) => done(err));
+                return new Promise((resolve, reject) => {
+                    resolve(body);
+                })
+            }).then(() => {
+            request(app).post('/user/login')
+                .type('form')
+                .send('username=startTest'+number+'&password=1234567')
+                .then((res) => {
+                    const body = res.body;
+                    expect(body).to.contain.property('token');
+                    done();
+                }).catch((err) => done(err));
+        })
+
     });
 
     /** find all users */

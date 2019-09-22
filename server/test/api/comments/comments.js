@@ -22,49 +22,60 @@ describe("test post module", () => {
 
     /** create a new post test after login */
     it('create a new post', (done) => {
-        request(app).post('/user/login')
+        const number = Math.ceil(Math.random() * 100000000);
+        request(app).post('/user/register')
             .type('form')
-            .send('username=startTest1&password=1234567')
+            .send("username=startTest" + number + "&password=1234567&email=13023130" + number + "@student.uts.edu.au")
             .then((res) => {
                 const body = res.body;
-                const token = res.body.token;
                 return new Promise((resolve, reject) => {
-                    resolve(token);
+                    resolve(body);
                 })
-            })
-            .then((token) => {
-                request(app)
-                    .post('/post')
-                    .send({
-                        title: "Python",
-                        image_url: ["www.asdsadsdas.com", "sadsdasnas.com"],
-                        topic: ["5d650becc71fee182087c737", "5d650becc71fee182087c738"],
-                        type: "image"
+            }).then(() => {
+            request(app).post('/user/login')
+                .type('form')
+                .send('username=startTest' + number + '&password=1234567')
+                .then((res) => {
+                    const body = res.body;
+                    const token = res.body.token;
+                    return new Promise((resolve, reject) => {
+                        resolve(token);
                     })
-                    .set("Authorization", token)
-                    .set('Accept', 'application/json')
-                    .then((res) => {
-                        const body = res.body;
-                        const postId = res.body._id;
-                        return new Promise((resolve, reject) => {
-                            resolve(postId);
+                })
+                .then((token) => {
+                    request(app)
+                        .post('/post')
+                        .send({
+                            title: "Python",
+                            image_url: ["www.asdsadsdas.com", "sadsdasnas.com"],
+                            topic: ["5d650becc71fee182087c737", "5d650becc71fee182087c738"],
+                            type: "image"
                         })
-                    })
-                    .then((postId) => {
-                        request(app)
-                            .post('/posts/' + postId + '/comments/')
-                            .set("Authorization", token)
-                            .set('Accept', 'application/json')
-                            .send({
-                                image_url: ["www.123sd.com", "www.greatdfd.com"],
-                                type: "image"
-                            }).then((res) => {
+                        .set("Authorization", token)
+                        .set('Accept', 'application/json')
+                        .then((res) => {
                             const body = res.body;
-                            expect(body).to.contain.property('_id');
-                            done();
+                            const postId = res.body._id;
+                            return new Promise((resolve, reject) => {
+                                resolve(postId);
+                            })
                         })
-                    })
-            }).catch((err) => done(err));
+                        .then((postId) => {
+                            request(app)
+                                .post('/posts/' + postId + '/comments/')
+                                .set("Authorization", token)
+                                .set('Accept', 'application/json')
+                                .send({
+                                    image_url: ["www.123sd.com", "www.greatdfd.com"],
+                                    type: "image"
+                                }).then((res) => {
+                                const body = res.body;
+                                expect(body).to.contain.property('_id');
+                                done();
+                            })
+                        })
+                }).catch((err) => done(err));
+        })
     });
 });
 
