@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node ./server.js",
     "debug": "nodemon --inspect ./server.js",
-    "test": "mocha --recursive --exit"
+    "test": "mocha --recursive --exit",
+    "dev": "nodemon ./server.js"
   },
   "dependencies": {
     "@babel/runtime": "^7.5.5",

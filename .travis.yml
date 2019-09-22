@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t zengweihan/server-test -f ./server/Dockerfile ./server
+
+script:
+  - docker run zengweihan/server-test npm test -- --coverage
+
+after_success:
+  - docker build -t zengweihan/server ./server
+  - docker build -t zengweihan/nginx ./nginx
+  - docker build -t zengweihan/client ./client
+  # Login to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "DOCKER_ID" --password-stdin
+  # Take those images and push them to the docker hub
+  - docker push zengweihan/server
+  - docker push zengweihan/nginx
+  - docker push zengweihan/client
+
+
