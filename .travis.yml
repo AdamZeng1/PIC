@@ -5,8 +5,9 @@ services:
 before_install:
   - docker build -t zengweihan/server-test -f ./server/Dockerfile.dev ./server
   - docker run -d mongo --name mongo
+  - docker run -d mongo
   - docker run -d redis --name redis
-
+  - docker run -d redis
 script:
   - docker run --link mongo --link redis zengweihan/server-test npm test -- --coverage
 
