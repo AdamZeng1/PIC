@@ -22,7 +22,7 @@ class MakeComment extends Component{
   }
 
   render(){
-    const commnetAPI = "/posts/" + this.props.postID + "/comments/";
+    const commnetAPI = "/users/" + this.props.postID + "/comments/";
     let comment = <UploadImg api={commnetAPI}/>
     if (this.state.value === 'emoji'){
       comment = (

@@ -74,7 +74,7 @@ class PostCard extends Component {
     const self = this
     //Use post as trending during no comments
     // axios.get('/post/')
-    axios.get('/post/threads/posts')
+    axios.get('/post/threads/users')
       .then(function (res) {
         if(res.data.posts)
           self.setState({dummyData:res.data.posts})

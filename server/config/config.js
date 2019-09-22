@@ -23,7 +23,7 @@ module.exports = {
     'redis_password': process.env.REDIS_PASSWORD || 'foobared',
 
     // port
-    'port': process.env.PORT || 3000,
+    'port': process.env.PORT || 5000,
 
     // 邮箱验证成功之后的重定向地址
     'redirectUrl': 'http://localhost:3000/login',
