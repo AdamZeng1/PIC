@@ -3,7 +3,7 @@ services:
   - docker
 
 before_install:
-  - docker build -t zengweihan/server-test -f ./server/Dockerfile ./server
+  - docker build -t zengweihan/server-test -f ./server/Dockerfile.dev ./server
 
 script:
   - docker run zengweihan/server-test npm test -- --coverage
