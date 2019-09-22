@@ -1,11 +1,14 @@
 import React from 'react';
 import AlienLogo from '../../assets/images/logo-alien.png';
 import classes from './Logo.module.css'
+import {NavLink} from 'react-router-dom';
 
-const logo = (props) => {
+const logo = () => {
   return(
     <div className={classes.Logo}>
-      <img src={AlienLogo}  alt="LogoImage"/>
+      <NavLink >
+        <img src={AlienLogo}  alt="LogoImage"/>
+      </NavLink>
     </div>
   )
 }

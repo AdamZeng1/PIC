@@ -6,17 +6,15 @@
   flex-flow: column;
   align-items: center;
   height: 100%;
-   white-space:nowrap;
+  white-space:nowrap;
 }
 
-@media (min-width: 500px) {
+@media (min-width: 576px) {
+  .Wrapper {
+    flex-flow: row;
+    justify-content: space-between;
+  }
   .NavigationItems{
     flex-flow: row;
-  }
-  .Wrapper{
-    display: flex;
-    justify-content: space-between;
-    height: 100%;
-    width: 100%;
   }
 }

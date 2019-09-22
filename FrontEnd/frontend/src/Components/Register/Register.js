@@ -41,7 +41,7 @@ class NormalRegisterForm extends Component {
     const { getFieldDecorator } = this.props.form;
     return (
       <Fragment>
-      <Button shape="round" ghost style={{margin:"0 10px", fontWeight:"bold"}}
+      <Button shape="round" className="SignupBtn"
         onClick={() => this.setModal2Visible(true)}>
           SIGN UP
       </Button>

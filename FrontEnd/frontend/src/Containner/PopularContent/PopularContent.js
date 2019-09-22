@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import classes from './PopularContent.module.css';
 import PostCard from '../../Components/PostCard/PostCard';
+import axios from '../../axios-pic';
 
 class PopularContent extends Component {
+  
   render() {
     return(
       <div className={classes.PopularContent}>

@@ -54,12 +54,11 @@ class PostList extends Component {
     if (this.state.posts){
       posts = this.state.posts.map((post, i)=>{
         return(
-          <Row gutter={16} style={{margin:"10px"}} key={post._id}>
             <PostItem
+              key={post._id}
               post={post}
               loading={this.state.loading}
               clicked={this.postClickHandler}/>
-          </Row>
         )
       })
     }

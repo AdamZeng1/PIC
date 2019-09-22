@@ -1,11 +1,16 @@
 .PopularContent {
-  margin: 0 16px;
-  padding: 12px;
-  border: 1px solid #ccc;
+  margin-top: 60px;
+  border: 1px solid #eee;
   border-radius: 5px;
+  background-color: #fff;
+}
+
+.PopularContent h2 {
+  color: black;
 }
 
 .Row {
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
 }
