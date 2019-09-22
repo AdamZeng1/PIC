@@ -11,14 +11,14 @@ import Register from '../Register/Register';
 const toolbar = (props) => {
 
     const guestUI = (
-      <div className={classes.NavigationItems}>
+      <div className={classes.GuestUI}>
         <Login login={props.login}/>
         <Register />
       </div>
     );
 
     const userUI = (
-      <div className={classes.NavigationItems}>
+      <div className={classes.UserUI}>
         <div className={classes.LoggedIn}><NewPost /></div>
         <div className={classes.LoggedIn}><Link to={props.loginState}>{props.loginState}</Link></div>
         <div className={classes.LoggedIn}><Logout click={props.logout}/></div>
@@ -26,17 +26,12 @@ const toolbar = (props) => {
     )
 
     return(
-      <header className={classes.Toolbar}>
-        <div className={classes.Logo}>
-          <Logo />
-        </div>
-        <div className={classes.Wrapper}>
+      <div className={classes.Toolbar}>
           <nav>
             <NavigationItems />
           </nav>
           {props.loginState != false ? userUI : guestUI}
-        </div>
-      </header>
+      </div>
     )
 }
 

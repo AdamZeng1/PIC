@@ -13,3 +13,15 @@
   display:flex;
   justify-content:center;
 }
+
+.LoginBtn {
+  color: #666;
+  border-color: #666;
+  font-weight: bold;
+  margin: 0 5px;
+}
+
+.LoginBtn:hover {
+  color: mediumseagreen;
+  border-color: mediumseagreen;
+}

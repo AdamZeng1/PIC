@@ -1,7 +1,6 @@
 .PostList {
-  position: relative;
-  margin-top: 100px;
-  display:flex;
-  flex-direction: column;
+  margin-top: 60px;
+  flex-flow: column;
   align-items: center;
+  max-width: 614px;
 }

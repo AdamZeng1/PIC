@@ -1,6 +1,4 @@
 import React from 'react';
-import Login from './Components/Login/Login';
-import Register from './Components/Register/Register';
 import mainPage from './Containner/MainPage/MainPage';
 import './App.css';
 import {Route, Switch} from 'react-router-dom';

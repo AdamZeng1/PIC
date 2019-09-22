@@ -1,3 +1,29 @@
-.Content{
-  padding-top: 72px;
+.Layout {
+  height: 100vh;
+}
+
+.Header {
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  border-bottom: 1px solid #eee;
+}
+
+.Content {
+  background-color: snow;
+  position: relative;
+  padding-top: 64px;
+}
+
+.PostWrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.TrendWrapper {
+  overflow: auto;
+  height: 100vh;
+  margin-bottom: 30px;
 }

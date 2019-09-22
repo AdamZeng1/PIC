@@ -8,7 +8,7 @@ class VerifyMailPage extends Component {
   }
   render () {
     return (
-      <>
+      <div></div>
     )
   }
 }

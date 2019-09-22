@@ -1,45 +1,21 @@
 .Toolbar{
-  height: 56px;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: seagreen;
-  display: flex;
-  align-items: center;
-  padding: 0 20px;
-  box-sizing: border-box;
-  z-index: 90;
-  color: white;
-  font-size: 18px;
-}
-
-.Toolbar nav {
   height: 100%;
   width: 100%;
-}
-
-.Logo{
-  height: 80%;
+  display: flex;
+  font-size: 24px;
+  font-weight: bolder;
+  justify-content: space-between;
 }
 
 .LoggedIn{
-  margin: 10px;
-  width: 100%;
-  align-items: center;
-  box-sizing: border-box;
+  margin: 0 10px;
 }
 
-.NavigationItems{
-  display: flex;
-  flex-flow: row;
-  align-items: center;
-  box-sizing: border-box;
-}
+/* .GuestUI{
+  display: inline-block;
+} */
 
-.Wrapper{
-  display: flex;
-  justify-content: space-between;
-  height: 100%;
-  width: 100%;
+.UserUI{
+  /* flex-flow: row; */
+  display: inherit;
 }

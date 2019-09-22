@@ -20,28 +20,30 @@
   color: #40a4c8;
 }
 
-@media (min-width: 500px) {
+@media (min-width: 576px) {
   .NavigationItem{
     margin: 0;
     display: flex;
-    height: 100%;
-    width: auto;
-    align-items: center;
+    height: 64px;
+    width: 128px;
   }
   
   .NavigationItem a{
-    color: white;
+    color: black;
     height: 100%;
-    padding: 16px 10px;
+    text-align: center;
+    padding: auto; 
     border-bottom: 4px solid transparent;
-     
   }
   
-  .NavigationItem a:hover,
+  .NavigationItem a:hover {
+    background-color: rgb(23, 191, 99, 0.2);
+    color: #17bf63;
+  }
+
   .NavigationItem a:active,
   .NavigationItem a.active {
-    background-color:#00cc00;
-    border-bottom: 4px solid #40a4c8;
-    color: white;
+    border-bottom: 4px solid #17bf63;
+    color: #17bf63;
   }
 }

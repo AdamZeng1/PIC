@@ -45,7 +45,8 @@ class NormalLoginForm extends Component {
     const { getFieldDecorator } = this.props.form;
     return (
       <Fragment>
-      <Button shape="round" ghost style={{margin:"0 10px", fontWeight:"bold"}}
+      <Button shape="round" 
+        className="LoginBtn"
         onClick={() => this.setModal2Visible(true)}>
           LOG IN
       </Button>

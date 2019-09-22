@@ -1,31 +1,42 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
-import {Card, Icon, Avatar, Meta, Col, Row} from 'antd';
+import {Card, Avatar } from 'antd';
+import classes from './PostItem.module.css';
+
+const Styles = {
+  headStyle: {
+    height: "60px",
+  },
+  cardStyle: {
+    width: "100%",
+    marginBottom: "60px",
+    borderRadius: "5px",
+  }
+}
 
 const postItem = (props) => {
   const header = (
     <div>
-      <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+      <Avatar>U</Avatar>
       <span> User Name</span>
     </div>)
+  const Image = <img
+                  src={props.post.image_url[0]}
+                  alt={props.post.image_url[0]}
+                  className={classes.Image}
+                />
   return(
-    <Col span={12} offset={6}>
       <Card
       title={header}
       loading={props.loading}
       hoverable={true}
       onClick={() => props.clicked(props.post)}
-      cover={<img
-        src={props.post.image_url[0]}
-        alt={props.post.image_url[0]}
-        style={{objectFit:"cover", height:"400px", }}/>}
+      headStyle={Styles.headStyle}
+      style={Styles.cardStyle}
+      cover={Image}
       >
       <h3>{props.post.title}</h3>
-
       <p>{props.post.created_at}</p>
       </Card>
-    </Col>
-
   )
 }
 
