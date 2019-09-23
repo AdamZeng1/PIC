@@ -17,7 +17,7 @@ after_success:
   - docker build -t zengweihan/client ./client
   # Login to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "DOCKER_ID" --password-stdin
-  # Take those images and push them all to the docker hub
+  # Take those images and push them all the docker hub
   - docker push zengweihan/server
   - docker push zengweihan/nginx
   - docker push zengweihan/client
