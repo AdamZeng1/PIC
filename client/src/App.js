@@ -12,7 +12,7 @@ function App() {
         <Route path='/popular' />
         <Route path='/newest' />
         <Route path='/' component={mainPage} exact/>
-        <Route path='/post/:postid' component={PostPage}/>
+        <Route path='/posts/:postid' component={PostPage}/>
       </Switch>
     </Layout>
   );

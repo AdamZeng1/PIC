@@ -1,0 +1,33 @@
+.EmojiWrapper {
+  max-width: 614px;
+}
+
+.EmojiWrapper div {
+  margin-bottom: 16px;
+} 
+
+.DisplayEmojis {
+  height: 75px;
+  overflow: auto;
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.DisplayEmojis span {
+  background-color: inherit;
+  border-radius: 50%;
+}
+
+.DisplayEmojis span:hover {
+  cursor: pointer;
+  background-color: #ccc;
+}
+
+.EmojiBtn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}

@@ -1,0 +1,15 @@
+.PostpageWrapper {
+  margin-top: 60px;
+  flex-flow: column;
+  align-items: center;
+  max-width: 614px;
+}
+
+.PostWrapper {
+  width: 100%
+}
+
+.PostWrapper img {
+  width: 100%;
+
+}
