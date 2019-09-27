@@ -1,0 +1,24 @@
+.Primary {
+  color: white;
+  background-color: mediumseagreen;
+  border: none;
+}
+
+.Primary:hover,
+.Primary:active,
+.Primary:focus{
+  background-color: rgb(23, 191, 99, 0.75);
+  color: white;
+}
+
+.Ghost {
+  color: mediumseagreen;
+  border: 1px solid mediumseagreen;
+}
+
+.Ghost:hover,
+.Ghost:focus,
+.Ghost:active {
+  color: rgb(23, 191, 99, 0.75);
+  border: 1px solid rgb(23, 191, 99, 0.75);
+}
