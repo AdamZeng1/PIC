@@ -3,7 +3,7 @@ import '/VerifyMail.module.css';
 import axios from '../../axios-pic';
 
 class VerifyMailPage extends Component {
-  componentWillMount(){
+  UNSAFE_componentWillMount(){
     setTimeout(function (){this.props.history.push("/");},)
   }
   render () {

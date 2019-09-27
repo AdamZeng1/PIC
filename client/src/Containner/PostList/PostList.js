@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import PostItem from '../../Components/Post/PostItem';
 import classes from './PostList.module.css';
-import {Spin, Row, Pagination} from 'antd';
+import {Spin, Pagination} from 'antd';
 import axios from '../../axios-pic';
 
 class PostList extends Component {
@@ -14,8 +14,8 @@ class PostList extends Component {
     loading: true,
   }
 
-  componentWillMount(){
-    const query = 'page=' + this.state.page + '&' + 'per_page=' + this.state.per_page;
+  UNSAFE_componentWillMount(){
+    const query = 'page=' + this.state.page + '&per_page=' + this.state.per_page;
     axios.get('/post?'+query)
       .then(res => {
         console.log(res);
@@ -26,7 +26,7 @@ class PostList extends Component {
 
   componentDidUpdate(prevProps, prevState){
     if (prevState.page !== this.state.page){
-      const query = 'page=' + this.state.page + '&' + 'per_page=' + this.state.per_page;
+      const query = 'page=' + this.state.page + '&per_page=' + this.state.per_page;
     axios.get('/post?'+query)
       .then(res => {
         console.log(res);
@@ -39,7 +39,7 @@ class PostList extends Component {
 
   postClickHandler = (postData) => {
     let path = {
-      pathname: '/post/' + postData._id,
+      pathname: '/posts/' + postData._id,
       state: postData,
     }
     this.props.history.push(path);

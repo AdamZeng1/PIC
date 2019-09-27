@@ -1,7 +1,18 @@
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import {Avatar, Card} from 'antd';
-import axios from '../../axios-pic'
+import axios from '../../axios-pic';
+import classes from './PostCard.module.css';
+
+const Styles = {
+  cardStyle: {
+    width: "100%",
+    height: ""
+    // marginBottom: "30px",
+    // borderRadius: "5px",
+  }
+}
+
 class PostCard extends Component {
   //Initialize fake data
   state ={
@@ -70,11 +81,11 @@ class PostCard extends Component {
   }
 
   //Get data from backend
-  componentWillMount(){
+  UNSAFE_componentWillMount(){
     const self = this
     //Use post as trending during no comments
     // axios.get('/post/')
-    axios.get('/post/threads/users')
+    axios.get('/post/threads/posts')
       .then(function (res) {
         if(res.data.posts)
           self.setState({dummyData:res.data.posts})
@@ -89,33 +100,41 @@ class PostCard extends Component {
     this.props.history.push(path)
   }
   render(){
-    return(
-      this.state.dummyData.map((data,i)=>{
-        const title = (
-          <div>
-            <h2>{data.title}</h2>
-          </div>
-        )
-        const footer = (
-          <div style={{ display:"flex", flexDirection:"row",justifyContent:"space-between", alignItems:"baseline", flexWrap:"auto"}}>
-            <div style={{whiteSpace:"nowrap"}}>
-              <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-              <span>{data.username}</span>
-            </div>
-            <span style={{whiteSpace:"nowrap", display:"inline-block"}}>&nbsp;{data.comments}&nbsp;comments</span>
-          </div>
-        )
+    // return(
+    //   this.state.dummyData.map((data,i)=>{
+    //     const title = (
+    //       <div>
+    //         <h2>{data.title}</h2>
+    //       </div>
+    //     )
+    //     const footer = (
+    //       <div style={{ display:"flex", flexDirection:"row",justifyContent:"space-between", alignItems:"baseline", flexWrap:"auto"}}>
+    //         <div style={{whiteSpace:"nowrap"}}>
+    //           <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+    //           <span>{data.username}</span>
+    //         </div>
+    //         <span style={{whiteSpace:"nowrap", display:"inline-block"}}>&nbsp;{data.comments}&nbsp;comments</span>
+    //       </div>
+    //     )
+    const {numberOfComments, post} = this.props.data;
+    const image = (
+      <div className={classes.ImageWrapper}>
+        <img  alt="trendings" src={post[0].image_url[0]} />
+        <div>{numberOfComments + " comments"}</div>
+      </div>
+    )
         return(
-            <Card hoverable key={i}
-              style={{ width:"300px"}}
+            <Card hoverable key={post[0]._id}
+              style={Styles.cardStyle}
+              bodyStyle={{display: "none"}}
               bordered={true}
-              onClick={()=>this.trendingClickHandler(data)}
-              cover={<img  style={{objectFit:"cover", height:"300px", }} alt="trendings" src={data.image_url[0]} />}>
-              <Card.Meta title={title} description={footer} cover={1}/>
+              // onClick={()=>this.trendingClickHandler(data)}
+              cover={image}>
+              {/* <Card.Meta title={title} description={footer} cover={1}/> */}
             </Card>
         )
-      })
-    )
+    //   })
+    // )
   }
 }
 

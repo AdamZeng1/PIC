@@ -2,7 +2,6 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import classes from './Toolbar.module.css';
 import NavigationItems from '../NavigationItems/NavigationItems';
-import Logo from '../Logo/Logo';
 import NewPost from '../NewPost/NewPost';
 import Logout from '../Logout/Logout';
 import Login from '../Login/Login';
@@ -30,7 +29,7 @@ const toolbar = (props) => {
           <nav>
             <NavigationItems />
           </nav>
-          {props.loginState != false ? userUI : guestUI}
+          {props.loginState !== false ? userUI : guestUI}
       </div>
     )
 }

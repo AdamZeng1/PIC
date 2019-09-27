@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import { Form, Icon, Input, Button, Checkbox, Modal } from 'antd';
+import { Form, Icon, Input, Button, Checkbox, Modal, } from 'antd';
 import axios from '../../axios-pic';
 
 import './Login.css';
@@ -20,7 +20,6 @@ class NormalLoginForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const self = this;
     this.props.form.validateFields((err, values) => {
       if (!err) {
         axios.post('/user/login',values)
