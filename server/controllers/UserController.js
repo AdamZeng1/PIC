@@ -158,9 +158,9 @@ class UserController {
     }
 
     async findPopularUserByPostsNumber(req, res) {
-        const {per_page = 5} = req.query;
-        const page = Math.round(Math.max(req.query.page * 1, 1)) - 1;
-        const perPage = Math.round(Math.max(req.query.per_page * 1, 1));
+        const {per_page = 5, page = 0} = req.query;
+        const queryPage = Math.round(Math.max(page * 1, 1)) - 1;
+        const perPage = Math.round(Math.max(per_page * 1, 1));
         const result = await Post.aggregate([
             {$group: {_id: '$post_owner', numberOfPosts: {$sum: 1}}},
             {
@@ -173,7 +173,7 @@ class UserController {
             },
             {$sort: {numberOfPosts: -1}},
             {$limit: perPage},
-            {$skip: page*perPage}
+            {$skip: queryPage * perPage}
         ]);
         if (result) {
             return res.status(200).json(result);

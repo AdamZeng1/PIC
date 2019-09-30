@@ -20,7 +20,6 @@ class PostController {
                 .populate('post_owner') // fetch owner's information from user's table
                 .limit(perPage)
                 .skip(page * perPage);
-            console.log(posts);
             return res.status(200).json({success: true, posts: posts});
         } catch (e) {
             next(e);
@@ -70,9 +69,9 @@ class PostController {
     }
 
     async findThreadPostByCommentsNumber(req, res) {
-        const {per_page = 5} = req.query;
-        const page = Math.round(Math.max(req.query.page * 1, 1)) - 1;
-        const perPage = Math.round(Math.max(req.query.per_page * 1, 1));
+        const {per_page = 5, page = 0} = req.query;
+        const queryPage = Math.round(Math.max(page * 1, 1)) - 1;
+        const perPage = Math.round(Math.max(per_page * 1, 1));
         const result = await Comment.aggregate([
             {$group: {_id: '$postId', numberOfComments: {$sum: 1}}},
             {
@@ -85,7 +84,7 @@ class PostController {
             },
             {$sort: {numberOfComments: -1}},
             {$limit: perPage},
-            {$skip: page*perPage}
+            {$skip: queryPage * perPage}
 
         ]);
         if (result) {

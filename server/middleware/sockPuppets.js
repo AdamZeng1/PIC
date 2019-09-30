@@ -4,11 +4,15 @@ var redis = new Redis({
     host: config.redis_host,
     port: config.redis_port,
     password: config.redis_password,
-    db:5
+    db: 5
 });
 
 // middleware for checking if the user is strange user or not
 class SockPuppetsCheck {
+
+    async queryAllStrangeUser() {
+
+    }
 
     async findStrangeUser(username, ip) {
         let loginTime = new Date();

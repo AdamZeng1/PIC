@@ -44,7 +44,7 @@ app.use('/post', post);
 app.use('/posts', comment);
 app.use('/posts', secondComment);
 app.use('/qiniu',qiniuToken);
-app.use('/sockpuppets',);
+app.use('/sockpuppets',sockPuppets);
 app.use('/health-check', (req, res) => res.send("Healthy"));
 
 
