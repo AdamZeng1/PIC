@@ -12,6 +12,7 @@ const post = require('./routes/PostRoute');
 const comment = require('./routes/CommentRoute');
 const secondComment = require('./routes/SecondCommentRoute');
 const qiniuToken = require('./routes/Qiniu');
+const sockPuppets = require('./routes/sockPuppets');
 
 
 app.use("*", function (req, res, next) {
@@ -43,6 +44,7 @@ app.use('/post', post);
 app.use('/posts', comment);
 app.use('/posts', secondComment);
 app.use('/qiniu',qiniuToken);
+app.use('/sockpuppets',);
 app.use('/health-check', (req, res) => res.send("Healthy"));
 
 

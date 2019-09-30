@@ -3,6 +3,8 @@ const bcrypt = require('bcrypt');
 const config = require('../config/config');
 const jwt = require('jsonwebtoken');
 const {findStrangeUser} = require('../middleware/sockPuppets');
+const Post = require('../models/PostModel');
+
 
 class UserController {
     async checkUserExist(req, res, next) {
@@ -65,7 +67,6 @@ class UserController {
             const result = await User.findOne({email: req.body.email}); //result will be the whole document that you find
 
             if (result) {
-                console.log(result);
                 return res.status(409).json({
                     success: false,
                     error: 'the email has already been used'
@@ -153,6 +154,31 @@ class UserController {
             return res.status(200).json({success: "verify email successfully!"});
         } catch (err) {
             console.log(err);
+        }
+    }
+
+    async findPopularUserByPostsNumber(req, res) {
+        const {per_page = 5} = req.query;
+        const page = Math.round(Math.max(req.query.page * 1, 1)) - 1;
+        const perPage = Math.round(Math.max(req.query.per_page * 1, 1));
+        const result = await Post.aggregate([
+            {$group: {_id: '$post_owner', numberOfPosts: {$sum: 1}}},
+            {
+                $lookup: {
+                    from: 'users',
+                    localField: "_id",
+                    foreignField: "_id",
+                    as: "user"
+                }
+            },
+            {$sort: {numberOfPosts: -1}},
+            {$limit: perPage},
+            {$skip: page*perPage}
+        ]);
+        if (result) {
+            return res.status(200).json(result);
+        } else {
+            return res.status(400).json({status: "get popular users fail"});
         }
     }
 }

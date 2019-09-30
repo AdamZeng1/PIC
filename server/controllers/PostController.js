@@ -70,6 +70,9 @@ class PostController {
     }
 
     async findThreadPostByCommentsNumber(req, res) {
+        const {per_page = 5} = req.query;
+        const page = Math.round(Math.max(req.query.page * 1, 1)) - 1;
+        const perPage = Math.round(Math.max(req.query.per_page * 1, 1));
         const result = await Comment.aggregate([
             {$group: {_id: '$postId', numberOfComments: {$sum: 1}}},
             {
@@ -81,14 +84,14 @@ class PostController {
                 }
             },
             {$sort: {numberOfComments: -1}},
-            {$limit: 10},
+            {$limit: perPage},
+            {$skip: page*perPage}
 
         ]);
-        console.log(result);
         if (result) {
             return res.status(200).json(result);
         } else {
-            return res.status(400).json({status: "get thread users fail"});
+            return res.status(400).json({status: "get thread posts fail"});
         }
     }
 }
