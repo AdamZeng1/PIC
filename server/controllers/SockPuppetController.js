@@ -1,9 +1,11 @@
 const {queryAllStrangeUser} = require('../middleware/sockPuppets');
+const {findStrangeUser} = require('../middleware/sockPuppets');
 
 
 class SockPuppetController {
-    async find(req, res) {
-
+    async queryAllStrangeUsers(req, res) {
+        const result = await queryAllStrangeUser();
+        return res.status(200).json(result);
     }
 }
 
