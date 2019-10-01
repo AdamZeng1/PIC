@@ -151,7 +151,8 @@ class UserController {
         try {
             const user = jwt.verify(req.params.token, config.secret);
             await User.update({name: req.params.username}, {$set: {is_active: true}});
-            return res.status(200).json({success: "verify email successfully!"});
+            // return res.status(200).json({success: "verify email successfully!"});
+            return res.redirect(config.redirectUrl);
         } catch (err) {
             console.log(err);
         }

@@ -26,6 +26,7 @@ app.use("*", function (req, res, next) {
     }
 });
 
+app.use(express.static('static'));
 
 app.use(morgan('dev'));
 
