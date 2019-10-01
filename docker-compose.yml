@@ -44,6 +44,8 @@ services:
     ports:
       - '9000:5000'
     environment:
+      - API_HOST=localhost
+      - API_PORT=9000
       - MONGO_HOST=mongodb
       - MONGO_PORT=27017
       - MONGO_DB=Docker-test
