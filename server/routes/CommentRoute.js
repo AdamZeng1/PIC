@@ -8,13 +8,14 @@ const {
     update,
     del,
     checkCommentator,
+    checkPostExist
 } = require('../controllers/CommentController');
 const {authUser} = require('../middleware/authUser');
 
-router.get('/:postId/comments/', find);
-router.post('/:postId/comments/', authUser, create);
-router.get('/:postId/comments/:id', checkCommentExist,findById);
-router.patch('/:postId/comments/:id', authUser, checkCommentExist, checkCommentator,update);
-router.delete('/:postId/comments/:id',authUser,checkCommentExist,checkCommentator,del);
+router.get('/:postId/comments/', checkPostExist, find);
+router.post('/:postId/comments/', authUser, checkPostExist, create);
+router.get('/:postId/comments/:id', checkPostExist, checkCommentExist, findById);
+router.patch('/:postId/comments/:id', authUser, checkPostExist, checkCommentExist, checkCommentator, update);
+router.delete('/:postId/comments/:id', authUser, checkPostExist, checkCommentExist, checkCommentator, del);
 
 module.exports = router;

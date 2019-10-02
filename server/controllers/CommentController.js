@@ -1,13 +1,28 @@
 const Comment = require('../models/CommentModel');
+const Post = require('../models/PostModel');
 
 class CommentController {
+    async checkPostExist(req, res, next) {
+        try {
+            const post = await Post.findById(req.params.postId);
+            if (post) next();
+            else return res.status(404).json({post: "not found"});
+        } catch (e) {
+            return res.status(404).json({post: "not found"});
+        }
+    }
+
     async checkCommentExist(req, res, next) {
-        const comment = await Comment.findOne({_id: req.params.id});
-        if (comment) {
-            req.comment = comment;
-            next();
-        } else if (comment.postId !== req.params.postId) return res.status(404).json({error: 'there is no this comment under this post'});
-        else return res.status(404).json({comment: "not found"});
+        try {
+            const comment = await Comment.findById(req.params.id);
+            if (comment) {
+                req.comment = comment;
+                next();
+            } else if (comment.postId !== req.params.postId) return res.status(404).json({error: 'there is no this comment under this post'});
+            else return res.status(404).json({comment: "not found"});
+        } catch (e) {
+            return res.status(404).json({comment: "not found"});
+        }
     }
 
     async find(req, res, next) {
