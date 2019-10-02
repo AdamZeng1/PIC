@@ -3,9 +3,13 @@ const Comment = require('../models/CommentModel');
 
 class PostController {
     async checkPostExist(req, res, next) {
-        const post = Post.find({_id: req.params.id});
-        if (post) next();
-        else return res.status(404).json({post: "not found"});
+        try {
+            const post = await Post.findById(req.params.id);
+            if (post) next();
+            else return res.status(404).json({post: "not found"});
+        } catch (e) {
+            return res.status(404).json({post: "not found"});
+        }
     }
 
     async find(req, res, next) {
