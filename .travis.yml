@@ -15,11 +15,26 @@ after_success:
   - docker build -t zengweihan/server ./server
   - docker build -t zengweihan/nginx ./nginx
   - docker build -t zengweihan/client ./client
+  - docker build -t zengweihan/mongodb ./mongodb
+  - docker build -t zengweihan/redis ./redis
   # Login to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them all to the docker hub
   - docker push zengweihan/server
   - docker push zengweihan/nginx
   - docker push zengweihan/client
+  - docker push zengweihan/mongodb
+  - docker push zengweihan/redis
 
-
+deploy:
+  provider: elasticbeanstalk
+  region: ap-southeast-2
+  app: PIC-docker
+  env: Pic-env
+  bucket_name: elasticbeanstalk-ap-southeast-2-398618273714
+  bucket_path: docker-pic
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY

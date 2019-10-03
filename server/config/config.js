@@ -26,8 +26,8 @@ module.exports = {
     'port': process.env.PORT || 5000,
 
     // 邮箱验证成功之后的重定向地址
-    'redirectUrl': 'http://'+process.env.API_HOST+":"+process.env.APP_PORT+"/api/validateSuccessful.html",
+    'redirectUrl': 'http://'+process.env.APP_HOST+":"+process.env.APP_PORT+"/api/validateSuccessful.html",
 
     // 网站路径
-    'url': 'http://'+process.env.API_HOST+":"+process.env.APP_PORT+"/api"
+    'url': 'http://'+process.env.APP_HOST+":"+process.env.APP_PORT+"/api"
 };

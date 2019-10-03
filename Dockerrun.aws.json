@@ -1,17 +1,31 @@
 {
   "AWSEBDockerrunVersion": 2,
+  "volumes": [
+    {
+      "name": "mongodb",
+      "host": {
+        "sourcePath": "var/data"
+      }
+    }
+  ],
   "containerDefinition": [
     {
       "name": "client",
       "image": "zengweihan/client",
       "hostname": "client",
-      "essential": false
+      "essential": false,
+      "memory": 128
     },
     {
       "name": "server",
       "image": "zengweihan/server",
       "hostname": "api",
-      "essential": false
+      "essential": false,
+      "link": [
+        "mongodb",
+        "redis"
+      ],
+      "memory": 128
     },
     {
       "name": "nginx",
@@ -24,7 +38,31 @@
           "containerPort": 80
         }
       ],
-      "links": ["client","server"]
+      "links": [
+        "client",
+        "server"
+      ],
+      "memory": 128
+    },
+    {
+      "name": "mongodb",
+      "image": "zengweihan/mongodb",
+      "hostname": "mongodb",
+      "essential": true,
+      "memory": 600,
+      "mountPoints": [
+        {
+          "sourceVolume": "mongodb",
+          "containerPath": "/data/db"
+        }
+      ]
+    },
+    {
+      "name": "redis",
+      "image": "zengweihan/redis",
+      "hostname": "redis",
+      "essential": true,
+      "memory": 600
     }
   ]
 }
