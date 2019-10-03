@@ -37,7 +37,7 @@ class PostController {
             .filter((f) => f)
             .map((f) => " +" + f)
             .join("");
-        const post = await Post.findById(req.params.id).select(selectFields);
+        const post = await Post.findById(req.params.id).select(selectFields).populate('post_owner');
         if (post) return res.status(200).json(post);
         return res.status(404).json({result: "can't find Post id = " + req.params.id});
     }
