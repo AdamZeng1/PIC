@@ -1,6 +1,13 @@
 .PostList {
-  margin-top: 60px;
   flex-flow: column;
   align-items: center;
   max-width: 614px;
+  position: relative;
+  float: right;
+}
+
+.Pagination {
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
 }

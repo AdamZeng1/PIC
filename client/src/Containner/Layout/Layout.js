@@ -5,7 +5,7 @@ import {withRouter} from 'react-router-dom';
 //import ButtonSet from '../../Components/ButtonSet/ButtonSet';
 import {Layout, Col, Row, message} from 'antd';
 import Logo from '../../Components/Logo/Logo'
-import Trending from '../PopularContent/PopularContent';
+import Trending from '../../Components/Popular/PopularPost/PopularPost';
 
 const { Header, Content } = Layout;
 
@@ -17,22 +17,22 @@ class CustomizedLayout extends Component{
     const token = localStorage.Token
     console.log(token)
     if (token){
-      var username = document.cookie.split(';')[0].split('=')[1]
+      var username = localStorage.Username;
       this.setState({login: username})
     }
   }
   logOutHandler = () => {
     localStorage.removeItem("Token");
+    localStorage.removeItem("Username")
     console.log("TOKEN CLEAR!");
     this.setState({login:false});
-    document.cookie=''
     this.props.history.push("/");
   }
   loginHandler = () => {
     var username = document.cookie.split(';')[0].split('=')[1]
     this.setState({login: username})
     this.props.history.push("/");
-    message.info("Successfully logged in")
+    message.success("Successfully logged in")
     // window.location.href = 'http://localhost:3000/'
   }
   render() {
@@ -45,14 +45,7 @@ class CustomizedLayout extends Component{
                   login={this.loginHandler}/>
         </Header>
         <Content className={classes.Content}>
-          <Row gutter={32} justify="center">
-            <Col span={14} className={classes.PostWrapper}>
-              {this.props.children}
-            </Col>
-            <Col span={10} className={classes.TrendWrapper}>
-              <Trending />
-            </Col>
-          </Row>
+          {this.props.children}
             {/* <ButtonSet></ButtonSet> */}
         </Content>         
       </Layout>

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Icon, Modal, Tooltip} from 'antd';
 import classes from './NewPost.module.css';
 import CreateItem from '../CreateItem/CreateItem';
+import Upload from '../CreateItem/Upload/Upload';
 
 
 class NewPost extends Component {
@@ -17,14 +18,12 @@ class NewPost extends Component {
   };
 
   handleOk = e => {
-    console.log(e);
     this.setState({
       visible: false,
     });
   };
 
   handleCancel = e => {
-    console.log(e);
     this.setState({
       visible: false,
     });
@@ -44,8 +43,9 @@ class NewPost extends Component {
           onOk={this.handleOk}
           onCancel={this.handleCancel}
           footer={null}
-        >
-          <CreateItem api={postAPI}/>
+        > 
+          <Upload api={postAPI} />
+          {/* <CreateItem api={postAPI}/> */}
         </Modal>
       </div>
     )

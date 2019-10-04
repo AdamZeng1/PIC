@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
-import Button from '../../../UI/Button/Button';
 import classes from './Emoji.module.css';
-import {message} from 'antd';
+import {message, Button} from 'antd';
 import axios from '../../../axios-pic';
 
 class Emoji extends Component {
@@ -13,14 +12,13 @@ class Emoji extends Component {
 
   emojiSelectHandler = (emoji) => {
     const newEmojiList = [...this.state.emojiList, emoji];
-    this.setState({emojiList: newEmojiList}, ()=>{console.log(this.state.emojiList);});   
+    this.setState({emojiList: newEmojiList});   
   }
 
   emojiDeleteHandler = (key) => {
-    console.log(key);
     const newEmojiList = [...this.state.emojiList];
     newEmojiList.splice(key,1)
-    this.setState({emojiList: newEmojiList}, ()=>{console.log(this.state.emojiList);})
+    this.setState({emojiList: newEmojiList});
   }
 
   clearEmojiListHandler = () => {
@@ -43,13 +41,15 @@ class Emoji extends Component {
       message.success ("Succeed");
       this.clearEmojiListHandler();
     })
-    .err( err => {
-      message.error (err.name);
+    .catch( err => {
+      console.log(err.response)
+      if(err.response.status === 401){
+        message.error ("Token Expired. Please login again.");
+      }
     })
   }
 
   render(){
-    console.log(this.props)
     return(
       <div className={classes.EmojiWrapper}>
         <div className={classes.DisplayEmojis}>
@@ -60,8 +60,13 @@ class Emoji extends Component {
           }
         </div>
         <div className={classes.EmojiBtn}>
-          <Button type="danger" click={this.clearEmojiListHandler}>Clear</Button>
-          <Button class="Primary" disable={this.state.emojiList.length === 0}>Post</Button>
+          <Button type="danger" onClick={this.clearEmojiListHandler}>Clear</Button>
+          <Button 
+            type="primary"
+            disabled={this.state.emojiList.length === 0}
+            onClick={this.sendPostHandler}>
+              Post
+          </Button>
         </div>
         <Picker set="apple" size={16} onSelect={this.emojiSelectHandler}/>
       </div>

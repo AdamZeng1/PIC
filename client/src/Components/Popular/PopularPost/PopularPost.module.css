@@ -1,12 +1,11 @@
-.PopularContent {
-  margin-top: 60px;
+.PopularPost{
   border: 1px solid #eee;
   border-radius: 5px;
   background-color: #fff;
   max-width: 300px;
 }
 
-.PopularContent h2 {
+.PopularPost h2 {
   color: black;
   margin: 5px 10px;
 }

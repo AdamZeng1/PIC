@@ -15,11 +15,16 @@ class PostList extends Component {
   }
 
   UNSAFE_componentWillMount(){
-    const query = 'page=' + this.state.page + '&per_page=' + this.state.per_page;
-    axios.get('/post?'+query)
+    const query = '?page=' + this.state.page + '&per_page=' + this.state.per_page;
+    axios.get(this.props.api+query)
       .then(res => {
         console.log(res);
-        this.setState({posts: res.data.posts, loading: false})
+        if(this.props.type === 'mainpage'){
+          this.setState({posts: res.data.posts, loading: false})
+        }
+        if(this.props.type === 'popular'){
+          this.setState({posts: res.data, loading:false})
+        }
       })
       .catch(err => console.log(err));
   }
@@ -39,7 +44,7 @@ class PostList extends Component {
 
   postClickHandler = (postData) => {
     let path = {
-      pathname: '/posts/' + postData._id,
+      pathname: '/post/' + postData._id,
       state: postData,
     }
     this.props.history.push(path);
@@ -58,15 +63,20 @@ class PostList extends Component {
               key={post._id}
               post={post}
               loading={this.state.loading}
-              clicked={this.postClickHandler}/>
+              clicked={this.postClickHandler}
+              type={this.props.type}
+            />
         )
       })
     }
     return(
       <div className={classes.PostList}>
         {posts}
-        {/* <PostItem imgURL='https://images.unsplash.com/photo-1565847179096-9af38a6af8a3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80' /> */}
-        <Pagination total={500} onChange={this.pageOnChangeHandler} />
+        <div className={classes.Pagination} >
+          <Pagination           
+            total={500} 
+            onChange={this.pageOnChangeHandler} />
+        </div> 
       </div>
     );
   }

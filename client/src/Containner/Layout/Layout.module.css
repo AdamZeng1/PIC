@@ -13,6 +13,8 @@
   position: relative;
   padding-top: 64px;
   height: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .PostWrapper {

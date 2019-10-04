@@ -1,0 +1,20 @@
+.UserAvatar {
+  height: 56px;
+  box-sizing: border-box;
+  padding: 8px;
+  margin-bottom: 16px;
+  display: flex;
+}
+
+.UserAvatar h2 {
+  margin: auto 16px;
+}
+
+.PostHeader {
+  box-sizing: border-box;
+  display: flex;
+}
+
+.PostHeader h3 {
+  margin: auto 16px;
+}

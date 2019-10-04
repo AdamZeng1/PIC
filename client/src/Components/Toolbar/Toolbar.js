@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import classes from './Toolbar.module.css';
 import NavigationItems from '../NavigationItems/NavigationItems';
 import NewPost from '../NewPost/NewPost';
@@ -19,7 +18,6 @@ const toolbar = (props) => {
     const userUI = (
       <div className={classes.UserUI}>
         <div className={classes.LoggedIn}><NewPost /></div>
-        <div className={classes.LoggedIn}><Link to={props.loginState}>{props.loginState}</Link></div>
         <div className={classes.LoggedIn}><Logout click={props.logout}/></div>
       </div>
     )

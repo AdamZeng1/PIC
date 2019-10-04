@@ -76,22 +76,34 @@ class PostController {
         const {per_page = 5, page = 0} = req.query;
         const queryPage = Math.round(Math.max(page * 1, 1)) - 1;
         const perPage = Math.round(Math.max(per_page * 1, 1));
-        const result = await Comment.aggregate([
-            {$group: {_id: '$postId', numberOfComments: {$sum: 1}}},
+        const result = await Post.aggregate([
             {
                 $lookup: {
-                    from: 'posts',
-                    localField: '_id',
-                    foreignField: '_id',
-                    as: 'post'
+                    from: 'comments',
+                    let: {post_id: '$_id'},
+                    pipeline: [
+                        { $match: {$expr: { $eq: ['$postId', '$$post_id']}}},
+                        { $sortByCount: '$postId'},
+                    ],
+                    as: 'numberOfComments'
                 }
             },
-            {$sort: {numberOfComments: -1}},
+            {
+                $lookup: {
+                    from: 'users',
+                    localField: 'post_owner',
+                    foreignField: '_id',
+                    as: 'post_owner',
+                }
+            },
+            {$match: {numberOfComments:{$elemMatch:{$ne:null}}}},
+            {$sort: {'numberOfComments.count': -1}},
             {$limit: perPage},
             {$skip: queryPage * perPage}
-
         ]);
+        
         if (result) {
+            console.log("IN");
             return res.status(200).json(result);
         } else {
             return res.status(400).json({status: "get thread posts fail"});

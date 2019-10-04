@@ -5,11 +5,17 @@
   max-width: 614px;
 }
 
-.PostWrapper {
-  width: 100%
+.PostpageWrapper hr {
+  color: #666;
 }
 
-.PostWrapper img {
-  width: 100%;
+.PostFooter {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: 8px;
+}
 
+.PostImage {
+  width: 100%;
 }

@@ -1,3 +1,16 @@
 .Image {
   max-height: 614px;
 }
+
+.Header {
+  display: flex;
+  box-sizing: border-box;
+  align-items: baseline
+}
+
+.Header p{
+  font-size: 10px;
+  color: #666;
+  margin-right: 8px;
+}
+

@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
-import { Upload, Icon, message } from 'antd';
-import Button from '../../../UI/Button/Button';
+import { Upload, Icon, message, Button } from 'antd';
 import axios from '../../../axios-pic';
 import classes from './Upload.module.css';
 
+/** 
+ * 
+*/
 var qiniu = require('qiniu-js');
 var config = {
   useCdnDomain: true,
@@ -60,9 +62,9 @@ class UploadImage extends Component {
             message.success('upload successfully.');
           })
           .catch( err => {
-            console.log(err)
+            console.log(err.response)
             message.error(err.name)
-            this.setState({uploading: false})
+            self.setState({uploading: false})
           })
       }
     }
@@ -98,10 +100,10 @@ class UploadImage extends Component {
         <div className={classes.UploadBtns}>
           <Button type="danger" >Clear</Button>
           <Button
-            class="Primary"
-            click={this.handleUpload}
-            disable={this.state.file === null}
-            load={this.state.uploading}
+            type="primary"
+            onClick={this.handleUpload}
+            disabled={this.state.file === null}
+            loading={this.state.uploading}
           >
           {this.state.uploading ? 'Uploading' : 'Start Upload'}
         </Button>

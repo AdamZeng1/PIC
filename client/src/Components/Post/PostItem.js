@@ -1,29 +1,46 @@
 import React from 'react';
-import {Card, Avatar } from 'antd';
+import {Card} from 'antd';
 import classes from './PostItem.module.css';
+import UserAvatar from '../User/UserAvatar';
+
+const moment = require('moment');
 
 const Styles = {
   headStyle: {
-    height: "60px",
+    height: "64px",
   },
   cardStyle: {
     width: "100%",
-    marginBottom: "60px",
+    marginBottom: "32px",
     borderRadius: "5px",
+  },
+  bodyStyle: {
+    display: "none",
   }
-}
+};
 
 const postItem = (props) => {
+  const post = props.post;
+  let numberOfComments = null;
+  let post_owner = null;
+  if(props.type === 'mainpage'){
+    post_owner = post.post_owner.name;
+  }
+  if(props.type === "popular"){
+    numberOfComments = post.numberOfComments[0].count;
+    post_owner = post.post_owner[0].name;
+  }
   const header = (
-    <div>
-      <Avatar>U</Avatar>
-      <span> User Name</span>
-    </div>)
+    <div className={classes.Header}>
+        <UserAvatar type="postHeader" name={post_owner}/>
+        <p>{moment(post.created_at).fromNow()}</p>
+        <p>{" " + numberOfComments + " comments"}</p>
+    </div>);
   const Image = <img
-                  src={props.post.image_url[0]}
-                  alt={props.post.image_url[0]}
+                  src={post.image_url[0]}
+                  alt={post.image_url[0]}
                   className={classes.Image}
-                />
+                />;
   return(
       <Card
       title={header}
@@ -32,12 +49,13 @@ const postItem = (props) => {
       onClick={() => props.clicked(props.post)}
       headStyle={Styles.headStyle}
       style={Styles.cardStyle}
+      bodyStyle={Styles.bodyStyle}
       cover={Image}
       >
-      <h3>{props.post.title}</h3>
-      <p>{props.post.created_at}</p>
+      {/*<p>{moment(post.created_at).fromNow()}</p>*/}
+      {/*<MakeComment type="post" postID={props.post._id}/>*/}
       </Card>
   )
-}
+};
 
 export default postItem;

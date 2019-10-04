@@ -1,8 +1,12 @@
 import React, {Component, Fragment} from 'react';
-import { Form, Icon, Input, Button, Checkbox, Modal, } from 'antd';
+import { Form, Icon, Input, Button, Checkbox, Modal, message} from 'antd';
 import axios from '../../axios-pic';
-
 import './Login.css';
+
+/* 
+  The Form part code is from the antd documentaion
+  Link: https://ant.design/components/form/
+*/
 
 class NormalLoginForm extends Component {
   state = {
@@ -24,17 +28,18 @@ class NormalLoginForm extends Component {
       if (!err) {
         axios.post('/user/login',values)
         .then(res => {
-          console.log(res);
           const token = res.data.token.substr(7);
           localStorage.Token = token;
           if(res.data.success){
             this.setModal2Visible(false);
-            document.cookie = 'username='+res.data.name;
+            localStorage.Username = res.data.name;
             this.props.login();
           }
         })
         .catch(err => {
-          console.error(err);
+          if(err.response.status === 401) {
+            message.error("Sorry, your username or password is incorrect")
+          }
         })
       }
     });
