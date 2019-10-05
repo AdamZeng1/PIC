@@ -68,7 +68,7 @@ class UserController {
             /**
              * Find whether the email is repeated
              */
-            const result = await User.findOne({email: req.body.email}); //result will be the whole document that you find
+            let result = await User.findOne({email: req.body.email}); //result will be the whole document that you find
 
             if (result) {
                 return res.status(409).json({
@@ -76,6 +76,18 @@ class UserController {
                     error: 'the email has already been used'
                 });
             }
+            /**
+             * Find whether the username is repeated
+             * */
+            const usernameExist = await User.findOne({name: req.body.username}); //result will be the whole document that you find
+
+            if (usernameExist) {
+                return res.status(409).json({
+                    success: false,
+                    error: 'the username has already been used'
+                });
+            }
+
             /**
              * Creat a new user account in Mongo DB
              */
