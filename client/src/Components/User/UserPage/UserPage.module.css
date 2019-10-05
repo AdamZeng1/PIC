@@ -1,0 +1,14 @@
+.PostPageWrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 32px;
+}
+
+.Waterfall {
+  column-count: 4;
+  column-gap: 16px;
+}
+
+.Item {
+  break-inside: avoid;
+}

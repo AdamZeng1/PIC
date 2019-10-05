@@ -2,6 +2,8 @@ import React from 'react';
 import {Card} from 'antd';
 import classes from './PostItem.module.css';
 import UserAvatar from '../User/UserAvatar';
+import UpdatePost from '../Update/UpdatePost/UpdatePost';
+
 
 const moment = require('moment');
 
@@ -23,12 +25,16 @@ const postItem = (props) => {
   const post = props.post;
   let numberOfComments = null;
   let post_owner = null;
+  let updateBtn = null;
   if(props.type === 'mainpage'){
     post_owner = post.post_owner.name;
   }
   if(props.type === "popular"){
     numberOfComments = post.numberOfComments[0].count;
     post_owner = post.post_owner[0].name;
+  }
+  if(props.extra && post.post_owner._id === localStorage.UserID) {
+    updateBtn = <UpdatePost postID={post._id}/>
   }
   const header = (
     <div className={classes.Header}>
@@ -40,20 +46,20 @@ const postItem = (props) => {
                   src={post.image_url[0]}
                   alt={post.image_url[0]}
                   className={classes.Image}
+                  onClick={() => props.clicked(props.post)}
                 />;
   return(
       <Card
       title={header}
       loading={props.loading}
       hoverable={true}
-      onClick={() => props.clicked(props.post)}
       headStyle={Styles.headStyle}
       style={Styles.cardStyle}
       bodyStyle={Styles.bodyStyle}
       cover={Image}
+      extra={updateBtn}
       >
-      {/*<p>{moment(post.created_at).fromNow()}</p>*/}
-      {/*<MakeComment type="post" postID={props.post._id}/>*/}
+        {props.children}
       </Card>
   )
 };

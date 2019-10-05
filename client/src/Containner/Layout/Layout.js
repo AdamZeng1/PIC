@@ -26,11 +26,11 @@ class CustomizedLayout extends Component{
     localStorage.removeItem("UserID")
     console.log("storage CLEAR!");
     this.setState({login:false});
-    // this.props.history.push("/");
+    this.props.history.go(0);
   }
   loginHandler = () => {
     this.setState({login: true})
-    // this.props.history.go(0);
+    this.props.history.go(0);
   }
   render() {
     return(

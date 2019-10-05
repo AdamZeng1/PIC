@@ -25,6 +25,10 @@ class UploadImage extends Component {
   }
 
   handleUpload = async() => {
+    let method = "post";
+    if (this.props.method) {
+      method = this.props.method;
+    }
     const file = this.state.file;
     const self = this;
     this.setState({
@@ -41,7 +45,7 @@ class UploadImage extends Component {
       complete(res){
         axios(
           {
-            method:"post",
+            method: method,
             url: self.props.api,
             data:{
               "title": res.key,
@@ -62,8 +66,7 @@ class UploadImage extends Component {
             setTimeout( () => self.props.history.go(0), 1000);
           })
           .catch( err => {
-            console.log("error");
-            console.log(err);
+            console.log(err.response);
             message.error(err.response)
             self.setState({uploading: false})
           })
@@ -79,7 +82,12 @@ class UploadImage extends Component {
   render() {
     const props = {
       beforeUpload: (file, fileList) => {
-        this.setState({ file: file });
+        const isLt500KB = file.size / 1024 < 500 ;
+        if (isLt500KB) {
+          this.setState({ file: file });
+        }else{
+          message.error("Image must smaller than 500KB!")
+        }
         if(fileList.length > 0){
           fileList.splice(0, 1, file)
         }
