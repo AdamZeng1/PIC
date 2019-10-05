@@ -19,6 +19,7 @@ class NormalLoginForm extends Component {
   }
 
   setModal2Visible(modal2Visible) {
+    this.props.form.resetFields();
     this.setState({ modal2Visible });
   }
 
@@ -28,11 +29,14 @@ class NormalLoginForm extends Component {
       if (!err) {
         axios.post('/user/login',values)
         .then(res => {
-          const token = res.data.token.substr(7);
-          localStorage.Token = token;
+          console.log(res)
           if(res.data.success){
-            this.setModal2Visible(false);
+            message.success(res.data.message)                     
+            const token = res.data.token.substr(7);
+            localStorage.Token = token;
             localStorage.Username = res.data.name;
+            localStorage.UserID = res.data.userId;
+            this.setModal2Visible(false);
             this.props.login();
           }
         })

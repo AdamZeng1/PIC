@@ -1,46 +1,21 @@
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
-import {Avatar, Card} from 'antd';
-import axios from '../../axios-pic';
+import {Card} from 'antd';
 import classes from './PostCard.module.css';
 
 const Styles = {
   cardStyle: {
     width: "100%",
-    // height: ""
-    // marginBottom: "30px",
-    // borderRadius: "5px",
   }
 }
 
 class PostCard extends Component {
  
-  trendingClickHandler = (postItem) => {
-    let path = {
-      pathname: '/post/' + postItem._id,
-      state: postItem,
-    }
-    console.log(path.state)
-    this.props.history.push(path)
+  trendingClickHandler = (postID) => {
+    this.props.history.push('/post/' + postID)
   }
   render(){
-    // return(
-    //   this.state.dummyData.map((data,i)=>{
-    //     const title = (
-    //       <div>
-    //         <h2>{data.title}</h2>
-    //       </div>
-    //     )
-    //     const footer = (
-    //       <div style={{ display:"flex", flexDirection:"row",justifyContent:"space-between", alignItems:"baseline", flexWrap:"auto"}}>
-    //         <div style={{whiteSpace:"nowrap"}}>
-    //           <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-    //           <span>{data.username}</span>
-    //         </div>
-    //         <span style={{whiteSpace:"nowrap", display:"inline-block"}}>&nbsp;{data.comments}&nbsp;comments</span>
-    //       </div>
-    //     )
-    const {numberOfComments, image_url} = this.props.post;
+    const {numberOfComments, image_url, _id} = this.props.post;
     const image = (
       <div className={classes.ImageWrapper}>
         <img  alt="trendings" src={image_url[0]} />
@@ -52,13 +27,11 @@ class PostCard extends Component {
           style={Styles.cardStyle}
           bodyStyle={{display: "none"}}
           bordered={true}
-          // onClick={()=>this.trendingClickHandler(data)}
+          onClick={()=>this.trendingClickHandler(_id)}
           cover={image}>
           {/* <Card.Meta title={title} description={footer} cover={1}/> */}
         </Card>
     )
-    //   })
-    // )
   }
 }
 

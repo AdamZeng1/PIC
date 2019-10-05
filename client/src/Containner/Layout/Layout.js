@@ -3,7 +3,7 @@ import Toolbar from '../../Components/Toolbar/Toolbar';
 import classes from './Layout.module.css';
 import {withRouter} from 'react-router-dom';
 //import ButtonSet from '../../Components/ButtonSet/ButtonSet';
-import {Layout, Col, Row, message} from 'antd';
+import {Layout} from 'antd';
 import Logo from '../../Components/Logo/Logo'
 import Trending from '../../Components/Popular/PopularPost/PopularPost';
 
@@ -15,7 +15,6 @@ class CustomizedLayout extends Component{
   }
   UNSAFE_componentWillMount(){
     const token = localStorage.Token
-    console.log(token)
     if (token){
       var username = localStorage.Username;
       this.setState({login: username})
@@ -24,16 +23,14 @@ class CustomizedLayout extends Component{
   logOutHandler = () => {
     localStorage.removeItem("Token");
     localStorage.removeItem("Username")
-    console.log("TOKEN CLEAR!");
+    localStorage.removeItem("UserID")
+    console.log("storage CLEAR!");
     this.setState({login:false});
-    this.props.history.push("/");
+    // this.props.history.push("/");
   }
   loginHandler = () => {
-    var username = document.cookie.split(';')[0].split('=')[1]
-    this.setState({login: username})
-    this.props.history.push("/");
-    message.success("Successfully logged in")
-    // window.location.href = 'http://localhost:3000/'
+    this.setState({login: true})
+    // this.props.history.go(0);
   }
   render() {
     return(
