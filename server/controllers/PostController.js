@@ -122,7 +122,7 @@ class PostController {
             {$limit: perPage},
             {$skip: queryPage * perPage}
         ]);
-        const numberOfPosts = await Post.count();
+        const numberOfPosts = result.length;
 
         if (result) {
             return res.status(200).json({success: true, numberOfPosts: numberOfPosts, result: result});
