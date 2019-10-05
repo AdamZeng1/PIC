@@ -8,10 +8,13 @@ const {
     update,
     del,
     checkCommentator,
-    checkPostExist
+    checkPostExist,
+    findByUserId
 } = require('../controllers/CommentController');
+const {checkUserExist} = require('../controllers/UserController');
 const {authUser} = require('../middleware/authUser');
 
+router.get('/user/:userId', checkUserExist, findByUserId);
 router.get('/:postId/comments/', checkPostExist, find);
 router.post('/:postId/comments/', authUser, checkPostExist, create);
 router.get('/:postId/comments/:id', checkPostExist, checkCommentExist, findById);

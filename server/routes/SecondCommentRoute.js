@@ -9,10 +9,13 @@ const {
     del,
     checkCommentator,
     checkCommentExist,
-    checkPostExist
+    checkPostExist,
+    findByUserId
 } = require('../controllers/SecondCommentController');
+const {checkUserExist} = require('../controllers/UserController');
 const {authUser} = require('../middleware/authUser');
 
+router.get('/secondComments/user/:userId', checkUserExist, findByUserId);
 router.get('/:postId/comments/:commentId/comments', checkPostExist, checkCommentExist, find);
 router.post('/:postId/comments/:commentId/comments', authUser, checkPostExist, checkCommentExist, create);
 router.get('/:postId/comments/:commentId/comments/:id', checkPostExist, checkCommentExist, checkSecondCommentExist, findById);
