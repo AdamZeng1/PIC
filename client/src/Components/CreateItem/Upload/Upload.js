@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Upload, Icon, message, Button } from 'antd';
 import axios from '../../../axios-pic';
 import classes from './Upload.module.css';
+import {withRouter} from 'react-router-dom';
 
 /** 
  * 
@@ -38,9 +39,6 @@ class UploadImage extends Component {
         console.log(err);
       },
       complete(res){
-        console.log("upload succeeded");
-        console.log('result', res);
-        //替换程父组件传进来的方法
         axios(
           { 
             method:"post",
@@ -60,16 +58,19 @@ class UploadImage extends Component {
               uploading: false,
             })
             message.success('upload successfully.');
+            self.props.close();
+            setTimeout( () => self.props.history.go(0), 1000);
           })
           .catch( err => {
-            console.log(err.response)
-            message.error(err.name)
+            console.log("error");
+            console.log(err);
+            message.error(err.response)
             self.setState({uploading: false})
           })
       }
     }
     const putExtra = {};
-    const result = await axios.get("http://localhost:9000/qiniu/token");
+    const result = await axios.get("/qiniu/token");
     const qiniuToken = result.data['qiniu-token'];
     const observable = qiniu.upload(file, file.uid, qiniuToken, putExtra, config)
     var subscription = observable.subscribe(observer)
@@ -82,12 +83,11 @@ class UploadImage extends Component {
         if(fileList.length > 0){
           fileList.splice(0, 1, file)
         }
-        console.log(fileList);
         return false;
       },
       showUploadList: false,
     };
-
+    console.log(this.props);
     return (
       <div>
         <Dragger {...props}>
@@ -113,4 +113,4 @@ class UploadImage extends Component {
   }
 }
 
-export default UploadImage;
+export default withRouter(UploadImage);

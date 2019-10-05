@@ -1,5 +1,5 @@
 .PopularUserWrapper {
-  width: 300px;
+  max-width: 300px;
   margin-top: 16px;
   background-color: white;
 }

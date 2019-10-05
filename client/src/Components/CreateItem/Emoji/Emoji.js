@@ -4,6 +4,7 @@ import 'emoji-mart/css/emoji-mart.css';
 import classes from './Emoji.module.css';
 import {message, Button} from 'antd';
 import axios from '../../../axios-pic';
+import {withRouter} from 'react-router-dom';
 
 class Emoji extends Component {
   state = {
@@ -39,7 +40,8 @@ class Emoji extends Component {
     })
     .then(res => {
       message.success ("Succeed");
-      this.clearEmojiListHandler();
+      this.props.close();
+      setTimeout( () => this.props.history.go(0), 1000);
     })
     .catch( err => {
       console.log(err.response)
@@ -74,4 +76,4 @@ class Emoji extends Component {
   }
 }
 
-export default Emoji;
+export default withRouter(Emoji);
