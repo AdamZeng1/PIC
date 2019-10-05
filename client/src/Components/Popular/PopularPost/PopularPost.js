@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import classes from './PopularPost.module.css';
 import PostCard from '../../PostCard/PostCard';
 import axios from '../../../axios-pic';
-import {Carousel} from 'antd/lib/index';
+import {Carousel} from 'antd';
 
 class PopularPost extends Component {
   state = {
@@ -36,7 +36,7 @@ class PopularPost extends Component {
     }
     return(
       <div className={classes.PopularPost}>
-        <h2> Popular Posts </h2>
+        <h3> Popular Posts </h3>
         {carouselArray}
       </div>
     )

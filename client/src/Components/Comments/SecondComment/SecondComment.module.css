@@ -1,0 +1,9 @@
+.BtnsWrapper {
+  position: relative;
+  float: left;
+  margin-bottom: 4px;
+}
+
+.SecondComments {
+  clear: both;
+}

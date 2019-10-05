@@ -1,6 +1,5 @@
-.CommentFooter {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
+.ReplyBtn {
+  position: relative;
+  float: right;
   margin-bottom: 4px;
 }
