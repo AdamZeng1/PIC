@@ -4,8 +4,8 @@ import axios from '../../../axios-pic';
 import classes from './Upload.module.css';
 import {withRouter} from 'react-router-dom';
 
-/** 
- * 
+/**
+ *
 */
 var qiniu = require('qiniu-js');
 var config = {
@@ -40,7 +40,7 @@ class UploadImage extends Component {
       },
       complete(res){
         axios(
-          { 
+          {
             method:"post",
             url: self.props.api,
             data:{
@@ -75,7 +75,7 @@ class UploadImage extends Component {
     const observable = qiniu.upload(file, file.uid, qiniuToken, putExtra, config)
     var subscription = observable.subscribe(observer)
   }
-  
+
   render() {
     const props = {
       beforeUpload: (file, fileList) => {

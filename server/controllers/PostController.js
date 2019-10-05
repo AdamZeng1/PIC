@@ -1,7 +1,27 @@
 const Post = require('../models/PostModel');
 const Comment = require('../models/CommentModel');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 class PostController {
+
+    async findByUserId(req, res) {
+        try {
+            const {per_page = 10, page = 0} = req.query;
+            const queryPage = Math.round(Math.max(page * 1, 1)) - 1;
+            const perPage = Math.round(Math.max(per_page * 1, 1));
+            console.log(req.params.userId);
+            const result = await Post.find({post_owner: new ObjectId(req.params.userId)})
+                .sort({created_at: -1})// sort created date descending
+                .populate('post_owner') // fetch owner's information from user's table
+                .limit(perPage)
+                .skip(queryPage * perPage);
+            if (result) return res.status(200).json(result);
+            else return res.status(404).json({post: "not found"});
+        } catch (e) {
+            return res.status(404).json({post: "not found"});
+        }
+    }
+
     async checkPostExist(req, res, next) {
         try {
             const post = await Post.findById(req.params.id);
@@ -82,8 +102,8 @@ class PostController {
                     from: 'comments',
                     let: {post_id: '$_id'},
                     pipeline: [
-                        { $match: {$expr: { $eq: ['$postId', '$$post_id']}}},
-                        { $sortByCount: '$postId'},
+                        {$match: {$expr: {$eq: ['$postId', '$$post_id']}}},
+                        {$sortByCount: '$postId'},
                     ],
                     as: 'numberOfComments'
                 }
@@ -96,12 +116,12 @@ class PostController {
                     as: 'post_owner',
                 }
             },
-            {$match: {numberOfComments:{$elemMatch:{$ne:null}}}},
+            {$match: {numberOfComments: {$elemMatch: {$ne: null}}}},
             {$sort: {'numberOfComments.count': -1}},
             {$limit: perPage},
             {$skip: queryPage * perPage}
         ]);
-        
+
         if (result) {
             console.log("IN");
             return res.status(200).json(result);
