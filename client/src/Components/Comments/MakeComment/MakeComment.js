@@ -52,16 +52,9 @@ class MakeComment extends Component {
           onCancel={this.handleCancel}
           footer={null}
         >
-          <CreateItem api={commentAPI}/>
+          <CreateItem api={commentAPI} close={this.handleCancel}/>
         </Modal>
       </Fragment>
-      // <Popover
-      //   content={content}
-      //   placement="right"
-      //   trigger="click"
-      // >
-      //   <Tag color="magenta">Reply</Tag>
-      // </Popover>
     )
   }
 }

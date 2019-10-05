@@ -44,7 +44,7 @@ class NewPost extends Component {
           onCancel={this.handleCancel}
           footer={null}
         > 
-          <Upload api={postAPI} />
+          <Upload api={postAPI} close={this.handleCancel}/>
           {/* <CreateItem api={postAPI}/> */}
         </Modal>
       </div>
