@@ -79,7 +79,7 @@ describe("test post module", () => {
         request(app).get("/post/threads/posts")
             .then((res) => {
                 const body = res.body;
-                expect(body).to.an.instanceof(Array);
+                expect(body).to.contain.property('success');
                 done();
             }).catch((err) => done(err));
     });
