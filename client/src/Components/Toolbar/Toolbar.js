@@ -5,6 +5,8 @@ import NewPost from '../NewPost/NewPost';
 import Logout from '../Logout/Logout';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
+import {Icon} from 'antd';
+import {Link} from 'react-router-dom';
 
 const toolbar = (props) => {
 
@@ -18,6 +20,11 @@ const toolbar = (props) => {
     const userUI = (
       <div className={classes.UserUI}>
         <div className={classes.LoggedIn}><NewPost /></div>
+        <div className={classes.LoggedIn}>
+          <Link to={"/user/" + localStorage.Username}>
+            <Icon type="user" style={{color: "dimgray"}} />
+          </Link>
+        </div>
         <div className={classes.LoggedIn}><Logout click={props.logout}/></div>
       </div>
     )

@@ -14,6 +14,7 @@ class NormalRegisterForm extends Component {
   }
 
   setModal2Visible(modal2Visible) {
+    this.props.form.resetFields();
     this.setState({ modal2Visible });
   }
 
@@ -26,7 +27,7 @@ class NormalRegisterForm extends Component {
         .then(res => {
           if(res.data.success){
             this.setModal2Visible(false)
-            alert(res.data.message);
+            message.success(res.data.message);
           }
         })
         .catch(err => {

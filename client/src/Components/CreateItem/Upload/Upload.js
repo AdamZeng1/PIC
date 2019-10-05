@@ -90,7 +90,9 @@ class UploadImage extends Component {
     console.log(this.props);
     return (
       <div>
-        <Dragger {...props}>
+        <Dragger 
+          accept=".jpg, .gif, .png, .jpeg"
+        {...props}>
           <p className="ant-upload-drag-icon">
             <Icon type="inbox" />
           </p>
