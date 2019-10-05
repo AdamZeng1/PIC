@@ -24,17 +24,16 @@ class NormalRegisterForm extends Component {
       if (!err) {
         axios.post('/user/register',values)
         .then(res => {
-          console.log(res);
           if(res.data.success){
             this.setModal2Visible(false)
             alert(res.data.message);
           }
         })
         .catch(err => {
-          console.error(err.response);
-          if(err.response === 409){
-            message.error("The email address has been used")
+          if(err.response){
+            message.error(err.response.data.error)
           }
+
         })
       }
     });
@@ -68,7 +67,10 @@ class NormalRegisterForm extends Component {
         </Form.Item>
         <Form.Item>
           {getFieldDecorator('password', {
-            rules: [{ required: true, message: 'Please input your Password!' }]
+            rules: [{ required: true, message: 'Please input your Password!' },
+            { pattern: /^.*(?=.{6,16})(?=.*\d)(?=.*[A-Z]{1,})(?=.*[a-z]{1,}).*$/, 
+              message: "The password must contain at least a uppercase letter, a lowercase letter and a number, and the length must be between 6 and 16."}
+          ]
           })(
             <Input
               prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}

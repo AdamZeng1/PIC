@@ -37,8 +37,8 @@ class NormalLoginForm extends Component {
           }
         })
         .catch(err => {
-          if(err.response.status === 401) {
-            message.error("Sorry, your username or password is incorrect")
+          if(err.response) {
+            message.error(err.response.data.message);
           }
         })
       }
