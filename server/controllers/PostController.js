@@ -122,10 +122,10 @@ class PostController {
             {$limit: perPage},
             {$skip: queryPage * perPage}
         ]);
+        const numberOfPosts = await Post.count();
 
         if (result) {
-            console.log("IN");
-            return res.status(200).json(result);
+            return res.status(200).json({success: true, numberOfPosts: numberOfPosts, result: result});
         } else {
             return res.status(400).json({status: "get thread posts fail"});
         }
