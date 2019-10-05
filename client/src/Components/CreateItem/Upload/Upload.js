@@ -3,8 +3,8 @@ import { Upload, Icon, message, Button } from 'antd';
 import axios from '../../../axios-pic';
 import classes from './Upload.module.css';
 
-/** 
- * 
+/**
+ *
 */
 var qiniu = require('qiniu-js');
 var config = {
@@ -42,7 +42,7 @@ class UploadImage extends Component {
         console.log('result', res);
         //替换程父组件传进来的方法
         axios(
-          { 
+          {
             method:"post",
             url: self.props.api,
             data:{
@@ -69,12 +69,12 @@ class UploadImage extends Component {
       }
     }
     const putExtra = {};
-    const result = await axios.get("http://localhost:9000/qiniu/token");
+    const result = await axios.get("/qiniu/token");
     const qiniuToken = result.data['qiniu-token'];
     const observable = qiniu.upload(file, file.uid, qiniuToken, putExtra, config)
     var subscription = observable.subscribe(observer)
   }
-  
+
   render() {
     const props = {
       beforeUpload: (file, fileList) => {
