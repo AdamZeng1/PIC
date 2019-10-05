@@ -131,11 +131,13 @@ class UserController {
                 });
                 result.is_admin = true;
                 result.token = 'Bearer ' + token;
+                result.userId = user._id;
             } else { // normal user
                 token = jwt.sign({name: user.name, id: user._id}, config.secret, {
                     expiresIn: 10080 // token expire date setting
                 });
                 result.token = 'Bearer ' + token;
+                result.userId = user._id;
             }
 
             user.token = token;
