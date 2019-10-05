@@ -58,7 +58,9 @@ class NormalRegisterForm extends Component {
       <Form onSubmit={this.handleSubmit} className="register-form">
         <Form.Item>
           {getFieldDecorator('username', {
-            rules: [{ required: true, message: 'Please input your username!' }],
+            rules: [{ required: true, message: 'Please input your username!' },
+            { max: 16, message: "The username shoulb less than 16 characters"},
+          ],
           })(
             <Input
               prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -70,7 +72,7 @@ class NormalRegisterForm extends Component {
           {getFieldDecorator('password', {
             rules: [{ required: true, message: 'Please input your Password!' },
             { pattern: /^.*(?=.{6,16})(?=.*\d)(?=.*[A-Z]{1,})(?=.*[a-z]{1,}).*$/, 
-              message: "The password must contain at least a uppercase letter, a lowercase letter and a number, and the length must be between 6 and 16."}
+              message: "The password must contain at least a uppercase letter, a lowercase letter and a number, and the length must be between 6 and 16 characters."}
           ]
           })(
             <Input
