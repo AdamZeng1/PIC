@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import { Form, Icon, Input, Button, Modal } from 'antd';
+import { Form, Icon, Input, Button, Modal, message } from 'antd';
 import axios from '../../axios-pic';
 import './Register.css';
 
@@ -31,7 +31,10 @@ class NormalRegisterForm extends Component {
           }
         })
         .catch(err => {
-          console.error(err);
+          console.error(err.response);
+          if(err.response === 409){
+            message.error("The email address has been used")
+          }
         })
       }
     });

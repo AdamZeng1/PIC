@@ -36,7 +36,7 @@ class PopularPost extends Component {
     }
     return(
       <div className={classes.PopularPost}>
-        <h2> Popular Posts </h2>
+        <h3> Popular Posts </h3>
         {carouselArray}
       </div>
     )

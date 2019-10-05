@@ -34,7 +34,7 @@ const postItem = (props) => {
     <div className={classes.Header}>
         <UserAvatar type="postHeader" name={post_owner}/>
         <p>{moment(post.created_at).fromNow()}</p>
-        <p>{" " + numberOfComments + " comments"}</p>
+        {numberOfComments ? <p>{" " + numberOfComments + " comments"}</p> : null}
     </div>);
   const Image = <img
                   src={post.image_url[0]}
