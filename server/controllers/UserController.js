@@ -8,9 +8,13 @@ const Post = require('../models/PostModel');
 
 class UserController {
     async checkUserExist(req, res, next) {
-        const user = User.find({_id: req.params.id});
-        if (user) next();
-        else return res.states(404).json({user: "not found"});
+        try {
+            const user = User.find({_id: req.params.id});
+            if (user) next();
+            else return res.states(404).json({user: "not found"});
+        } catch (e) {
+            return res.status(404).json({user: "not found"});
+        }
     }
 
     async find(req, res, next) {

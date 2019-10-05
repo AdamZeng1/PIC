@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import classes from './PopularPost.module.css';
 import PostCard from '../../PostCard/PostCard';
 import axios from '../../../axios-pic';
-import {Carousel} from 'antd/lib/index';
+import {Carousel} from 'antd';
 
 class PopularPost extends Component {
   state = {
