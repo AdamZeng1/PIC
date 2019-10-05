@@ -39,12 +39,13 @@ class PostController {
             const perPage = Math.round(Math.max(req.query.per_page * 1, 1));
             /** 1. post needs to be sorted by datetime
              *  2. join user table and post table using post_owner populate() */
-            const posts = await Post.find({title: new RegExp(req.query.title)})
+            let posts = await Post.find({title: new RegExp(req.query.title)})
                 .sort({created_at: -1})// sort created date descending
                 .populate('post_owner') // fetch owner's information from user's table
                 .limit(perPage)
                 .skip(page * perPage);
-            return res.status(200).json({success: true, posts: posts});
+            const numberOfPosts = await Post.count();
+            return res.status(200).json({success: true, numberOfPosts: numberOfPosts, posts: posts});
         } catch (e) {
             next(e);
         }
