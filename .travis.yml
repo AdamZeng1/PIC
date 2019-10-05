@@ -4,8 +4,8 @@ services:
 
 before_install:
   - docker build -t zengweihan/server-test -f ./server/Dockerfile.dev ./server
-  - docker run -d mongo
-  - docker run -d --name db1 mongo
+  - docker run -d mongo:4.0
+  - docker run -d --name db1 mongo:4.0
   - docker run -d redis
   - docker run -d --name db2 redis
 script:
