@@ -13,7 +13,7 @@ class PopularPost extends Component {
     axios.get("/post/threads/posts?page=1&per_page=5")
       .then( res => {
         console.log(res);
-        this.setState({posts: res.data});
+        this.setState({posts: res.data.result});
       })
       .catch( err => console.log(err.response))
   }

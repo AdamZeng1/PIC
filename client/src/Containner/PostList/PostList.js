@@ -24,7 +24,7 @@ class PostList extends Component {
           this.setState({posts: res.data.posts, total: res.data.numberOfPosts, loading: false})
         }
         if(this.props.type === 'popular'){
-          this.setState({posts: res.data, loading:false})
+          this.setState({posts: res.data.result, total: res.data.numberOfPosts, loading:false})
         }
       })
       .catch(err => console.log(err));

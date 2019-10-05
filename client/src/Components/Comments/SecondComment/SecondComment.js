@@ -8,9 +8,11 @@ class SecondComment extends Component {
   state = {
     secondaryComments: null,
     commentsShowed: false,
+    currentID: null,
   }
   renderSecondaryComments = commentID => {
-    axios.get("/posts/" + this.props.postID + "/comments/" + commentID + "/comments/")
+    if(commentID !== this.state.currentID){
+      axios.get("/posts/" + this.props.postID + "/comments/" + commentID + "/comments/")
       .then(res => {
         console.log(res)
         this.setState({
@@ -22,6 +24,9 @@ class SecondComment extends Component {
       .catch(err => {
         console.log(err.response)
       })
+    }else{
+      this.setState({commentsShowed: true})
+    }
   }
 
   hideSecondaryComments = () => {
