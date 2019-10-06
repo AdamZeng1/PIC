@@ -27,6 +27,10 @@ const comment = props => {
     })
   }
   let updateBtn = null;
+  let firstLevelCommentID = null;
+  if(props.commentData.commentId._id) {
+    firstLevelCommentID = props.commentData.commentId._id;
+  }
   if (props.extra && commentator._id === localStorage.UserID) {
     updateBtn = (
       <div>
@@ -37,7 +41,7 @@ const comment = props => {
           level={props.level} 
           postID={postId._id} 
           commentID={_id} 
-          firstLevelCommentID={props.commentData.commentId._id}/>
+          firstLevelCommentID={firstLevelCommentID}/>
       </div>)
   }
   return (
