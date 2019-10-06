@@ -48,6 +48,11 @@ const comment = props => {
       {updateBtn}
     </div>)
   }
+  if (props.extra && commentator._id !== localStorage.UserID) {
+    extraBtn =  <Button type="link" size="small" onClick={()=>props.clicked(postId)}>
+                  View Post
+                </Button>
+  }
   return (
     <Card 
       title={title}
