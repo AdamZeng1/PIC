@@ -7,7 +7,8 @@ const {
     create,
     update,
     findThreadPostByCommentsNumber,
-    findByUserId
+    findByUserId,
+    del
 } = require('../controllers/PostController');
 const {checkUserExist} = require('../controllers/UserController');
 const {authUser} = require('../middleware/authUser');
@@ -18,5 +19,6 @@ router.post('/', authUser, create);
 router.get('/threads/posts', findThreadPostByCommentsNumber);
 router.get('/:id', checkPostExist, findById);
 router.patch('/:id', authUser, checkPostExist, update); // normal user can update own information
+router.delete('/:id',authUser,checkPostExist,del);
 
 module.exports = router;
