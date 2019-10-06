@@ -5,7 +5,9 @@ import classes from './Upload.module.css';
 import {withRouter} from 'react-router-dom';
 
 /**
- *
+ * The code of the qiniu part is learned from qiniu document
+ * Qiniu Website: https://www.qiniu.com/en
+ * Qiniu API: https://developer.qiniu.com/kodo/sdk/1283/javascript
 */
 var qiniu = require('qiniu-js');
 var config = {
@@ -18,6 +20,7 @@ class UploadImage extends Component {
   state = {
     file: null,
     uploading: false,
+    percent: null,
   };
 
   deleteFileHandler = () => {
@@ -29,6 +32,7 @@ class UploadImage extends Component {
     if (this.props.method) {
       method = this.props.method;
     }
+    let postID = null;
     const file = this.state.file;
     const self = this;
     this.setState({
@@ -36,52 +40,74 @@ class UploadImage extends Component {
     });
     const observer = {
       next(res){
-        // ...
+        // console.log(res.total.percent)
+        // self.setState({percent: res.total.percent});
       },
       error(err){
-        // ...
-        console.log(err);
-      },
-      complete(res){
+        console.log(err.message);
         axios(
           {
-            method: method,
-            url: self.props.api,
+            method: "delete",
+            url: "/post/" + postID,
             data:{
-              "title": res.key,
-              "image_url": "http://pxp3tborn.sabkt.gdipper.com/" + res.key,
+              "title": file.uid,
+              "image_url": "http://pxp3tborn.sabkt.gdipper.com/" + file.uid,
               "topic": "test default",
               "type": "image",
             },
             headers: {"Authorization": "Bearer " + localStorage.Token},
           }
-        )
-          .then( res => {
-            self.setState({
-              file: null,
-              uploading: false,
-            })
-            message.success('upload successfully.');
-            self.props.close();
-            setTimeout( () => self.props.history.go(0), 1000);
-          })
-          .catch( err => {
-            console.log(err.response);
-            if (err.response.data.name === "JsonWebTokenError"){
-              message.error("Invalid Token, Please Re-Login")
-            }
-            if ( err.response.data.name ==="TokenExpiredError"){
-              message.error("Token expired, Please Re-Login")
-            }
-            self.setState({uploading: false})
-          })
+        ).then( res => {
+          // console.log(res);
+          message.error("Upload Failed. Please try again.")
+          self.setState({uploading: false})
+        }).catch( err => {
+          console.log(err.response)
+        })
+      },
+      complete(res){
+        // console.log(res);
+        self.setState({
+          file: null,
+          uploading: false,
+        })
+        message.success('upload successfully.');
+        self.props.close();
+        setTimeout( () => self.props.history.go(0), 1000);
       }
     }
     const putExtra = {};
     const result = await axios.get("/qiniu/token");
     const qiniuToken = result.data['qiniu-token'];
-    const observable = qiniu.upload(file, file.uid, qiniuToken, putExtra, config)
-    var subscription = observable.subscribe(observer)
+    const observable = qiniu.upload(file, file.uid, qiniuToken, putExtra, config)    
+    axios(
+      {
+        method: method,
+        url: this.props.api,
+        data:{
+          "title": file.uid,
+          "image_url": "http://pxp3tborn.sabkt.gdipper.com/" + file.uid,
+          "topic": "test default",
+          "type": "image",
+        },
+        headers: {"Authorization": "Bearer " + localStorage.Token},
+      }
+    )
+      .then( res => {
+        console.log(res);
+        postID = res.data._id;
+        var subscription = observable.subscribe(observer)
+      })
+      .catch( err => {
+        console.log(err.response);
+        if (err.response.data.name === "JsonWebTokenError"){
+          message.error("Invalid Token, Please Re-Login")
+        }
+        if ( err.response.data.name ==="TokenExpiredError"){
+          message.error("Token expired, Please Re-Login")
+        }
+        this.setState({uploading: false})
+      })
   }
 
   render() {
@@ -100,7 +126,6 @@ class UploadImage extends Component {
       },
       showUploadList: false,
     };
-    console.log(this.props);
     return (
       <div>
         <Dragger 
@@ -112,6 +137,7 @@ class UploadImage extends Component {
           <p className="ant-upload-text">Click or drag file to this area to upload</p>
         </Dragger>
         <p>{this.state.file ? this.state.file.name : null}</p>
+        {/* <p>{this.state.percent ? this.state.percent + "%" : null}</p> */}
         <div className={classes.UploadBtns}>
           <Button type="danger" onClick={this.deleteFileHandler} >Clear</Button>
           <Button

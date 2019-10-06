@@ -15,6 +15,13 @@ class UserPage extends Component {
     secondaryComments: null,
     // activeKey: null
   }
+  componentDidUpdate(prevProps, preState) {
+    if(prevProps.location.state.id !== this.props.location.state.id){
+      this.setState({ posts: null,
+                      comments: null,
+                      secondaryComments: null,})
+    }
+  }
   collapseOnChangeHandler = (key) => {
     console.log(key);
     // this.setState({activeKey: key})
@@ -39,7 +46,6 @@ class UserPage extends Component {
         })
     }
   }
-  
   postClickHandler = (postData) => {
     let path = {
       pathname: '/post/' + postData._id,
