@@ -114,10 +114,16 @@ class UploadImage extends Component {
     const props = {
       beforeUpload: (file, fileList) => {
         const isLt500KB = file.size / 1024 < 500 ;
-        if (isLt500KB) {
+        const isRightType = file.type === 'image/jpeg' || file.type === 'image/png' 
+                            || file.type === 'image/jpg' || file.type === 'image/gif'; 
+        if (isLt500KB && isRightType) {
           this.setState({ file: file });
-        }else{
+        }
+        if (!isLt500KB){
           message.error("Image must smaller than 500KB!")
+        }
+        if (!isRightType){
+          message.error("You can only upload JPG/PNG/JPEG/GIF file")
         }
         if(fileList.length > 0){
           fileList.splice(0, 1, file)

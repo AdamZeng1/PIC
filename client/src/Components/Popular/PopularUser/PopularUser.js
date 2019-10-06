@@ -28,7 +28,8 @@ class PopularUser extends Component {
       renderItem={item => {
         return(
         <List.Item >
-          <Link to={{pathname:"/user/"+item.user[0].name, state:{id: item.user[0]._id}}}>
+          <Link to={{pathname:"/user/"+item.user[0].name, 
+                     state:{id: item.user[0]._id, name: item.user[0].name}}}>
           <List.Item.Meta 
             avatar={<Avatar icon="user" style={{ backgroundColor: 'mediumseagreen' }}/>}
             title={item.user[0].name}

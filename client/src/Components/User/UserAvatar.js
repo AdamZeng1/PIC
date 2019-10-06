@@ -9,7 +9,7 @@ const userAvatar = (props) => {
   if(props.type === "postHeader"){
     return (
       <Link to={{pathname:"/user/"+ props.owner.name, 
-                 state:{id: props.owner._id}}}>
+                 state:{id: props.owner._id, name: props.owner.name}}}>
         <div className={classes.PostHeader}>
           <Avatar icon="user" style={{ backgroundColor: 'mediumseagreen' }}/>
           <h3>{props.owner.name}</h3>
@@ -28,7 +28,7 @@ const userAvatar = (props) => {
   if(localStorage.Username){
     return (
       <Link to={{pathname:"/user/"+ localStorage.Username, 
-                state:{id: localStorage.UserID}}}>
+                state:{id: localStorage.UserID, name: localStorage.Username}}}>
         <div className={classes.UserAvatar}>    
           <Avatar size='large' icon="user" style={{ backgroundColor: 'mediumseagreen' }}/>
           <h2>{username}</h2>       

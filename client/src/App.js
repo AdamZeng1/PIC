@@ -3,11 +3,10 @@ import mainPage from './Containner/MainPage/MainPage';
 import './App.css';
 import {Route, Switch} from 'react-router-dom';
 import Layout from './Containner/Layout/Layout';
-import NotFoundPage from './NotFoundPage';
 import {Spin} from 'antd';
 
 const PostPage = lazy( () => import('./Containner/PostPage/PostPage'));
-// const NotFoundPage = lazy( () => import('./Containner/MainPage/MainPage'));
+const NotFoundPage = lazy( () => import('./NotFoundPage'));
 const PopularPage = lazy( () => import('./Containner/PopularPage/PopularPage'));
 const UserPage = lazy( () => import('./Components/User/UserPage/UserPage'));
 
@@ -18,11 +17,13 @@ function App() {
       <Switch>
         <Route path='/' component={mainPage} exact/>
         <Suspense fallback={<Spin size='large' />}>
-          <Route path='/popular' component={PopularPage} />
-          <Route path='/user/:username' component={UserPage} />
-          <Route path='/post/:postid' component={PostPage}/>
+          <Switch>
+            <Route path='/popular' exact component={PopularPage} />
+            <Route path='/user/:username' component={UserPage} />
+            <Route path='/post/:postid' component={PostPage}/>
+            <Route path='*' component={NotFoundPage}/>
+          </Switch>
         </Suspense>
-        <Route path='*' component={NotFoundPage}/>
       </Switch>
     </Layout>
   );
