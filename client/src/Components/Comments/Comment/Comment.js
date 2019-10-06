@@ -1,8 +1,9 @@
 import React from 'react';
-import {Comment, Avatar, Card} from 'antd';
+import {Button, Card} from 'antd';
 import classes from './Comment.module.css';
 import {withRouter} from 'react-router-dom';
 import UserAvatar from '../../User/UserAvatar';
+import UpdateComment from '../../Update/UpdateComment/UpdateComment';
 
 var moment = require('moment');
 
@@ -13,11 +14,11 @@ const Styles = {
 }
 
 const comment = props => {
-  const {commentator, type, image_url, emoji, updateAt} = props.commentData;
-  const title = <UserAvatar name={commentator.name} type="postHeader"/>
+  const {commentator, type, image_url, emoji, updateAt, postId, _id} = props.commentData;
+  const title = <UserAvatar owner={commentator} type="postHeader"/>
   let content = null;
   if (type === "image"){
-    content =  <img src={image_url} className={classes.CommentImage}/>
+    content =  <img src={image_url} className={classes.CommentImage} />
 
   }
   if (type === "emoji"){
@@ -25,19 +26,29 @@ const comment = props => {
       return emo.native
     })
   }
+  let updateBtn = null;
+  if (props.extra && commentator._id === localStorage.UserID) {
+    updateBtn = (
+      <div>
+        <Button type="link" size="small" onClick={()=>props.clicked(postId)}>
+          View Post
+        </Button>
+        <UpdateComment 
+          level={props.level} 
+          postID={postId._id} 
+          commentID={_id} 
+          firstLevelCommentID={props.commentData.commentId._id}/>
+      </div>)
+  }
   return (
-    // <Comment
-    //       key={_id}
-    //       author={commentator.name}
-    //       avatar={<Avatar>{commentator.name}</Avatar>} 
-    //       content={<img src={image_url} className={classes.CommentImage}/>}
-    //       datatime={<span>Add "moment" here</span>}/>
     <Card 
       title={title}
       style={Styles.cardStyle}
+      extra={updateBtn}
     >
       {content}
       <p>{"Last Update: " + moment(updateAt).format("YYYY-MM-DD hh:mm:ss")}</p>
+
       {props.children}
     </Card>
   )

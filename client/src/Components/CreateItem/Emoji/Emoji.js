@@ -27,10 +27,14 @@ class Emoji extends Component {
   }
 
   sendPostHandler = () => {
+    let method = "post";
+    if (this.props.method) {
+      method = this.props.method;
+    }
     const api = this.props.api
     const emojiList = this.state.emojiList
     axios({
-      method: "post",
+      method: method,
       url: api,
       data: {
               type: "emoji",

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import axios from '../../../axios-pic';
 import { List, Spin, Avatar} from 'antd';
 import classes from './PopularUser.module.css';
+import {Link} from 'react-router-dom';
 
 class PopularUser extends Component {
   state = {
@@ -26,11 +27,13 @@ class PopularUser extends Component {
       dataSource={this.state.userData}
       renderItem={item => {
         return(
-        <List.Item>
+        <List.Item >
+          <Link to={{pathname:"/user/"+item.user[0].name, state:{id: item.user[0]._id}}}>
           <List.Item.Meta 
             avatar={<Avatar icon="user" style={{ backgroundColor: 'mediumseagreen' }}/>}
             title={item.user[0].name}
             description={item.numberOfPosts + " posts"}/>
+          </Link>
         </List.Item>)
       }} />
     }

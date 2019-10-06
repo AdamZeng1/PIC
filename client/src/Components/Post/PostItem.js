@@ -27,18 +27,18 @@ const postItem = (props) => {
   let post_owner = null;
   let updateBtn = null;
   if(props.type === 'mainpage'){
-    post_owner = post.post_owner.name;
+    post_owner = post.post_owner;
   }
   if(props.type === "popular"){
     numberOfComments = post.numberOfComments[0].count;
-    post_owner = post.post_owner[0].name;
+    post_owner = post.post_owner[0];
   }
   if(props.extra && post.post_owner._id === localStorage.UserID) {
     updateBtn = <UpdatePost postID={post._id}/>
   }
   const header = (
     <div className={classes.Header}>
-        <UserAvatar type="postHeader" name={post_owner}/>
+        <UserAvatar type="postHeader" owner={post_owner}/>
         <p>{moment(post.created_at).fromNow()}</p>
         {numberOfComments ? <p>{" " + numberOfComments + " comments"}</p> : null}
     </div>);

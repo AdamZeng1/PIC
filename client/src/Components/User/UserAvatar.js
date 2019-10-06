@@ -4,21 +4,34 @@ import classes from './UserAvatar.module.css';
 import {Link} from 'react-router-dom';
 
 const userAvatar = (props) => {
+  const username = localStorage.Username;
+  // console.log(props.owner);
   if(props.type === "postHeader"){
     return (
-      <div className={classes.PostHeader}>
-        <Avatar icon="user" style={{ backgroundColor: 'mediumseagreen' }}/>
-        <h3>{props.name}</h3>
+      <Link to={{pathname:"/user/"+ props.owner.name, 
+                 state:{id: props.owner._id}}}>
+        <div className={classes.PostHeader}>
+          <Avatar icon="user" style={{ backgroundColor: 'mediumseagreen' }}/>
+          <h3>{props.owner.name}</h3>
+        </div>
+      </Link>
+    )
+  }
+  if (props.type === "userpage"){
+    return (
+      <div className={classes.UserAvatarLarge}>    
+        <Avatar size={64} icon="user" style={{ backgroundColor: 'mediumseagreen' }}/>
+        <h1>{props.owner.name}</h1>       
       </div>
     )
   }
   if(localStorage.Username){
-    const username = localStorage.Username;
     return (
-      <Link to={"/user/" + localStorage.Username}>
+      <Link to={{pathname:"/user/"+ localStorage.Username, 
+                state:{id: localStorage.UserID}}}>
         <div className={classes.UserAvatar}>    
-            <Avatar size='large' icon="user" style={{ backgroundColor: 'mediumseagreen' }}/>
-            <h2>{username}</h2>       
+          <Avatar size='large' icon="user" style={{ backgroundColor: 'mediumseagreen' }}/>
+          <h2>{username}</h2>       
         </div>
       </Link>
     )

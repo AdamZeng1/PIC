@@ -19,3 +19,15 @@
 .PostHeader h3 {
   margin: auto 16px;
 }
+
+.UserAvatarLarge {
+  width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 16px auto;
+}
+
+.UserAvatarLarge h1 {
+  margin: auto 16px;
+}

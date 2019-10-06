@@ -24,7 +24,7 @@ class CustomizedLayout extends Component{
     localStorage.removeItem("Token");
     localStorage.removeItem("Username")
     localStorage.removeItem("UserID")
-    console.log("storage CLEAR!");
+    // console.log("storage CLEAR!");
     this.setState({login:false});
     this.props.history.go(0);
   }

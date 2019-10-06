@@ -20,7 +20,7 @@ class Comments extends Component {
     const query = '?page=' + this.state.page + '&per_page=' + this.state.per_page;
     axios.get(api + query)
       .then( res => {
-        console.log(res.data);
+        // console.log(res.data);
         this.setState({comments: res.data.comments})
         if(res.data.comments.length === this.state.per_page){
           this.setState({showMoreBtn: true})
@@ -80,7 +80,7 @@ class Comments extends Component {
         <Button
           onClick={this.rederMoreComments}
           className={classes.MoreBtn}>
-          More
+          View More
         </Button> : null}
       </div>
       

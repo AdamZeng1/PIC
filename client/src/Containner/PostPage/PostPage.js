@@ -35,7 +35,7 @@ class PostPage extends Component {
         <div className={classes.PostpageWrapper}>
           <Card
             style={{marginBottom: "16px"}}
-            title={<UserAvatar type="postHeader" name={postData.post_owner.name}/>}>
+            title={<UserAvatar type="postHeader" owner={postData.post_owner}/>}>
             <img alt="post" src={postData.image_url[0]} className={classes.PostImage}/>
             <div className={classes.PostFooter}>
               <p>{"Last Update: " + moment(postData.updateAt).format("YYYY-MM-DD hh:mm:ss")}</p>

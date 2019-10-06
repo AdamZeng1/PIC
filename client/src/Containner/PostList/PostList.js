@@ -19,7 +19,7 @@ class PostList extends Component {
     const query = '?page=' + this.state.page + '&per_page=' + this.state.per_page;
     axios.get(this.props.api+query)
       .then(res => {
-        console.log(res);
+        // console.log(res);
         if(this.props.type === 'mainpage'){
           this.setState({posts: res.data.posts, total: res.data.numberOfPosts, loading: false})
         }

@@ -34,7 +34,7 @@ class UpdatePost extends Component {
         </Button>
         <Modal
           centered
-          title="Update the post by uploading a new image"
+          title="Edit Post"
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}

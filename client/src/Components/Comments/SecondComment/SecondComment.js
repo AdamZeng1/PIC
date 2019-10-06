@@ -14,7 +14,7 @@ class SecondComment extends Component {
     if(commentID !== this.state.currentID){
       axios.get("/posts/" + this.props.postID + "/comments/" + commentID + "/comments/")
       .then(res => {
-        console.log(res)
+        // console.log(res)
         this.setState({
           currentID: commentID,
           secondaryComments: res.data.secondComments,

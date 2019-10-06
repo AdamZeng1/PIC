@@ -12,7 +12,7 @@ class PopularPost extends Component {
   UNSAFE_componentWillMount(){
     axios.get("/post/threads/posts?page=1&per_page=5")
       .then( res => {
-        console.log(res);
+        // console.log(res);
         this.setState({posts: res.data.result});
       })
       .catch( err => console.log(err.response))
