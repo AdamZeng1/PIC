@@ -26,29 +26,33 @@ const comment = props => {
       return emo.native
     })
   }
-  let updateBtn = null;
-  let firstLevelCommentID = null;
-  if(props.commentData.commentId._id) {
-    firstLevelCommentID = props.commentData.commentId._id;
-  }
-  if (props.extra && commentator._id === localStorage.UserID) {
-    updateBtn = (
-      <div>
-        <Button type="link" size="small" onClick={()=>props.clicked(postId)}>
-          View Post
-        </Button>
-        <UpdateComment 
+  let updateBtn = <UpdateComment 
+                    level={props.level} 
+                    postID={postId._id} 
+                    commentID={_id} />;
+  if (props.level === "second") {
+    updateBtn = <UpdateComment 
           level={props.level} 
           postID={postId._id} 
           commentID={_id} 
-          firstLevelCommentID={firstLevelCommentID}/>
-      </div>)
+          firstLevelCommentID={props.commentData.commentId._id}/>
+      
+  }
+  let extraBtn = null; 
+  if (props.extra && commentator._id === localStorage.UserID) {
+    extraBtn = (
+      <div>
+      <Button type="link" size="small" onClick={()=>props.clicked(postId)}>
+        View Post
+      </Button>
+      {updateBtn}
+    </div>)
   }
   return (
     <Card 
       title={title}
       style={Styles.cardStyle}
-      extra={updateBtn}
+      extra={extraBtn}
     >
       {content}
       <p>{"Last Update: " + moment(updateAt).format("YYYY-MM-DD hh:mm:ss")}</p>
