@@ -4,6 +4,11 @@ const ObjectId = require('mongoose').Types.ObjectId;
 
 class PostController {
 
+    async del(req, res) {
+        await Post.findByIdAndRemove(req.params.id);
+        return res.status(204).json({success: `remove ${req.params.id} successfully`});
+    }
+
     async findByUserId(req, res) {
         try {
             const {per_page = 10, page = 0} = req.query;
