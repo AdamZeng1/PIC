@@ -67,7 +67,12 @@ class UploadImage extends Component {
           })
           .catch( err => {
             console.log(err.response);
-            message.error(err.response)
+            if (err.response.data.name === "JsonWebTokenError"){
+              message.error("Invalid Token, Please Re-Login")
+            }
+            if ( err.response.data.name ==="TokenExpiredError"){
+              message.error("Token expired, Please Re-Login")
+            }
             self.setState({uploading: false})
           })
       }
@@ -108,7 +113,7 @@ class UploadImage extends Component {
         </Dragger>
         <p>{this.state.file ? this.state.file.name : null}</p>
         <div className={classes.UploadBtns}>
-          <Button type="danger" >Clear</Button>
+          <Button type="danger" onClick={this.deleteFileHandler} >Clear</Button>
           <Button
             type="primary"
             onClick={this.handleUpload}
