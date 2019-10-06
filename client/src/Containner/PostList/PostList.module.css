@@ -4,6 +4,7 @@
   max-width: 614px;
   position: relative;
   float: right;
+  margin-left: 32px;
 }
 
 .Pagination {

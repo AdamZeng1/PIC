@@ -10,15 +10,45 @@ import SecondComment from './SecondComment/SecondComment';
 class Comments extends Component {
   state = {
     comments: null,
+    page: 1,
+    per_page: 10,
+    showMoreBtn: false,
   }
 
   UNSAFE_componentWillMount(){
-    axios.get("/posts/" + this.props.postID + "/comments/")
+    const api = "/posts/" + this.props.postID + "/comments/";
+    const query = '?page=' + this.state.page + '&per_page=' + this.state.per_page;
+    axios.get(api + query)
       .then( res => {
         console.log(res.data);
         this.setState({comments: res.data.comments})
+        if(res.data.comments.length === this.state.per_page){
+          this.setState({showMoreBtn: true})
+        }
       })
       .catch(err => console.log(err))
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    if (prevState.page !== this.state.page){
+      const api = "/posts/" + this.props.postID + "/comments/";
+      const query = '?page=' + this.state.page + '&per_page=' + this.state.per_page;
+    axios.get(api+query)
+      .then(res => {
+        console.log(res);
+        const newComments = [...prevState.comments].concat(res.data.comments);
+        this.setState({comments: newComments});
+        if (res.data.comments.length < this.state.per_page) {
+          this.setState({showMoreBtn: false})
+        }
+      })
+      .catch(err => console.log(err.response));
+    }
+  }
+
+  rederMoreComments = () => {
+    const newPage = this.state.page + 1;
+    this.setState({page: newPage});
   }
 
   render(){
@@ -44,8 +74,14 @@ class Comments extends Component {
     }
 
     return(
-      <div>
+      <div className={classes.CommentsWrapper}>
         {comments}
+        {this.state.showMoreBtn ? 
+        <Button
+          onClick={this.rederMoreComments}
+          className={classes.MoreBtn}>
+          More
+        </Button> : null}
       </div>
       
     )

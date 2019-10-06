@@ -3,3 +3,13 @@
   float: right;
   margin-bottom: 4px;
 }
+
+.MoreBtn {
+  width: 70%;
+  margin: auto;
+}
+
+.CommentsWrapper {
+  display: flex;
+  flex-direction: column;
+}

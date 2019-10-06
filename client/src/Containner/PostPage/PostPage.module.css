@@ -3,6 +3,7 @@
   flex-flow: column;
   align-items: center;
   max-width: 614px;
+  margin-bottom: 16px;
 }
 
 .PostpageWrapper hr {

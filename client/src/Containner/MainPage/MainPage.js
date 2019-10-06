@@ -9,10 +9,10 @@ import PopularUser from '../../Components/Popular/PopularUser/PopularUser';
 const mainPage = (props) => {
   return(
     <Row gutter={32} className={classes.MainPageWrapper}>
-      <Col span={14} >
+      <Col xs={24} sm={24} md={24} lg={14} >
         <PostList type="mainpage" api='/post'/>
       </Col>
-      <Col span={10} className={classes.TrendWrapper}>
+      <Col xs={0} lg={10} className={classes.TrendWrapper}>
         <UserAvatar />
         <PopularPost />
         <PopularUser />

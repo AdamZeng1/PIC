@@ -3,18 +3,13 @@
   padding: 0;
   list-style: none;
   display: flex;
-  flex-flow: column;
+  flex-direction: row;
   align-items: center;
   height: 100%;
   white-space:nowrap;
 }
 
-@media (min-width: 576px) {
-  .Wrapper {
-    flex-flow: row;
-    justify-content: space-between;
-  }
-  .NavigationItems{
-    flex-flow: row;
-  }
+.Wrapper {
+  flex-flow: row;
+  justify-content: space-between;
 }
