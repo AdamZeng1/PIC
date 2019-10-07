@@ -59,7 +59,7 @@ class NormalRegisterForm extends Component {
         <Form.Item>
           {getFieldDecorator('username', {
             rules: [{ required: true, message: 'Please input your username!' },
-            { max: 16, message: "The username shoulb less than 16 characters"},
+            { pattern: /^[a-zA-Z0-9_-]{4,16}$/, message: "The username length should between 4 and 16 characters and can only contain letter, number, _ and -"}
           ],
           })(
             <Input
@@ -72,7 +72,7 @@ class NormalRegisterForm extends Component {
           {getFieldDecorator('password', {
             rules: [{ required: true, message: 'Please input your Password!' },
             { pattern: /^.*(?=.{6,16})(?=.*\d)(?=.*[A-Z]{1,})(?=.*[a-z]{1,}).*$/, 
-              message: "The password must contain at least a uppercase letter, a lowercase letter and a number, and the length must be between 6 and 16 characters."}
+              message: "The password should contain at least a uppercase letter, a lowercase letter and a number, and the length should between 6 and 16 characters."}
           ]
           })(
             <Input

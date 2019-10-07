@@ -5,6 +5,7 @@ import PostItem from '../../Post/PostItem';
 import classes from './UserPage.module.css';
 import UserAvatar from '../UserAvatar';
 import Comment from '../../Comments/Comment/Comment';
+import {withRouter} from 'react-router-dom';
 
 const {Panel} = Collapse;
 
@@ -13,7 +14,20 @@ class UserPage extends Component {
     posts: null,
     comments: null,
     secondaryComments: null,
-    // activeKey: null
+  }
+  
+  UNSAFE_componentWillMount() {
+    if (!this.props.location.state) {
+      this.props.history.push("/notFound");
+    }
+  }
+  
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.location.state.id !== this.props.location.state.id){
+      this.setState({ posts: null,
+                      comments: null,
+                      secondaryComments: null,})
+    }
   }
   collapseOnChangeHandler = (key) => {
     console.log(key);
@@ -29,7 +43,7 @@ class UserPage extends Component {
     }
   }
   getDataHandler = ( api, dataType) => {
-    if ( !this.state[dataType]) {
+    if ( !this.state[dataType] && this.props.location.state.id) {
       axios.get( api + this.props.location.state.id)
         .then( res => {
           console.log(res);
@@ -39,7 +53,6 @@ class UserPage extends Component {
         })
     }
   }
-  
   postClickHandler = (postData) => {
     let path = {
       pathname: '/post/' + postData._id,
@@ -91,9 +104,13 @@ class UserPage extends Component {
         )
       })
     }
+    let username = null;
+    if (this.props.location.state){
+      username = this.props.location.state.name;
+    }
     return (
       <div className={classes.UserPageWrapper} >
-        <UserAvatar type="userpage" owner={{name: this.props.match.params.username}}/>
+        <UserAvatar type="userpage" owner={{name: username}}/>
         <Collapse 
           // activeKey={this.state.activeKey}
           accordion
@@ -122,4 +139,4 @@ class UserPage extends Component {
   }
 }
 
-export default UserPage;
+export default withRouter(UserPage);
