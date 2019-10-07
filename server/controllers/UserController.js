@@ -126,6 +126,11 @@ class UserController {
 
             if (!user) return res.status(404).send({success: false, message: 'Error, the user name is inexistent'});
 
+            if (!user.is_active) return res.status(404).send({
+                success: false,
+                message: 'Error, the user account is not active'
+            });
+
             const isMatch = await bcrypt.compare(password, user.password);
 
             if (!isMatch) return res.status(401).send({success: false, message: 'Error, the password is incorrect!'});

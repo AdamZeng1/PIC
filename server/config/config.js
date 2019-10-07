@@ -10,7 +10,7 @@ module.exports = {
     // 设定邮件的标题
     'email_subject': 'Verification Email',
     // 设定sendGrid服务的apikey
-    'apiKey': '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',
+    'apiKey': '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',
 
     // MongoDB的地址
     'mongo_host': process.env.MONGO_HOST || process.env.DB1_PORT_27017_TCP_ADDR || 'localhost',
@@ -26,8 +26,9 @@ module.exports = {
     'port': process.env.PORT || 5000,
 
     // 邮箱验证成功之后的重定向地址
-    'redirectUrl': 'http://'+process.env.APP_HOST+":"+process.env.APP_PORT+"/api/validateSuccessful.html",
+    'redirectUrl': 'http://' + process.env.APP_HOST + ":" + process.env.APP_PORT + "/api/validateSuccessful.html",
 
     // 网站路径
-    'url': 'http://'+process.env.APP_HOST+":"+process.env.APP_PORT+"/api"
+    'url': 'http://' + process.env.APP_HOST + ":" + process.env.APP_PORT + "/api",
+    // 'url': 'http://localhost:9000'
 };

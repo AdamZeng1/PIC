@@ -13,12 +13,25 @@ const {
 const {checkUserExist} = require('../controllers/UserController');
 const {authUser} = require('../middleware/authUser');
 
+const validate = require('../middleware/validator');
+const {body} = require('express-validator');
+
 router.get('/user/:userId', checkUserExist, findByUserId);
 router.get('/', find);
-router.post('/', authUser, create);
+router.post('/', validate([
+    body("title")
+        .exists(),
+    body("image_url")
+        .exists(),
+    body("type")
+        .exists(),
+]),authUser, create);
 router.get('/threads/posts', findThreadPostByCommentsNumber);
 router.get('/:id', checkPostExist, findById);
-router.patch('/:id', authUser, checkPostExist, update); // normal user can update own information
+router.patch('/:id', validate([
+    body("image_url")
+        .exists()
+]),authUser, checkPostExist, update); // normal user can update own information
 router.delete('/:id',authUser,checkPostExist,del);
 
 module.exports = router;
