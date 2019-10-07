@@ -21,6 +21,7 @@ router.get('/secondComments/user/:userId', checkUserExist, findByUserId);
 router.get('/:postId/comments/:commentId/comments', checkPostExist, checkCommentExist, find);
 router.post('/:postId/comments/:commentId/comments',validate([
     body("image_url")
+        .optional()
         .exists(),
     body("type")
         .exists(),
@@ -28,6 +29,7 @@ router.post('/:postId/comments/:commentId/comments',validate([
 router.get('/:postId/comments/:commentId/comments/:id', checkPostExist, checkCommentExist, checkSecondCommentExist, findById);
 router.patch('/:postId/comments/:commentId/comments/:id', validate([
     body("image_url")
+        .optional()
         .exists(),
     body("type")
         .optional()
