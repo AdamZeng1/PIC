@@ -19,20 +19,23 @@ const {body} = require('express-validator');
 
 router.get('/user/:userId', checkUserExist, findByUserId);
 router.get('/:postId/comments/', checkPostExist, find);
-router.post('/:postId/comments/',validate([
+router.post('/:postId/comments/', validate([
     body("image_url")
-        .exists(),
-    body("type")
-        .exists(),
-]) ,authUser, checkPostExist, create);
-router.get('/:postId/comments/:id', checkPostExist, checkCommentExist, findById);
-router.patch('/:postId/comments/:id', validate([
-    body("image_url")
+        .optional()
         .exists(),
     body("type")
         .optional()
         .exists(),
-]),authUser, checkPostExist, checkCommentExist, checkCommentator, update);
+]), authUser, checkPostExist, create);
+router.get('/:postId/comments/:id', checkPostExist, checkCommentExist, findById);
+router.patch('/:postId/comments/:id', validate([
+    body("image_url")
+        .optional()
+        .exists(),
+    body("type")
+        .optional()
+        .exists(),
+]), authUser, checkPostExist, checkCommentExist, checkCommentator, update);
 router.delete('/:postId/comments/:id', authUser, checkPostExist, checkCommentExist, checkCommentator, del);
 
 module.exports = router;
