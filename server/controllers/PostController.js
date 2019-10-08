@@ -124,8 +124,8 @@ class PostController {
             },
             {$match: {numberOfComments: {$elemMatch: {$ne: null}}}},
             {$sort: {'numberOfComments.count': -1}},
+            {$skip: queryPage * perPage},
             {$limit: perPage},
-            {$skip: queryPage * perPage}
         ]);
         const secondResult = await Post.aggregate([
             {
