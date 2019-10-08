@@ -9,6 +9,7 @@ const PostPage = lazy( () => import('./Containner/PostPage/PostPage'));
 const NotFoundPage = lazy( () => import('./NotFoundPage'));
 const PopularPage = lazy( () => import('./Containner/PopularPage/PopularPage'));
 const UserPage = lazy( () => import('./Components/User/UserPage/UserPage'));
+const ForgotPassword = lazy( () => import('./Components/Password/ForgotPassword'));
 
 
 function App() {
@@ -19,8 +20,9 @@ function App() {
         <Suspense fallback={<Spin size='large' />}>
           <Switch>
             <Route path='/popular' exact component={PopularPage} />
-            <Route path='/user/:username' component={UserPage} />
+            <Route path='/user/:username/:id' component={UserPage} />
             <Route path='/post/:postid' component={PostPage}/>
+            <Route path='/forgot_password' component={ForgotPassword}/>
             <Route path='*' component={NotFoundPage}/>
           </Switch>
         </Suspense>

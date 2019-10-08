@@ -1,4 +1,7 @@
-
+.Layout {
+  height: 100vh;
+  background-color: snow;
+}
 .Header {
   position: fixed;
   z-index: 10;
@@ -9,10 +12,9 @@
 }
 
 .Content {
-  background-color: snow;
+  /* background-color: snow; */
   position: relative;
   padding-top: 64px;
-  height: 100%;
   display: flex;
   justify-content: center;
 }

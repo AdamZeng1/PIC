@@ -2,6 +2,7 @@ import React, {Component, Fragment} from 'react';
 import { Form, Icon, Input, Button, Checkbox, Modal, message} from 'antd';
 import axios from '../../axios-pic';
 import './Login.css';
+import {Link} from 'react-router-dom';
 
 /* 
   The Form part code is from the antd documentaion
@@ -92,9 +93,9 @@ class NormalLoginForm extends Component {
             valuePropName: 'checked',
             initialValue: true,
           })(<Checkbox>Remember me</Checkbox>)}
-          <a className="login-form-forgot" href="">
+          <Link className="login-form-forgot" to="/forgot_password">
             Forgot password
-          </a>
+          </Link>
           <Button type="primary" htmlType="submit" className="login-form-button">
             LOG IN
           </Button>

@@ -21,7 +21,7 @@ const toolbar = (props) => {
       <div className={classes.UserUI}>
         <div className={classes.LoggedIn}><NewPost /></div>
         <div className={classes.LoggedIn}>
-          <Link to={{pathname:"/user/"+ localStorage.Username, 
+          <Link to={{pathname:"/user/"+ localStorage.Username + "/" + localStorage.UserID, 
                      state:{id: localStorage.UserID, name: localStorage.Username}}}>
             <Icon type="user" style={{color: "dimgray"}} />
           </Link>
