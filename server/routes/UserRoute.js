@@ -9,11 +9,14 @@ const {
     register,
     login,
     verifyEmail,
-    findPopularUserByPostsNumber
+    findPopularUserByPostsNumber,
+    checkUsernameAndEmailAndSendEmail,
+    alterPassword
 } = require('../controllers/UserController');
 const {authUser, authAdmin} = require('../middleware/authUser');
 const validate = require('../middleware/validator');
 const {body} = require('express-validator');
+
 
 router.get('/popular/users', findPopularUserByPostsNumber);
 router.post('/register/', validate([
@@ -58,5 +61,23 @@ router.patch('/:id', validate([
         .optional()
         .isLength({min: 6, max: 16})
 ]), authUser, checkUserExist, update); // normal user can update own information
+router.post('/forgetPassword',validate([
+    body('email')
+        .isEmail(),
+    body('username')
+        .isLength({min: 4, max: 16})
+        .not()
+        .isEmpty(),
+]),checkUsernameAndEmailAndSendEmail);
+router.post('/verify/alterPassword',validate([
+    body('verificationCode')
+        .isNumeric(),
+    body('password')
+        .isLength({min: 6, max: 16}),
+    body('username')
+        .isLength({min: 4, max: 16})
+        .not()
+        .isEmpty(),
+]),alterPassword);
 
 module.exports = router;

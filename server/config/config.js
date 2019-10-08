@@ -6,7 +6,7 @@ module.exports = {
     // 邮件失效时间
     "email_expireTime": '1d',
     // 设定邮件的发件人
-    'email_from': 'kingOfUniverse@greatest.com',
+    'email_from': 'PIC@greatest.com',
     // 设定邮件的标题
     'email_subject': 'Verification Email',
     // 设定sendGrid服务的apikey

@@ -6,8 +6,10 @@ const sgMail = require('@sendgrid/mail');
 const fs = require('fs');
 const hdb = require('handlebars');
 // const template = fs.readFileSync('views/email.handlebars', "utf-8");
-const template = fs.readFileSync(__dirname+'/../views/email.handlebars', "utf-8");
-const compiledTemplate = hdb.compile(template);
+const verifyTemplate = fs.readFileSync(__dirname + '/../views/email.handlebars', "utf-8");
+const compiledTemplate = hdb.compile(verifyTemplate);
+const alterPasswordTemplate = fs.readFileSync(__dirname + '/../views/emailAlterPassword.handlebars', "utf-8");
+const compiledTemplateAlterPassword = hdb.compile(alterPasswordTemplate);
 const jwt = require('jsonwebtoken');
 
 const UserSchema = new Schema({
@@ -40,6 +42,7 @@ const UserSchema = new Schema({
  */
 UserSchema.pre('save', function (next) {
     var user = this;
+    console.log(user);
     if (this.isModified('password') || this.isNew) {
         bcrypt.genSalt(10, function (err, salt) {
             if (err) {
@@ -105,6 +108,20 @@ UserSchema.methods.sendVerificationEmail = function (jwtToken) {
             username: this.name,
             token: jwtToken,
             url: config.url
+        })
+    };
+    sgMail.send(msg);
+};
+
+UserSchema.methods.sendAlterPasswordEmail = function (verificationCode) {
+    sgMail.setApiKey(config.apiKey);
+    const msg = {
+        to: this.email,
+        from: config.email_from,
+        subject: config.email_subject,
+        html: compiledTemplateAlterPassword({
+            username: this.name,
+            verificationCode: verificationCode,
         })
     };
     sgMail.send(msg);

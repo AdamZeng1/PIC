@@ -4,6 +4,7 @@ const config = require('../config/config');
 const jwt = require('jsonwebtoken');
 const {findStrangeUser} = require('../middleware/sockPuppets');
 const Post = require('../models/PostModel');
+const {storeVerificationCode, getVerificationCode, generateVerificationCode} = require('../middleware/verificationCode');
 
 
 class UserController {
@@ -115,6 +116,25 @@ class UserController {
         }
     }
 
+    async alterPassword(req, res) {
+        const verificationCode = req.body.verificationCode;
+        const password = req.body.password;
+        const username = req.body.username;
+        const oldVerificationCode = await getVerificationCode(username);
+        if (oldVerificationCode !== verificationCode) {
+            return res.status(403).json({success: false, message: "verificationCode error"});
+        }
+        console.log("hello world");
+
+        var hash = bcrypt.hashSync(password, 10);
+        const result = await User.findOneAndUpdate({name: username}, {password: hash});
+        if (result) {
+            return res.status(200).json({success: true, message: "alter password success"});
+        } else {
+            return res.status(403).json({success: false, message: "alter password failed"});
+        }
+    }
+
     async login(req, res) {
         const password = req.body.password.toString();
         const username = req.body.username.toString();
@@ -180,6 +200,42 @@ class UserController {
             console.log(err);
         }
     }
+
+    // async sendAlterPage(req, res) {
+    //     try {
+    //         const user = jwt.verify(req.params.token, config.secret);
+    //         return res.redirect(config.alterPage);
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    // }
+
+    async checkUsernameAndEmailAndSendEmail(req, res) {
+        const email = req.body.email;
+        const username = req.body.username;
+        const userDB = await User.find({name: username});
+        if (!userDB) {
+            return res.status(404).json({success: false, message: "user doesn't exist"});
+        }
+        const result = await User.find({email: email});
+
+        if (!result) {
+            return res.status(404).json({success: false, message: "email is not registered"});
+        }
+
+        const newUser = new User({
+            name: username,
+            email: email
+        });
+
+        const verificationCode = await generateVerificationCode(6);
+        await storeVerificationCode(username, verificationCode);
+        newUser.sendAlterPasswordEmail(verificationCode);
+
+        return res.status(200).json({success: true, message: "alter password email is already sent"});
+
+    }
+
 
     async findPopularUserByPostsNumber(req, res) {
         const {per_page = 5, page = 0} = req.query;
