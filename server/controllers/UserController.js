@@ -223,6 +223,10 @@ class UserController {
             return res.status(404).json({success: false, message: "email is not registered"});
         }
 
+        if (userDB.name !== result.name) {
+            return res.status(404).json({success: false, message: "email is not belonged to this user"});
+        }
+
         const newUser = new User({
             name: username,
             email: email
