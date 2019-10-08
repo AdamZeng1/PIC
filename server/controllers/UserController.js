@@ -213,7 +213,7 @@ class UserController {
     async checkUsernameAndEmailAndSendEmail(req, res) {
         const email = req.body.email;
         const username = req.body.username;
-        const userDB = await User.find({name: username});
+        const userDB = await User.findOne({name: username});
         if (!userDB) {
             return res.status(404).json({success: false, message: "user doesn't exist"});
         }
