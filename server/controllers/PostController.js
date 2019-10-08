@@ -127,7 +127,30 @@ class PostController {
             {$limit: perPage},
             {$skip: queryPage * perPage}
         ]);
-        const numberOfPosts = result.length;
+        const secondResult = await Post.aggregate([
+            {
+                $lookup: {
+                    from: 'comments',
+                    let: {post_id: '$_id'},
+                    pipeline: [
+                        {$match: {$expr: {$eq: ['$postId', '$$post_id']}}},
+                        {$sortByCount: '$postId'},
+                    ],
+                    as: 'numberOfComments'
+                }
+            },
+            {
+                $lookup: {
+                    from: 'users',
+                    localField: 'post_owner',
+                    foreignField: '_id',
+                    as: 'post_owner',
+                }
+            },
+            {$match: {numberOfComments: {$elemMatch: {$ne: null}}}},
+            {$sort: {'numberOfComments.count': -1}},
+        ]);
+        const numberOfPosts = secondResult.length;
 
         if (result) {
             return res.status(200).json({success: true, numberOfPosts: numberOfPosts, result: result});
