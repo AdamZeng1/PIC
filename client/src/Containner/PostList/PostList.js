@@ -37,10 +37,10 @@ class PostList extends Component {
       .then(res => {
         console.log(res);
         if(this.props.type === 'mainpage'){
-          this.setState({posts: res.data.posts,  loading: false})
+          this.setState({posts: res.data.posts, total: res.data.numberOfPosts, loading: false})
         }
         if(this.props.type === 'popular'){
-          this.setState({posts: res.data, loading:false})
+          this.setState({posts: res.data.result, total: res.data.numberOfPosts, loading:false})
         }
         document.documentElement.scrollTop=0;
       })
