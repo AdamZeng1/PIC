@@ -25,7 +25,7 @@ describe("test user module", () => {
         const number = Math.ceil(Math.random() * 100000000);
         request(app).post('/user/register')
             .type('form')
-            .send("username=startTest" + number + "&password=1234567&email=13023130" + number + "@student.uts.edu.au")
+            .send("username=start" + number + "&password=1234567&email=13023130" + number + "@student.uts.edu.au")
             .then((res) => {
                 const body = res.body;
                 expect(body).to.contain.property('success');
@@ -39,7 +39,7 @@ describe("test user module", () => {
         const number = Math.ceil(Math.random() * 100000000);
         request(app).post('/user/register')
             .type('form')
-            .send("username=startTest" + number + "&password=1234567&email=13023130" + number + "@student.uts.edu.au")
+            .send("username=start" + number + "&password=1234567&email=13023130" + number + "@student.uts.edu.au")
             .then((res) => {
                 const body = res.body;
                 return new Promise((resolve, reject) => {
@@ -48,9 +48,10 @@ describe("test user module", () => {
             }).then(() => {
             request(app).post('/user/login')
                 .type('form')
-                .send('username=startTest'+number+'&password=1234567')
+                .send('username=start'+number+'&password=1234567')
                 .then((res) => {
                     const body = res.body;
+                    console.log(body);
                     expect(body).to.contain.property('token');
                     done();
                 }).catch((err) => done(err));
