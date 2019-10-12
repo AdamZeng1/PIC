@@ -201,15 +201,6 @@ class UserController {
         }
     }
 
-    // async sendAlterPage(req, res) {
-    //     try {
-    //         const user = jwt.verify(req.params.token, config.secret);
-    //         return res.redirect(config.alterPage);
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // }
-
     async checkUsernameAndEmailAndSendEmail(req, res) {
         const email = req.body.email;
         const username = req.body.username;

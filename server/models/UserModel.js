@@ -15,12 +15,12 @@ const jwt = require('jsonwebtoken');
 const UserSchema = new Schema({
     name: {
         type: String,
-        unique: true, // 不可重复约束
-        require: true // 不可为空约束
+        unique: true, // can't be repeated
+        require: true  // can't be empty
     },
     password: {
         type: String,
-        require: true // 不可为空约束
+        require: true // can't be empty
     },
     email: {
         type: String,
@@ -67,9 +67,9 @@ UserSchema.pre('save', function (next) {
 
 
 /**
- * 校验用户输入密码是否正确
- * @param password 传入的待比较的密码
- * @param callback 传入的回调函数
+ * compare the if the password is correct
+ * @param password waiting comparing password
+ * @param callback callback function
  */
 UserSchema.methods.comparePassword = function (password, callback) {
     bcrypt.compare(password, this.password, (err, isMatch) => {
@@ -81,7 +81,7 @@ UserSchema.methods.comparePassword = function (password, callback) {
 };
 
 /**
- * 根据username与email生成该user注册时的json web token
+ * according to username and email generate json web token
  *
  * @return {*}
  */
