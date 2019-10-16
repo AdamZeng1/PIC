@@ -7,3 +7,25 @@
 2. in root directory using command line:
 
    docker-compose up —build
+
+3. Technical Stack
+
+   * Deploy:
+
+     * Vultr-Cloud instance
+
+     * Docker
+     * docker-compose
+
+   * frontend:
+     * 
+   * backend:
+     * express
+     * jwt
+     * bcrypt
+     * redis
+     * mongodb
+   * test:
+     * mocha
+     * supertest
+     * chai
