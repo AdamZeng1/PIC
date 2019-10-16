@@ -12,6 +12,8 @@
 
    * Deploy:
 
+     * Nginx
+
      * Vultr-Cloud instance
 
      * Docker
