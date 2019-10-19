@@ -1,3 +1,14 @@
+#### Group Information:
+
+1. Group Name: ThreeJS
+
+2. Group Members:
+
+   * Zemin Zhang 13307982
+   * Weihan Zeng 13023128
+   * Zhian Chen 13083112
+
+
 #### start the project
 
 1. download docker from link
