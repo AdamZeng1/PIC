@@ -1,8 +1,13 @@
 import React, {Component, Fragment} from 'react';
-import {Modal, Icon, Button} from 'antd';
+import {Modal, Button} from 'antd';
 import CreateItem from '../../CreateItem/CreateItem';
 
-class MakeComment extends Component {
+/*
+  Pass API to CreateItem according to the level property.
+  Pass method property to CreateItem to trigger patch axios to update comments.
+ */
+
+class UpdateComment extends Component {
   state = {
     visible: false,
    };
@@ -13,27 +18,21 @@ class MakeComment extends Component {
     });
   };
 
-  handleOk = e => {
+  handleOk = () => {
     this.setState({
       visible: false,
     });
   };
 
-  handleCancel = e => {
+  handleCancel = () => {
     this.setState({
       visible: false,
     });
   };
 
   render () {
-    const {postID, commentID, type, level, firstLevelCommentID} = this.props;
+    const {postID, commentID, level, firstLevelCommentID} = this.props;
     let commentAPI = "";
-    if(type === "post" && postID){
-      commentAPI = "/posts/" + postID + "/comments/";
-    }
-    if (type === "secondary" && commentID && postID) {
-      commentAPI = "/posts/" + postID + "/comments/" + commentID + "/comments/";
-    }
     if (level === "first" && commentID && postID){
       commentAPI = "/posts/" + postID + "/comments/" + commentID;
     }
@@ -63,4 +62,4 @@ class MakeComment extends Component {
   }
 }
 
-export default MakeComment;
+export default UpdateComment;

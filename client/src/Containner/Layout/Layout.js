@@ -2,12 +2,15 @@ import React, {Component} from 'react';
 import Toolbar from '../../Components/Toolbar/Toolbar';
 import classes from './Layout.module.css';
 import {withRouter} from 'react-router-dom';
-//import ButtonSet from '../../Components/ButtonSet/ButtonSet';
 import {Layout} from 'antd';
 import Logo from '../../Components/Logo/Logo'
-import Trending from '../../Components/Popular/PopularPost/PopularPost';
 
 const { Header, Content } = Layout;
+
+/*
+  Main container of this website.
+  Using state to control the login and logout UI.
+ */
 
 class CustomizedLayout extends Component{
   state ={
@@ -24,7 +27,6 @@ class CustomizedLayout extends Component{
     localStorage.removeItem("Token");
     localStorage.removeItem("Username")
     localStorage.removeItem("UserID")
-    // console.log("storage CLEAR!");
     this.setState({login:false});
     this.props.history.go(0);
   }
@@ -43,8 +45,7 @@ class CustomizedLayout extends Component{
         </Header>
         <Content className={classes.Content}>
           {this.props.children}
-            {/* <ButtonSet></ButtonSet> */}
-        </Content>         
+        </Content>
       </Layout>
     )
   }

@@ -7,6 +7,14 @@ import {withRouter} from 'react-router-dom';
 import {Button} from 'antd';
 import SecondComment from './SecondComment/SecondComment';
 
+/*
+  Comments is the container of all comments.
+  If there are more than 10 comments, a view more button will show up at the end of the page.
+  By clicking the button, another set of 10 comments will be async loaded.
+  The button will disappear if there are no more comments.
+  Secondary comments are async loaded by SecondComment component.
+ */
+
 class Comments extends Component {
   state = {
     comments: null,
@@ -20,7 +28,6 @@ class Comments extends Component {
     const query = '?page=' + this.state.page + '&per_page=' + this.state.per_page;
     axios.get(api + query)
       .then( res => {
-        // console.log(res.data);
         this.setState({comments: res.data.comments})
         if(res.data.comments.length === this.state.per_page){
           this.setState({showMoreBtn: true})
@@ -53,12 +60,6 @@ class Comments extends Component {
 
   render(){
     const postID = this.props.match.params.postid;
-    let secondComments = null;
-    if (this.state.secondaryComments){
-      secondComments = this.state.secondaryComments.map( secondComment => {
-        return <Comment key={secondComment._id} commentData={secondComment}/>
-      })
-    }
     let comments = null;
     if (this.state.comments) {
       comments = this.state.comments.map( comment => {

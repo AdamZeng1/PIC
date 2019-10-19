@@ -9,7 +9,6 @@ const navigationItems = () => {
       <ul className={classes.NavigationItems}>
         <NavigationItem link='/' >Home</NavigationItem>
         <NavigationItem link='/popular' >Popular</NavigationItem>
-        {/* <NavigationItem link='/user' >Profile</NavigationItem> */}
       </ul>
     </div>
   )

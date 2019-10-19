@@ -4,6 +4,12 @@ import axios from '../../../axios-pic';
 import Comment from '../Comment/Comment';
 import classes from './SecondComment.module.css';
 
+/*
+  This component get all secondary level comments of any comment,
+  and render the data with Comment component.
+  The secondary comments will show or hide by clicking the button.
+ */
+
 class SecondComment extends Component {
   state = {
     secondaryComments: null,
@@ -14,7 +20,6 @@ class SecondComment extends Component {
     if(commentID !== this.state.currentID){
       axios.get("/posts/" + this.props.postID + "/comments/" + commentID + "/comments/")
       .then(res => {
-        // console.log(res)
         this.setState({
           currentID: commentID,
           secondaryComments: res.data.secondComments,

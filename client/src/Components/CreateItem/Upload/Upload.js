@@ -8,6 +8,8 @@ import {withRouter} from 'react-router-dom';
  * The code of the qiniu part is learned from qiniu document
  * Qiniu Website: https://www.qiniu.com/en
  * Qiniu API: https://developer.qiniu.com/kodo/sdk/1283/javascript
+ * This component can be used to upload an image as a post, a comment to post or a comment to comment,
+ * or to update post or comment according to the method and api properties.
 */
 var qiniu = require('qiniu-js');
 var config = {
@@ -58,7 +60,6 @@ class UploadImage extends Component {
             headers: {"Authorization": "Bearer " + localStorage.Token},
           }
         ).then( res => {
-          // console.log(res);
           message.error("Upload Failed. Please try again.")
           self.setState({uploading: false})
         }).catch( err => {
@@ -66,7 +67,6 @@ class UploadImage extends Component {
         })
       },
       complete(res){
-        // console.log(res);
         self.setState({
           file: null,
           uploading: false,
@@ -86,7 +86,7 @@ class UploadImage extends Component {
         url: this.props.api,
         data:{
           "title": file.uid,
-          "image_url": "http://pxp3tborn.sabkt.gdipper.com/" + file.uid,
+          "image_url": "http://pzkclenyb.sabkt.gdipper.com/" + file.uid,
           "topic": "test default",
           "type": "image",
         },
@@ -143,7 +143,6 @@ class UploadImage extends Component {
           <p className="ant-upload-text">Click or drag file to this area to upload</p>
         </Dragger>
         <p>{this.state.file ? this.state.file.name : null}</p>
-        {/* <p>{this.state.percent ? this.state.percent + "%" : null}</p> */}
         <div className={classes.UploadBtns}>
           <Button type="danger" onClick={this.deleteFileHandler} >Clear</Button>
           <Button

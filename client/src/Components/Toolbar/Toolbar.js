@@ -1,12 +1,17 @@
 import React from 'react';
 import classes from './Toolbar.module.css';
 import NavigationItems from '../NavigationItems/NavigationItems';
-import NewPost from '../NewPost/NewPost';
+import NewPost from '../Posts/NewPost/NewPost';
 import Logout from '../Logout/Logout';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import {Icon} from 'antd';
 import {Link} from 'react-router-dom';
+
+/*
+  The toolbar will show different UI according to the login state.
+  The login state comes from Layout Container.
+ */
 
 const toolbar = (props) => {
 

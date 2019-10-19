@@ -1,12 +1,12 @@
-import React, {Fragment} from 'react';
-import PostList from '../PostList/PostList';
+import React from 'react';
+import PostList from '../../Components/Posts/PostList/PostList';
 import {Row, Col} from 'antd';
-import PopularPost from '../../Components/Popular/PopularPost/PopularPost';
-import UserAvatar from '../../Components/User/UserAvatar';
+import PopularPost from '../../Components/Posts/PopularPost/PopularPost';
+import UserAvatar from '../../Components/Users/UserAvatar/UserAvatar';
 import classes from './MainPage.module.css';
-import PopularUser from '../../Components/Popular/PopularUser/PopularUser';
+import PopularUser from '../../Components/Users/PopularUser/PopularUser';
 
-const mainPage = (props) => {
+const mainPage = () => {
   return(
     <Row gutter={32} className={classes.MainPageWrapper}>
       <Col xs={24} sm={24} md={24} lg={14} >

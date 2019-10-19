@@ -1,9 +1,13 @@
 import React from 'react';
 import {Card} from 'antd';
 import classes from './PostItem.module.css';
-import UserAvatar from '../User/UserAvatar';
-import UpdatePost from '../Update/UpdatePost/UpdatePost';
+import UserAvatar from '../Users/UserAvatar/UserAvatar';
+import UpdatePost from './UpdatePost/UpdatePost';
 
+/*
+  The Card shows different data for main page and popular page according to the type property.
+  The extra property comes from the user page component.
+ */
 
 const moment = require('moment');
 

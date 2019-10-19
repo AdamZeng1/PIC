@@ -1,13 +1,18 @@
-import React, {Component, Fragment} from 'react';
-import axios from '../../../axios-pic';
-import { Button, Collapse, Icon, Spin } from 'antd';
-import PostItem from '../../Post/PostItem';
+import React, {Component} from 'react';
+import axios from '../../axios-pic';
+import { Collapse, Icon, Spin } from 'antd';
+import PostItem from '../../Components/Posts/PostItem';
 import classes from './UserPage.module.css';
-import UserAvatar from '../UserAvatar';
-import Comment from '../../Comments/Comment/Comment';
+import UserAvatar from '../../Components/Users/UserAvatar/UserAvatar';
+import Comment from '../../Components/Comments/Comment/Comment';
 import {withRouter} from 'react-router-dom';
 
 const {Panel} = Collapse;
+
+/*
+  UserPage uses antd Collapse and waterfall style to display a user' posts and comments.
+  Posts and comments are async loaded by clicking panels.
+ */
 
 class UserPage extends Component {
   state = {
@@ -31,7 +36,6 @@ class UserPage extends Component {
   }
   collapseOnChangeHandler = (key) => {
     console.log(key);
-    // this.setState({activeKey: key})
     if ( key === 'post') {
       this.getDataHandler("/post/user/", "posts");
     }
@@ -60,7 +64,6 @@ class UserPage extends Component {
     this.props.history.push(path);
   }
   render(){
-    // console.log(this.props)
     let postsList = <Spin />;
     if (this.state.posts){
       postsList = this.state.posts.map( post => {
@@ -112,7 +115,6 @@ class UserPage extends Component {
       <div className={classes.UserPageWrapper} >
         <UserAvatar type="userpage" owner={{name: username}}/>
         <Collapse 
-          // activeKey={this.state.activeKey}
           accordion
           bordered={false}
           onChange={this.collapseOnChangeHandler}

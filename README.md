@@ -19,15 +19,20 @@
      * Docker
      * docker-compose
 
-   * frontend:
-     * 
-   * backend:
+   * Frontend main dependencies:
+     * antd (Ant Design)
+     * axios
+     * emoji-mart
+     * moment
+     * qiniu-js (For uploading image)
+     * react-router-dom
+   * Backend:
      * express
      * jwt
      * bcrypt
      * redis
      * mongodb
-   * test:
+   * Test:
      * mocha
      * supertest
      * chai

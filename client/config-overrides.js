@@ -1,5 +1,7 @@
 const { override, fixBabelImports, addLessLoader } = require('customize-cra');
 
+//Override the antd main theme color with mediumseagreen
+
 module.exports = override(
   fixBabelImports('import', {
     libraryName: 'antd',

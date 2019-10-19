@@ -2,11 +2,15 @@ import React, {Component} from 'react';
 import MakeComment from '../../Components/Comments/MakeComment/MakeComment';
 import classes from './PostPage.module.css';
 import Comments from '../../Components/Comments/Comments';
-import UserAvatar from '../../Components/User/UserAvatar';
+import UserAvatar from '../../Components/Users/UserAvatar/UserAvatar';
 import axios from '../../axios-pic';
 import {Spin, Card} from 'antd';
 
 var moment = require('moment');
+
+/*
+  Wrapper of a single post and its comments.
+ */
 
 class PostPage extends Component {
   state = {
@@ -21,7 +25,6 @@ class PostPage extends Component {
       .catch( err => {
         console.log(err.response);
         if(err.response.status === 404){
-          // alert("NOT FOUND");
           this.props.history.push("/notFound");
         }
       })

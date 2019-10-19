@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import classes from './PopularPost.module.css';
-import PostCard from '../../PostCard/PostCard';
+import PostCard from './PostCard/PostCard';
 import axios from '../../../axios-pic';
 import {Carousel} from 'antd';
 
@@ -12,7 +12,6 @@ class PopularPost extends Component {
   UNSAFE_componentWillMount(){
     axios.get("/post/threads/posts?page=1&per_page=5")
       .then( res => {
-        // console.log(res);
         this.setState({posts: res.data.result});
       })
       .catch( err => console.log(err.response))

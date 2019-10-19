@@ -15,10 +15,6 @@ class NormalLoginForm extends Component {
     modal2Visible: false,
   };
 
-  setModal1Visible(modal1Visible) {
-    this.setState({ modal1Visible });
-  }
-
   setModal2Visible(modal2Visible) {
     this.props.form.resetFields();
     this.setState({ modal2Visible });
@@ -99,7 +95,6 @@ class NormalLoginForm extends Component {
           <Button type="primary" htmlType="submit" className="login-form-button">
             LOG IN
           </Button>
-          {/* Or <a href="">register now!</a> */}
         </Form.Item>
       </Form>
       </div>

@@ -2,8 +2,8 @@ import React from 'react';
 import {Button, Card} from 'antd';
 import classes from './Comment.module.css';
 import {withRouter} from 'react-router-dom';
-import UserAvatar from '../../User/UserAvatar';
-import UpdateComment from '../../Update/UpdateComment/UpdateComment';
+import UserAvatar from '../../Users/UserAvatar/UserAvatar';
+import UpdateComment from '../UpdateComment/UpdateComment';
 
 var moment = require('moment');
 
@@ -12,6 +12,13 @@ const Styles = {
     marginBottom: "16px",
   }
 }
+
+/* The comment component first check the type of the comment: image or emoji, then render it.
+ * The default level of a comment is "comment to post",
+ * if the level is "second" -> "comment to comment",
+ * different values will be passed into the update comment button.
+ * The extraBtn property is used in user page that allows user to view the original post.
+ */
 
 const comment = props => {
   const {commentator, type, image_url, emoji, updateAt, postId, _id} = props.commentData;

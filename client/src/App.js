@@ -8,7 +8,7 @@ import {Spin} from 'antd';
 const PostPage = lazy( () => import('./Containner/PostPage/PostPage'));
 const NotFoundPage = lazy( () => import('./NotFoundPage'));
 const PopularPage = lazy( () => import('./Containner/PopularPage/PopularPage'));
-const UserPage = lazy( () => import('./Components/User/UserPage/UserPage'));
+const UserPage = lazy( () => import('./Containner/UserPage/UserPage'));
 const ForgotPassword = lazy( () => import('./Components/Password/ForgotPassword'));
 
 

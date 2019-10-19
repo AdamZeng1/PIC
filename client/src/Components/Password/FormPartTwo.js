@@ -6,6 +6,7 @@ import './ForgotPassword.css';
 /* 
   The Form part code is from the antd documentaion
   Link: https://ant.design/components/form/
+  This part will send username, new password and verification code to backend
 */
 
 class NormalLoginForm extends Component {

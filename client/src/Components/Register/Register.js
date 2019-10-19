@@ -3,15 +3,16 @@ import { Form, Icon, Input, Button, Modal, message } from 'antd';
 import axios from '../../axios-pic';
 import './Register.css';
 
+/*
+  The Form part code is from the antd documentaion
+  Link: https://ant.design/components/form/
+*/
+
 class NormalRegisterForm extends Component {
   state = {
     modal1Visible: false,
     modal2Visible: false,
   };
-
-  setModal1Visible(modal1Visible) {
-    this.setState({ modal1Visible });
-  }
 
   setModal2Visible(modal2Visible) {
     this.props.form.resetFields();
@@ -95,17 +96,9 @@ class NormalRegisterForm extends Component {
           )}
         </Form.Item>
         <Form.Item>
-          {/* {getFieldDecorator('remember', {
-            valuePropName: 'checked',
-            initialValue: true,
-          })(<Checkbox>Remember me</Checkbox>)}
-          <a className="register-form-forgot" href="">
-            Forgot password
-          </a> */}
           <Button type="primary" htmlType="submit" className="register-form-button">
             SIGN UP
           </Button>
-          {/* Or <a href="">register now!</a> */}
         </Form.Item>
       </Form>
       </div>

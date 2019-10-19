@@ -29,7 +29,6 @@ class PostCard extends Component {
           bordered={true}
           onClick={()=>this.trendingClickHandler(_id)}
           cover={image}>
-          {/* <Card.Meta title={title} description={footer} cover={1}/> */}
         </Card>
     )
   }

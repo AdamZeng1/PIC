@@ -4,6 +4,8 @@ import { List, Spin, Avatar} from 'antd';
 import classes from './PopularUser.module.css';
 import {Link} from 'react-router-dom';
 
+// PopularUser shows a list of users who make the most posts.
+
 class PopularUser extends Component {
   state = {
     userData: null,

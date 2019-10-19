@@ -1,7 +1,12 @@
 import React, {Component, Fragment} from 'react';
-import {Modal, Icon, Button} from 'antd';
-import classes from './MakeComment.module.css';
+import {Modal, Button} from 'antd';
 import CreateItem from '../../CreateItem/CreateItem';
+
+/*
+  There are two types or levels of comments: comment to a post, comment to another comment.
+  MakeComment receive the type property from its father component,
+  and pass different API to CreateItem according to the type.
+ */
 
 class MakeComment extends Component {
   state = {
@@ -14,13 +19,13 @@ class MakeComment extends Component {
     });
   };
 
-  handleOk = e => {
+  handleOk = () => {
     this.setState({
       visible: false,
     });
   };
 
-  handleCancel = e => {
+  handleCancel = () => {
     this.setState({
       visible: false,
     });
@@ -35,7 +40,6 @@ class MakeComment extends Component {
     if (type === "secondary" && commentID && postID) {
       commentAPI = "/posts/" + postID + "/comments/" + commentID + "/comments/";
     }
-    const content = <CreateItem api={commentAPI}/>
     return(
       <Fragment>
         <Button

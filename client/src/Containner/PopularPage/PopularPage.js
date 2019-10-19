@@ -1,5 +1,5 @@
 import React from 'react';
-import PostList from '../PostList/PostList';
+import PostList from '../../Components/Posts/PostList/PostList';
 import classes from './PopularPage.module.css'
 
 const popularPage = () => {

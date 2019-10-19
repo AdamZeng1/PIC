@@ -6,6 +6,11 @@ import {message, Button} from 'antd';
 import axios from '../../../axios-pic';
 import {withRouter} from 'react-router-dom';
 
+/*
+  emoji-mart package is a third party package: https://github.com/missive/emoji-mart
+  Selected emoji can be deleted by clicking itself.
+ */
+
 class Emoji extends Component {
   state = {
     emojiList: [],

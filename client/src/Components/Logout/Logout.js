@@ -1,6 +1,5 @@
 import React from 'react';
 import {Icon, Tooltip} from 'antd';
-// import {withRouter} from 'react-router-dom';
 
 const logout = (props) => {
     return(

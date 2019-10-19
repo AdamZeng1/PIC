@@ -1,9 +1,14 @@
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
-import PostItem from '../../Components/Post/PostItem';
+import PostItem from '../PostItem';
 import classes from './PostList.module.css';
 import {Spin, Pagination} from 'antd';
-import axios from '../../axios-pic';
+import axios from '../../../axios-pic';
+
+/*
+  This component is used in MainPage Container and PopularPage Container.
+  It gets different api from its father component, which is used to retrieve data from backend.
+ */
 
 class PostList extends Component {
 
@@ -19,7 +24,6 @@ class PostList extends Component {
     const query = '?page=' + this.state.page + '&per_page=' + this.state.per_page;
     axios.get(this.props.api+query)
       .then(res => {
-        // console.log(res);
         if(this.props.type === 'mainpage'){
           this.setState({posts: res.data.posts, total: res.data.numberOfPosts, loading: false})
         }
@@ -58,13 +62,8 @@ class PostList extends Component {
 
   pageOnChangeHandler = (pageNum) => {
     this.setState({page: pageNum}, ()=>{console.log(this.state.page)});
-    // this.forceUpdate();
   }
-
-  pageSizeChangHandler = (current, pageSize) => {
-    this.setState({page: current, per_page: pageSize})
-  }
-
+  
   render(){
     let posts = <Spin size="large" />;
     if (this.state.posts){
@@ -85,12 +84,7 @@ class PostList extends Component {
         {posts}
         <div className={classes.Pagination} >
           <Pagination
-            // showSizeChanger
-            // hideOnSinglePage={true}
-            // pageSize={3}
-            // pageSizeOptions={['2', '4', '6']}
-            // onShowSizeChange={this.pageSizeChangHandler}           
-            total={this.state.total} 
+            total={this.state.total}
             onChange={this.pageOnChangeHandler} />
         </div> 
       </div>

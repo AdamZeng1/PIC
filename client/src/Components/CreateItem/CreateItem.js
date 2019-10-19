@@ -3,6 +3,8 @@ import {Card} from 'antd';
 import Upload from './Upload/Upload';
 import Emoji from './Emoji/Emoji';
 
+// a wrapper for Emoji and Upload component
+
 class CreateItem extends Component {
   state = {
     tabKey: "image"
