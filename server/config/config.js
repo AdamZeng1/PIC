@@ -10,7 +10,7 @@ module.exports = {
     // 设定邮件的标题
     'email_subject': 'Verification Email',
     // 设定sendGrid服务的apikey
-    'apiKey': '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',
+
 
     // MongoDB的地址
     'mongo_host': process.env.MONGO_HOST || process.env.DB1_PORT_27017_TCP_ADDR || 'localhost',
