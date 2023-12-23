@@ -1,6 +1,6 @@
 require("babel-core/register");
 require("babel-polyfill");
-// express-derouter必备
+// express-derouter
 require('babel-register');
 const express = require('express');
 const app = express();
